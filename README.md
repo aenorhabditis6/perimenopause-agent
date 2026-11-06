@@ -1,109 +1,109 @@
 # Perimenopause agent (Claude hackathon)
 
-一个被动的围绝经期 agent：读 wearable 数据，加上她邮箱里自动发来的收据、预订、预约和日历，找出她自己的规律，并在复诊前替她准备一页就诊摘要。仓库里全部是**合成数据**，人物 Lisa Hartley 是虚构的。
+A passive perimenopause agent: it reads wearable data, plus the receipts, bookings and appointments that arrive automatically in her inbox and her calendar, finds her own patterns, and prepares a one-page visit summary for her before her follow-up. Everything in this repo is **synthetic data**; Lisa Hartley is a fictional person.
 
-## 跑起来
+## Run it
 
 ```bash
-/opt/homebrew/bin/python3.12 -m venv .venv      # 或任何 Python 3.12
+/opt/homebrew/bin/python3.12 -m venv .venv      # or any Python 3.12
 .venv/bin/pip install -r requirements.txt
-cp .env.example .env                              # 填上 ANTHROPIC_API_KEY；.env 不要提交
+cp .env.example .env                              # add your ANTHROPIC_API_KEY; never commit .env
 .venv/bin/uvicorn app.server:app --reload
 ```
 
-打开 http://127.0.0.1:8000 。没有 API key 也能跑：右上角会显示 offline mode，抽取用答案文件，卡片和摘要用模板。设 `OFFLINE=1` 可以强制离线。
+Open http://127.0.0.1:8000. It also runs without an API key: the top right shows offline mode, extraction uses the answer file, and the cards and the summary use templates. Set `OFFLINE=1` to force offline mode.
 
-## 演示路径
+## Demo path
 
-顶部四个日期依次点：**Aug 13**（察觉）→ **Aug 23**（诱因）→ **Oct 8**（前后对比）→ **Nov 5**，再点 **▶ New email**：诊所的复诊提醒到达，就诊摘要流式出现在右栏。打开 **Agent view** 能看到每封邮件被读取、跳过还是什么都没留下。每张卡片点 “Why I said this” 展开证据表，有邮件来源的行可以点回原邮件。
+Click the four dates at the top in order: **Aug 13** (noticing) → **Aug 23** (trigger) → **Oct 8** (before and after) → **Nov 5**, then click **▶ New email**: the clinic's follow-up reminder arrives and the visit summary streams into the right column. Turn on **Agent view** to see whether each email was read, skipped, or left nothing behind. On each card, click “Why I said this” to open the evidence table; rows that came from an email link back to it.
 
-## 录 demo 视频
+## Recording the demo video
 
-点顶部的 **▶ Play story**（或按 P），页面会自己把故事走一遍，大约 90 秒，底部配 agent 第一人称的“日记”字幕：8/13 察觉 → 8/23 诱因 → 9/4 药房问题 → 10/8 前后对比 → 11/5 复诊提醒到达、摘要流式出现 → Sarah 的私人邮件没被读 → Manual 模式上传一张收据（GPS 被去掉）→ Full 模式的数据源 → 结尾“记录了 0 次，打扰了 13 次”。字幕里的数字都从当前数据算出来。
+Click **▶ Play story** at the top (or press P) and the page walks through the story by itself in about 90 seconds, with the agent's first-person “diary” captions at the bottom: 8/13 noticing → 8/23 trigger → 9/4 pharmacy question → 10/8 before and after → 11/5 the follow-up reminder arrives and the summary streams in → Sarah's personal email is not read → Manual mode uploads a receipt (GPS removed) → Full mode's data sources → closing line “logged 0 times, interrupted 13 times”. All numbers in the captions are computed from the current data.
 
-- 再按一次 P 或点 ■ Stop 停止；按 C 隐藏字幕，比如想自己配音时
-- `http://127.0.0.1:8000/?autoplay=1` 打开就自动开始；`&speed=1.5` 让每一步停留 1.5 倍时间，方便配音
-- 录之前先跑 `scripts/precompute.py`，这样卡片文案由 Claude 写好、摘要也有缓存兜底
-- 建议浏览器窗口 1440 宽，手机保持显示
+- Press P again or click ■ Stop to stop; press C to hide the captions, for example when you record your own voiceover
+- `http://127.0.0.1:8000/?autoplay=1` starts it on load; `&speed=1.5` holds every step 1.5 times as long, which helps with voiceover
+- Before recording, run `scripts/precompute.py`, so the card text is written by Claude and the summary has a cached fallback
+- A browser window 1440 wide works best; keep the phone visible
 
-## 目录
+## Layout
 
-| 路径 | 内容 |
+| Path | Contents |
 | --- | --- |
-| `app/server.py` | FastAPI：页面和接口（`/api/emails`、`/api/insights?as_of=`、`/api/live-email`、`/api/brief/stream`） |
-| `app/data.py` | 读数据、发件人过滤、卡片数字和模板文案、就诊摘要的输入 |
-| `app/claude_calls.py` | 三处 Claude 调用：邮件抽取、卡片文案、就诊摘要（流式）。模型 `claude-opus-5-5` |
-| `app/prompts/` | 三个系统提示词 |
-| `app/static/index.html` | 前端，单文件，原生 JS |
-| `scripts/` | 批量抽取、对答案评测、预生成卡片和备用摘要 |
-| `cache/` | Claude 的输出；存在时 app 自动改用（演示兜底也靠它） |
-| `lisa_demo_data/` | 合成数据、参考统计 `analysis/analyze.py`、答案 `truth/`。先读里面的 README |
+| `app/server.py` | FastAPI: the page and the endpoints (`/api/emails`, `/api/insights?as_of=`, `/api/live-email`, `/api/brief/stream`) |
+| `app/data.py` | Data loading, sender filtering, card numbers and template text, the visit summary's input |
+| `app/claude_calls.py` | The three Claude calls: email extraction, card text, the visit summary (streamed). Model `claude-opus-5-5` |
+| `app/prompts/` | The three system prompts |
+| `app/static/index.html` | The frontend: one file, vanilla JS |
+| `scripts/` | Batch extraction, evaluation against the answer key, precomputing the cards and the fallback summary |
+| `cache/` | Claude's outputs; the app switches to them automatically when present (the demo fallback relies on them too) |
+| `lisa_demo_data/` | Synthetic data, the reference statistics `analysis/analyze.py`, the answer key `truth/`. Read its README first |
 
-## 隐私：三个模式和一个本地模型
+## Privacy: three modes and a local model
 
-三个模式从最私密排到最省心。邮箱接入时，每封邮件都先过一个**本地分类模型**（fastText，量化后 363 KB，每封 0.016 ms），在设备上判断它是什么。私人邮件在这一步就停下，哪个模式都不会发出去。另外有一道保险：模型认为一封邮件有 10% 以上的可能是私人邮件，它也不离开设备（`PERSONAL_GUARD`）。
+The three modes go from most private to least effort. When the inbox is connected, every email first goes through a **local classification model** (fastText, 363 KB quantized, 0.016 ms per email) that decides on the device what it is. Personal emails stop here and are never sent in any mode. There is one more safeguard: if the model thinks an email has a 10% or higher chance of being personal, it doesn't leave the device either (`PERSONAL_GUARD`).
 
-| 模式 | 什么会离开设备 | 谁做抽取 | 她要做什么 |
+| Mode | What leaves the device | Who extracts | What she has to do |
 | --- | --- | --- | --- |
-| **Manual** | 只有她自己上传的收据照片，发出前去掉 GPS 位置等所有元数据；照片不保存，只留抽出来的一行 | Claude 看照片 | 每次拍一张收据 |
-| **Filtered**（默认） | 本地模型判为有用、又在她勾选的类别里的邮件全文（Lisa 的 134 封里有 75 封）。勾选“在设备上抽取”后，一封邮件都不发，只发结构化的行 | Claude，或设备上的规则 | 一次性勾选类别 |
-| **Full** | 除了私人邮件以外的所有邮件（98 封），以及所有数据源，包括 Places：手机上的定位 app 只上传餐厅和酒吧的到访（地点名、类型、到达和离开时间，没有坐标）；Card transactions：只上传餐厅、酒类商店和药房的刷卡记录，金额只给区间 | Claude | 什么都不用做 |
+| **Manual** | Only the receipt photos she uploads herself, with the GPS location and all other metadata removed before sending; the photo isn't kept, only the extracted row | Claude reads the photo | Snap a receipt each time |
+| **Filtered** (default) | The full text of emails that the local model judges useful and that fall in categories she ticked (75 of Lisa's 134). With “extract on this device” ticked, no email is sent at all, only the structured rows | Claude, or on-device rules | Tick categories once |
+| **Full** | Every email except personal ones (98), and every data source, including Places: the location app on the phone uploads only restaurant and bar visits (place name, type, arrival and departure time, no coordinates); Card transactions: only restaurant, liquor-store and pharmacy charges are uploaded, with amounts as ranges | Claude | Nothing |
 
-在 Lisa 的数据上，Filtered 加“在设备上抽取”时，4 个日期上的发现和交给 Claude 时完全一样。代价是规则只认识见过的邮件格式；而且关掉某一类，就会少一类发现。比如关掉药房，agent 不知道哪天开始了治疗，就不会有“改变有没有用”这张卡。Manual 模式只有她上传的那几张收据，证据通常不够，诱因卡片不会出现，这也是它的代价。
+On Lisa's data, Filtered with “extract on this device” gives exactly the same findings on all 4 dates as handing the emails to Claude. The cost is that the rules only know email formats they have seen; and turning off a category removes a kind of finding. For example, with pharmacy turned off, the agent doesn't know when treatment started, so there is no “did the change help” card. Manual mode only has the few receipts she uploads, which is usually not enough evidence, so the trigger card doesn't appear; that is its cost.
 
-Places 的数据在 `lisa_demo_data/places/`：我们假设已经有一个定位 app，在手机上给每个地点分类（Google Maps 已经能做地点分类），只有餐厅和酒吧的到访会上传，Lisa 有 31 次；家、公司、朋友家、诊所、药房这些到访（305 次）都留在手机上，只记数量。对 Lisa 来说，Places 主要是印证收据和日历，没有带来新的发现；对晚上出去却没有邮件记录的人才更有用。
+Places data is in `lisa_demo_data/places/`: we assume a location app already exists that classifies every place on the phone (Google Maps can already classify places); only restaurant and bar visits are uploaded, 31 for Lisa; visits to home, work, friends' homes, the clinic and the pharmacy (305) stay on the phone, and only their count is kept. For Lisa, Places mostly confirms the receipts and the calendar and adds no new findings; it is more useful for someone who goes out in the evening without leaving an email trail.
 
-Card transactions 的数据在 `lisa_demo_data/transactions/`，用来模拟 Rocket Money 这类记账 app。Rocket Money 没有公开 API；这类 app 一般通过 Plaid 这样的银行数据服务读刷卡记录，所以我们按 Plaid 的数据格式造了 Lisa 的 130 笔消费（`on_phone.json`，留在手机上）。手机上的过滤只放行三类：餐厅、酒类商店、药房，共 42 笔：餐厅 31 笔（其中 11 笔是午饭），酒 7 笔（其中 4 笔是网上订的葡萄酒俱乐部），药房 4 笔。agent 只读这 42 笔（`shared.json`），每笔只有商家名、日期、金额区间（比如“$100–150”）、是不是晚上、在店里还是网上付的。咖啡、超市、加油、网购、水电、流媒体、网球会费、孩子的球队费、机票、酒店这 88 笔都留在手机上，只记数量。
+Card transactions data is in `lisa_demo_data/transactions/` and mimics a spending app like Rocket Money. Rocket Money has no public API; apps like it usually read card charges through a bank-data service such as Plaid, so we built Lisa's 130 charges in Plaid's data format (`on_phone.json`, stays on the phone). The filter on the phone lets only three kinds through: restaurants, liquor stores and pharmacies, 42 charges in all: 31 restaurant charges (11 of them lunches), 7 for alcohol (4 of them the online wine club), 4 at the pharmacy. The agent reads only these 42 (`shared.json`), and each has only the merchant name, the date, an amount range (such as “$100–150”), whether it was in the evening, and whether it was paid in store or online. The other 88 charges (coffee, groceries, gas, online shopping, utilities, streaming, tennis dues, her kid's team fee, flights, hotel) stay on the phone, and only their count is kept.
 
-规则：晚上在店里刷的餐厅或酒类商店消费，算这一晚“可能喝了酒”，和预订、日历、定位同一级，比收据和她的回答都弱；午饭和网上订的酒不算。同一晚有几条线索时，证据表留第一条（通常是能点回原邮件的那条），其余写成“also location, card”。
+The rule: an in-store restaurant or liquor-store charge in the evening counts as “maybe drank” for that evening, at the same level as a reservation, the calendar or location, and weaker than a receipt or her own answer; lunches and wine ordered online don't count. When an evening has several clues, the evidence table keeps the first (usually the one that links back to an email) and lists the rest as “also location, card”.
 
-对 Lisa 来说，刷卡记录大多也只是印证收据和预订。新的信息是 7/25、8/29、9/26 三次在 Grand Lake Wine & Spirits 买了酒，这三次没有任何邮件记录。7/25 那晚因此从“没有线索”变成“可能喝了酒”，诱因卡片的对照组从 5/33 变成 5/32，结论不变。药房的刷卡和药房邮件是同一件事，所以治疗开始的日期还是从邮件和她的回答来；刷卡记录里没有药名，agent 也不去猜。
+For Lisa, card charges mostly just confirm the receipts and reservations. The new information is three bottles bought at Grand Lake Wine & Spirits on 7/25, 8/29 and 9/26, with no email trail at all. So the evening of 7/25 moves from “no clue” to “maybe drank”, and the trigger card's comparison group goes from 5/33 to 5/32; the finding doesn't change. The pharmacy charges are the same events as the pharmacy emails, so the treatment start date still comes from the emails and her answer; card charges carry no drug name, and the agent doesn't guess one.
 
 ```bash
-.venv/bin/python lisa_demo_data/transactions/make_transactions.py   # 重新生成 on_phone.json 和 shared.json
+.venv/bin/python lisa_demo_data/transactions/make_transactions.py   # regenerate on_phone.json and shared.json
 ```
 
-Manual 模式的演示：点 Manual，左栏点一张示例收据（`lisa_demo_data/receipt_photos/`，带有假的 GPS 元数据），右栏会显示读出来的那一行和“已去掉 GPS 位置”。没有 API key 时，示例照片按答案文件读出；读新照片需要 Claude。
+To demo Manual mode: click Manual, then click a sample receipt in the left column (`lisa_demo_data/receipt_photos/`, with fake GPS metadata); the right column shows the extracted row and “GPS location removed”. Without an API key, the sample photos are read from the answer file; reading a new photo needs Claude.
 
-**本地模型的测试结果**（训练集是 2600 封另外合成的邮件，商家、措辞、年份都和 Lisa 的不同；测试集是 Lisa 的 135 封）：
+**Local model test results** (trained on 2,600 separately synthesized emails whose merchants, wording and years all differ from Lisa's; tested on Lisa's 135):
 
-- 私人邮件被误判成“有用”、会离开设备的：0 封
-- 有用邮件被漏掉的：0 / 76
-- 无关邮件会被发给 Claude 的：4 封（网球俱乐部的简报），加上 10% 那道保险后是 0 封，有用邮件仍然一封不漏
-- 总体准确率 86%；错误主要是把 14 封新闻简报或学校通知当成私人邮件，偏保守，不会泄露
-- 去掉发件人姓名和地址后再测，准确率不变，泄露和漏掉仍然是 0，说明模型靠的是内容，不是记住发件人
+- Personal emails misjudged as “useful” that would leave the device: 0
+- Useful emails missed: 0 / 76
+- Irrelevant emails that would be sent to Claude: 4 (the tennis club newsletter); 0 with the 10% safeguard, still without missing a single useful email
+- Overall accuracy 86%; the errors are mostly 14 newsletters or school notices taken for personal emails, which errs on the safe side and leaks nothing
+- Tested again with sender names and addresses removed: same accuracy, still 0 leaks and 0 misses, so the model relies on content, not on memorized senders
 
-这些数字来自合成数据，只能说明流程是通的，不代表真实邮箱上的效果。正式版的 Private 模式可以用手机上的端侧大模型来做抽取，替代现在的规则。
+These numbers come from synthetic data: they only show the pipeline works, not how it would do on a real inbox. A production Private mode could use an on-device LLM on the phone for extraction instead of the current rules.
 
 ```bash
-.venv/bin/python app/local_model/make_corpus.py   # 生成训练邮件
-.venv/bin/python app/local_model/train.py         # 训练 + 在 Lisa 的邮件上测 → app/local_model/metrics.json
-.venv/bin/python scripts/eval_private_mode.py     # Private 模式端到端：抽取准确率 + 发现是否和答案一致
+.venv/bin/python app/local_model/make_corpus.py   # generate the training emails
+.venv/bin/python app/local_model/train.py         # train + test on Lisa's emails → app/local_model/metrics.json
+.venv/bin/python scripts/eval_private_mode.py     # Private mode end to end: extraction accuracy + whether findings match the answer key
 ```
 
-## Claude 这一步（C 负责）
+## The Claude step (owner: C)
 
 ```bash
-.venv/bin/python scripts/extract_all.py --limit 10                              # 先试 10 封
-.venv/bin/python scripts/eval_extraction.py cache/extracted_events_first10.json # 对答案
-.venv/bin/python scripts/extract_all.py                                         # 本地模型放行的 75 封 → cache/extracted_events.json
+.venv/bin/python scripts/extract_all.py --limit 10                              # try 10 emails first
+.venv/bin/python scripts/eval_extraction.py cache/extracted_events_first10.json # check against the answer key
+.venv/bin/python scripts/extract_all.py                                         # the 75 emails the local model lets through → cache/extracted_events.json
 .venv/bin/python scripts/eval_extraction.py
-.venv/bin/python scripts/precompute.py                                          # Claude 写卡片 + 备用就诊摘要
+.venv/bin/python scripts/precompute.py                                          # Claude writes the cards + the fallback visit summary
 ```
 
-全量抽取写好之后，app 自动改用 Claude 的结果（右上角显示 `events from claude`）。统计的数字应该和用答案文件时一样，不一样就看 `eval_extraction.py` 的报错行。
+Once the full extraction is written, the app switches to Claude's results automatically (the top right shows `events from claude`). The statistics should match the ones from the answer file; if they don't, look at the rows `eval_extraction.py` reports.
 
-代码里按默认开了 `fallbacks="default"`：安全分类器拒绝时，服务端自动换模型重跑。
+The code turns on `fallbacks="default"`: when the safety classifier refuses, the server automatically reruns on another model.
 
-## 分工和检查点
+## Who does what, and checkpoints
 
-- **A · 数据与统计**：`lisa_demo_data/analysis/analyze.py`、`app/data.py`、接口。
-- **B · 前端**：`app/static/index.html`，时间线、卡片、证据表、就诊摘要的样子。
-- **C · Claude 与 slides**：`app/claude_calls.py`、`app/prompts/`、`scripts/`，最后改 slides。
+- **A · Data and statistics**: `lisa_demo_data/analysis/analyze.py`, `app/data.py`, the endpoints.
+- **B · Frontend**: `app/static/index.html`: how the timeline, cards, evidence tables and visit summary look.
+- **C · Claude and slides**: `app/claude_calls.py`, `app/prompts/`, `scripts/`, then the slides at the end.
 
-检查点（从开工算）：1:20 抽取 10 封对上答案 → 3:00 各自 P0 完成 → 3:40 现场路径跑通 → 5:00 上台。过了 3:40 只打磨，不加功能。
+Checkpoints (from the start): 1:20 extraction of 10 emails matches the answer key → 3:00 everyone's P0 done → 3:40 the live demo path works end to end → 5:00 on stage. After 3:40, polish only, no new features.
 
-## 规则
+## Rules
 
-- `.env` 不提交；`truth/` 只给团队对答案用，不能喂给 agent。
-- 每人改自己负责的文件；push 前先 `git pull --rebase`。
+- Never commit `.env`; `truth/` is only for the team to check answers and must never be fed to the agent.
+- Everyone edits only the files they own; run `git pull --rebase` before pushing.

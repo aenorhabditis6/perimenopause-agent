@@ -600,7 +600,7 @@ async function renderReceipts() {
   const r = await api("/api/receipts"), box = $("receipts");
   box.innerHTML = `<div class="rh">Your receipts</div>
     <div class="rsub">Only the photos you choose. Location and camera data are removed before Claude reads one, and the photo itself isn't kept.</div>
-    <label class="primary upl">＋ Upload a receipt photo<input type="file" id="rfile" accept="image/*" capture="environment" hidden></label>
+    <label class="primary upl">+ Upload a receipt photo<input type="file" id="rfile" accept="image/*" capture="environment" hidden></label>
     <div class="rsub" style="margin-top:12px">Or try a sample:</div>
     <div class="samples">${r.samples.map(s => `<img src="${s.url}" data-url="${s.url}" data-name="${s.file}" alt="${esc(s.file)}">`).join("")}</div>
     <div class="rlist">${r.receipts.length ? "" : '<div class="rsub">Nothing shared yet.</div>'}${r.receipts.map(row => {
