@@ -1,0 +1,40 @@
+From: Streamly <billing@streamly.example>
+To: Lisa Hartley <lisa.hartley@mail.example>
+Subject: Your Streamly receipt
+Date: Fri, 17 Jul 2026 03:05:00 -0700
+Message-ID: <msg_0016.17fb8434@demo.example>
+X-Demo-Data: synthetic
+MIME-Version: 1.0
+Content-Type: multipart/alternative;
+ boundary="===============5673377926479320097=="
+
+--===============5673377926479320097==
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+
+Hi Lisa,
+
+Thanks for being a member. Family plan $22.99.
+
+Streamly
+
+--===============5673377926479320097==
+Content-Type: text/html; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
+
+<!doctype html><html><body style=3D"margin:0;background:#f4f4f5;font-family:-=
+apple-system,'Segoe UI',Helvetica,Arial,sans-serif;color:#1f2937"><table role=
+=3D"presentation" width=3D"100%" cellpadding=3D"0" cellspacing=3D"0"><tr><td =
+align=3D"center" style=3D"padding:24px 12px"><table role=3D"presentation" wid=
+th=3D"560" cellpadding=3D"0" cellspacing=3D"0" style=3D"max-width:560px;width=
+:100%;background:#ffffff;border-radius:10px;overflow:hidden"><tr><td style=3D=
+"background:#6d28d9;padding:18px 24px;color:#ffffff;font-size:18px;font-weigh=
+t:600;letter-spacing:.2px">Streamly</td></tr><tr><td style=3D"padding:24px;fo=
+nt-size:15px;line-height:1.55"><p style=3D"margin:0 0 14px">Family plan =E2=
+=80=94 $22.99</p></td></tr><tr><td style=3D"padding:14px 24px;background:#faf=
+afa;color:#9ca3af;font-size:11px;line-height:1.5">Streamly<br>Synthetic demo =
+email =C2=B7 fictional business =C2=B7 not a real transaction.</td></tr></tab=
+le></td></tr></table></body></html>
+
+--===============5673377926479320097==--

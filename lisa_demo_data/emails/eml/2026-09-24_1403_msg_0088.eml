@@ -1,0 +1,53 @@
+From: Bayline Air <itinerary@baylineair.example>
+To: Lisa Hartley <lisa.hartley@mail.example>
+Subject: Your trip to Seattle is booked =?utf-8?b?4oCU?= QZ7K4P
+Date: Thu, 24 Sep 2026 14:03:00 -0700
+Message-ID: <msg_0088.76c97b22@demo.example>
+X-Demo-Data: synthetic
+MIME-Version: 1.0
+Content-Type: multipart/alternative;
+ boundary="===============2190041230760428731=="
+
+--===============2190041230760428731==
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+
+Hi Lisa,
+
+Your trip is booked. Confirmation code: QZ7K4P
+
+Wed, Oct 14 · BL 412 · Oakland (OAK) 7:15 AM → Seattle (SEA) 9:20 AM
+Fri, Oct 16 · BL 419 · Seattle (SEA) 6:40 PM → Oakland (OAK) 8:45 PM
+
+Passenger: Lisa Hartley · Seat 8C / 9D
+
+Bayline Air
+
+--===============2190041230760428731==
+Content-Type: text/html; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
+
+<!doctype html><html><body style=3D"margin:0;background:#f4f4f5;font-family:-=
+apple-system,'Segoe UI',Helvetica,Arial,sans-serif;color:#1f2937"><table role=
+=3D"presentation" width=3D"100%" cellpadding=3D"0" cellspacing=3D"0"><tr><td =
+align=3D"center" style=3D"padding:24px 12px"><table role=3D"presentation" wid=
+th=3D"560" cellpadding=3D"0" cellspacing=3D"0" style=3D"max-width:560px;width=
+:100%;background:#ffffff;border-radius:10px;overflow:hidden"><tr><td style=3D=
+"background:#1e3a8a;padding:18px 24px;color:#ffffff;font-size:18px;font-weigh=
+t:600;letter-spacing:.2px">Bayline Air</td></tr><tr><td style=3D"padding:24px=
+;font-size:15px;line-height:1.55"><p style=3D"margin:0 0 14px">Hi Lisa,</p><p=
+ style=3D"margin:0 0 14px">Your trip is booked. Confirmation code: <strong>QZ=
+7K4P</strong></p><table role=3D"presentation" width=3D"100%" cellpadding=3D"0=
+" cellspacing=3D"0" style=3D"border-collapse:collapse;margin:6px 0 16px"><tr>=
+<td style=3D"padding:7px 0;border-top:1px solid #eef0f3">Wed, Oct 14 =C2=B7 B=
+L 412</td><td align=3D"right" style=3D"padding:7px 0;border-top:1px solid #ee=
+f0f3">OAK 7:15 AM =E2=86=92 SEA 9:20 AM</td></tr><tr><td style=3D"padding:7px=
+ 0;border-top:1px solid #eef0f3">Fri, Oct 16 =C2=B7 BL 419</td><td align=3D"r=
+ight" style=3D"padding:7px 0;border-top:1px solid #eef0f3">SEA 6:40 PM =E2=86=
+=92 OAK 8:45 PM</td></tr></table></td></tr><tr><td style=3D"padding:14px 24px=
+;background:#fafafa;color:#9ca3af;font-size:11px;line-height:1.5">Bayline Air=
+<br>Synthetic demo email =C2=B7 fictional business =C2=B7 not a real transact=
+ion.</td></tr></table></td></tr></table></body></html>
+
+--===============2190041230760428731==--

@@ -1,0 +1,84 @@
+From: FreshCart <orders@freshcart.example>
+To: Lisa Hartley <lisa.hartley@mail.example>
+Subject: Your FreshCart order was delivered
+Date: Sun, 30 Aug 2026 11:09:00 -0700
+Message-ID: <msg_0057.37bee840@demo.example>
+X-Demo-Data: synthetic
+MIME-Version: 1.0
+Content-Type: multipart/alternative;
+ boundary="===============3894085397750482827=="
+
+--===============3894085397750482827==
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+
+Hi Lisa,
+
+Your FreshCart order was delivered.
+
+Pasta                                  $12.36
+Brown rice                              $6.03
+Tortillas                              $11.49
+Greek yogurt (32 oz)                   $12.68
+Spinach                                 $8.60
+Eggs (dozen)                           $12.82
+Hummus                                  $5.38
+Marinara                                $5.93
+Oat milk                                $5.35
+Sourdough loaf                          $2.94
+Delivery fee                            $5.99
+Total                                  $89.57
+
+Thanks for shopping with FreshCart.
+
+--===============3894085397750482827==
+Content-Type: text/html; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
+
+<!doctype html><html><body style=3D"margin:0;background:#f4f4f5;font-family:-=
+apple-system,'Segoe UI',Helvetica,Arial,sans-serif;color:#1f2937"><table role=
+=3D"presentation" width=3D"100%" cellpadding=3D"0" cellspacing=3D"0"><tr><td =
+align=3D"center" style=3D"padding:24px 12px"><table role=3D"presentation" wid=
+th=3D"560" cellpadding=3D"0" cellspacing=3D"0" style=3D"max-width:560px;width=
+:100%;background:#ffffff;border-radius:10px;overflow:hidden"><tr><td style=3D=
+"background:#15803d;padding:18px 24px;color:#ffffff;font-size:18px;font-weigh=
+t:600;letter-spacing:.2px">FreshCart</td></tr><tr><td style=3D"padding:24px;f=
+ont-size:15px;line-height:1.55"><p style=3D"margin:0 0 14px">Hi Lisa,</p><p s=
+tyle=3D"margin:0 0 14px">Your FreshCart order was delivered.</p><table role=
+=3D"presentation" width=3D"100%" cellpadding=3D"0" cellspacing=3D"0" style=3D=
+"border-collapse:collapse;margin:6px 0 16px"><tr><td style=3D"padding:7px 0;b=
+order-top:1px solid #eef0f3">Pasta</td><td align=3D"right" style=3D"padding:7=
+px 0;border-top:1px solid #eef0f3">$12.36</td></tr><tr><td style=3D"padding:7=
+px 0;border-top:1px solid #eef0f3">Brown rice</td><td align=3D"right" style=
+=3D"padding:7px 0;border-top:1px solid #eef0f3">$6.03</td></tr><tr><td style=
+=3D"padding:7px 0;border-top:1px solid #eef0f3">Tortillas</td><td align=3D"ri=
+ght" style=3D"padding:7px 0;border-top:1px solid #eef0f3">$11.49</td></tr><tr=
+><td style=3D"padding:7px 0;border-top:1px solid #eef0f3">Greek yogurt (32 oz=
+)</td><td align=3D"right" style=3D"padding:7px 0;border-top:1px solid #eef0f3=
+">$12.68</td></tr><tr><td style=3D"padding:7px 0;border-top:1px solid #eef0f3=
+">Spinach</td><td align=3D"right" style=3D"padding:7px 0;border-top:1px solid=
+ #eef0f3">$8.60</td></tr><tr><td style=3D"padding:7px 0;border-top:1px solid =
+#eef0f3">Eggs (dozen)</td><td align=3D"right" style=3D"padding:7px 0;border-t=
+op:1px solid #eef0f3">$12.82</td></tr><tr><td style=3D"padding:7px 0;border-t=
+op:1px solid #eef0f3">Hummus</td><td align=3D"right" style=3D"padding:7px 0;b=
+order-top:1px solid #eef0f3">$5.38</td></tr><tr><td style=3D"padding:7px 0;bo=
+rder-top:1px solid #eef0f3">Marinara</td><td align=3D"right" style=3D"padding=
+:7px 0;border-top:1px solid #eef0f3">$5.93</td></tr><tr><td style=3D"padding:=
+7px 0;border-top:1px solid #eef0f3">Oat milk</td><td align=3D"right" style=3D=
+"padding:7px 0;border-top:1px solid #eef0f3">$5.35</td></tr><tr><td style=3D"=
+padding:7px 0;border-top:1px solid #eef0f3">Sourdough loaf</td><td align=3D"r=
+ight" style=3D"padding:7px 0;border-top:1px solid #eef0f3">$2.94</td></tr></t=
+able><table role=3D"presentation" width=3D"100%" cellpadding=3D"0" cellspacin=
+g=3D"0" style=3D"border-collapse:collapse;margin:6px 0 16px"><tr><td style=3D=
+"padding:7px 0;border-top:1px solid #eef0f3">Delivery fee</td><td align=3D"ri=
+ght" style=3D"padding:7px 0;border-top:1px solid #eef0f3">$5.99</td></tr><tr>=
+<td style=3D"padding:7px 0;border-top:1px solid #eef0f3;font-weight:700">Tota=
+l</td><td align=3D"right" style=3D"padding:7px 0;border-top:1px solid #eef0f3=
+;font-weight:700">$89.57</td></tr></table></td></tr><tr><td style=3D"padding:=
+14px 24px;background:#fafafa;color:#9ca3af;font-size:11px;line-height:1.5">Fr=
+eshCart grocery delivery<br>Synthetic demo email =C2=B7 fictional business =
+=C2=B7 not a real transaction.</td></tr></table></td></tr></table></body></ht=
+ml>
+
+--===============3894085397750482827==--

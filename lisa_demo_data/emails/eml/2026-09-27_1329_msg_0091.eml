@@ -1,0 +1,56 @@
+From: TableTime <no-reply@tabletime.example>
+To: Lisa Hartley <lisa.hartley@mail.example>
+Subject: Reservation confirmed: Sora Sushi, Fri, Oct 2 at 7:15 PM
+Date: Sun, 27 Sep 2026 13:29:00 -0700
+Message-ID: <msg_0091.89fd8fb4@demo.example>
+X-Demo-Data: synthetic
+MIME-Version: 1.0
+Content-Type: multipart/alternative;
+ boundary="===============8164166963445611215=="
+
+--===============8164166963445611215==
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+
+Hi Lisa,
+
+You're all set.
+
+Sora Sushi
+Friday, October 2, 2026 · 7:15 PM · Party of 2
+3317 Lakeshore Ave, Oakland, CA
+
+Need to make a change? Manage your reservation in the TableTime app.
+Tables are held for 15 minutes past the reservation time.
+
+— TableTime
+
+--===============8164166963445611215==
+Content-Type: text/html; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
+
+<!doctype html><html><body style=3D"margin:0;background:#f4f4f5;font-family:-=
+apple-system,'Segoe UI',Helvetica,Arial,sans-serif;color:#1f2937"><table role=
+=3D"presentation" width=3D"100%" cellpadding=3D"0" cellspacing=3D"0"><tr><td =
+align=3D"center" style=3D"padding:24px 12px"><table role=3D"presentation" wid=
+th=3D"560" cellpadding=3D"0" cellspacing=3D"0" style=3D"max-width:560px;width=
+:100%;background:#ffffff;border-radius:10px;overflow:hidden"><tr><td style=3D=
+"background:#b45309;padding:18px 24px;color:#ffffff;font-size:18px;font-weigh=
+t:600;letter-spacing:.2px">TableTime</td></tr><tr><td style=3D"padding:24px;f=
+ont-size:15px;line-height:1.55"><p style=3D"margin:0 0 14px">Hi Lisa,</p><p s=
+tyle=3D"margin:0 0 14px"><strong>You're all set.</strong></p><div style=3D"bo=
+rder:1px solid #e5e7eb;border-radius:8px;padding:14px 16px;margin:0 0 16px"><=
+div style=3D"font-size:17px;font-weight:600">Sora Sushi</div><div style=3D"co=
+lor:#4b5563">Friday, October 2, 2026 =C2=B7 7:15 PM =C2=B7 Party of 2</div><d=
+iv style=3D"color:#6b7280;font-size:13px">3317 Lakeshore Ave, Oakland, CA</di=
+v></div><p style=3D"margin:0 0 14px">Need to make a change? Manage your reser=
+vation in the TableTime app.</p><p style=3D"margin:0 0 14px"><span style=3D"c=
+olor:#6b7280;font-size:13px">Tables are held for 15 minutes past the reservat=
+ion time.</span></p></td></tr><tr><td style=3D"padding:14px 24px;background:#=
+fafafa;color:#9ca3af;font-size:11px;line-height:1.5">TableTime =C2=B7 reserva=
+tions for independent restaurants<br>Synthetic demo email =C2=B7 fictional bu=
+siness =C2=B7 not a real transaction.</td></tr></table></td></tr></table></bo=
+dy></html>
+
+--===============8164166963445611215==--

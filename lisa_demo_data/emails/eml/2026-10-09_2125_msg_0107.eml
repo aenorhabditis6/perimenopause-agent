@@ -1,0 +1,79 @@
+From: Osteria Lucca via Tabbit <receipts@osterialucca.example>
+To: Lisa Hartley <lisa.hartley@mail.example>
+Subject: Your receipt from Osteria Lucca
+Date: Fri, 09 Oct 2026 21:25:00 -0700
+Message-ID: <msg_0107.27854135@demo.example>
+X-Demo-Data: synthetic
+MIME-Version: 1.0
+Content-Type: multipart/alternative;
+ boundary="===============1001098998379645455=="
+
+--===============1001098998379645455==
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+
+Osteria Lucca
+5940 College Ave, Oakland, CA
+Fri, Oct 9, 2026 · 9:24 PM · Table 21 · Server: Jules
+
+1 × Bottle — Chianti Classico             $62.00
+2 × Cacio e pepe                          $48.00
+1 × Grilled octopus                       $22.00
+1 × Panna cotta                           $11.00
+
+Subtotal                                 $143.00
+Tax                                       $15.37
+Tip                                       $28.60
+Total                                    $186.97
+Visa ending in 4417
+
+Thanks for dining with us!
+Receipt powered by Tabbit
+
+--===============1001098998379645455==
+Content-Type: text/html; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
+
+<!doctype html><html><body style=3D"margin:0;background:#f4f4f5;font-family:-=
+apple-system,'Segoe UI',Helvetica,Arial,sans-serif;color:#1f2937"><table role=
+=3D"presentation" width=3D"100%" cellpadding=3D"0" cellspacing=3D"0"><tr><td =
+align=3D"center" style=3D"padding:24px 12px"><table role=3D"presentation" wid=
+th=3D"560" cellpadding=3D"0" cellspacing=3D"0" style=3D"max-width:560px;width=
+:100%;background:#ffffff;border-radius:10px;overflow:hidden"><tr><td style=3D=
+"background:#111827;padding:18px 24px;color:#ffffff;font-size:18px;font-weigh=
+t:600;letter-spacing:.2px">Osteria Lucca</td></tr><tr><td style=3D"padding:24=
+px;font-size:15px;line-height:1.55"><div style=3D"font-size:17px;font-weight:=
+600">Osteria Lucca</div><div style=3D"color:#6b7280;font-size:13px;margin-bot=
+tom:12px">5940 College Ave, Oakland, CA<br>Fri, Oct 9, 2026 =C2=B7 9:24 PM =
+=C2=B7 Table 21 =C2=B7 Server: Jules</div><table role=3D"presentation" width=
+=3D"100%" cellpadding=3D"0" cellspacing=3D"0" style=3D"border-collapse:collap=
+se;margin:6px 0 16px"><tr><td style=3D"padding:7px 0;border-top:1px solid #ee=
+f0f3">1 =C3=97 Bottle =E2=80=94 Chianti Classico</td><td align=3D"right" styl=
+e=3D"padding:7px 0;border-top:1px solid #eef0f3">$62.00</td></tr><tr><td styl=
+e=3D"padding:7px 0;border-top:1px solid #eef0f3">2 =C3=97 Cacio e pepe</td><t=
+d align=3D"right" style=3D"padding:7px 0;border-top:1px solid #eef0f3">$48.00=
+</td></tr><tr><td style=3D"padding:7px 0;border-top:1px solid #eef0f3">1 =C3=
+=97 Grilled octopus</td><td align=3D"right" style=3D"padding:7px 0;border-top=
+:1px solid #eef0f3">$22.00</td></tr><tr><td style=3D"padding:7px 0;border-top=
+:1px solid #eef0f3">1 =C3=97 Panna cotta</td><td align=3D"right" style=3D"pad=
+ding:7px 0;border-top:1px solid #eef0f3">$11.00</td></tr></table><table role=
+=3D"presentation" width=3D"100%" cellpadding=3D"0" cellspacing=3D"0" style=3D=
+"border-collapse:collapse;margin:6px 0 16px"><tr><td style=3D"padding:7px 0;b=
+order-top:1px solid #eef0f3">Subtotal</td><td align=3D"right" style=3D"paddin=
+g:7px 0;border-top:1px solid #eef0f3">$143.00</td></tr><tr><td style=3D"paddi=
+ng:7px 0;border-top:1px solid #eef0f3">Tax</td><td align=3D"right" style=3D"p=
+adding:7px 0;border-top:1px solid #eef0f3">$15.37</td></tr><tr><td style=3D"p=
+adding:7px 0;border-top:1px solid #eef0f3">Tip</td><td align=3D"right" style=
+=3D"padding:7px 0;border-top:1px solid #eef0f3">$28.60</td></tr><tr><td style=
+=3D"padding:7px 0;border-top:1px solid #eef0f3;font-weight:700">Total</td><td=
+ align=3D"right" style=3D"padding:7px 0;border-top:1px solid #eef0f3;font-wei=
+ght:700">$186.97</td></tr></table><p style=3D"margin:0 0 14px"><span style=3D=
+"color:#6b7280;font-size:13px">Visa ending in 4417</span></p><p style=3D"marg=
+in:0 0 14px">Thanks for dining with us!</p></td></tr><tr><td style=3D"padding=
+:14px 24px;background:#fafafa;color:#9ca3af;font-size:11px;line-height:1.5">R=
+eceipt powered by Tabbit<br>Synthetic demo email =C2=B7 fictional business =
+=C2=B7 not a real transaction.</td></tr></table></td></tr></table></body></ht=
+ml>
+
+--===============1001098998379645455==--

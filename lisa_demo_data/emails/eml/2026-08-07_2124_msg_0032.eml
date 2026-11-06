@@ -1,0 +1,79 @@
+From: Mesa Verde Cantina via Tabbit <receipts@mesaverde.example>
+To: Lisa Hartley <lisa.hartley@mail.example>
+Subject: Your receipt from Mesa Verde Cantina
+Date: Fri, 07 Aug 2026 21:24:00 -0700
+Message-ID: <msg_0032.eb3febfe@demo.example>
+X-Demo-Data: synthetic
+MIME-Version: 1.0
+Content-Type: multipart/alternative;
+ boundary="===============7247089372392619173=="
+
+--===============7247089372392619173==
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+
+Mesa Verde Cantina
+1820 Fruitvale Ave, Oakland, CA
+Fri, Aug 7, 2026 · 9:23 PM · Table 16 · Server: Marco
+
+3 × Margarita (classic)                   $42.00
+1 × Tacos al pastor                       $18.00
+2 × Enchiladas verdes                     $42.00
+2 × Guacamole & chips                     $26.00
+
+Subtotal                                 $128.00
+Tax                                       $13.76
+Tip                                       $25.60
+Total                                    $167.36
+Visa ending in 4417
+
+Thanks for dining with us!
+Receipt powered by Tabbit
+
+--===============7247089372392619173==
+Content-Type: text/html; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
+
+<!doctype html><html><body style=3D"margin:0;background:#f4f4f5;font-family:-=
+apple-system,'Segoe UI',Helvetica,Arial,sans-serif;color:#1f2937"><table role=
+=3D"presentation" width=3D"100%" cellpadding=3D"0" cellspacing=3D"0"><tr><td =
+align=3D"center" style=3D"padding:24px 12px"><table role=3D"presentation" wid=
+th=3D"560" cellpadding=3D"0" cellspacing=3D"0" style=3D"max-width:560px;width=
+:100%;background:#ffffff;border-radius:10px;overflow:hidden"><tr><td style=3D=
+"background:#111827;padding:18px 24px;color:#ffffff;font-size:18px;font-weigh=
+t:600;letter-spacing:.2px">Mesa Verde Cantina</td></tr><tr><td style=3D"paddi=
+ng:24px;font-size:15px;line-height:1.55"><div style=3D"font-size:17px;font-we=
+ight:600">Mesa Verde Cantina</div><div style=3D"color:#6b7280;font-size:13px;=
+margin-bottom:12px">1820 Fruitvale Ave, Oakland, CA<br>Fri, Aug 7, 2026 =C2=
+=B7 9:23 PM =C2=B7 Table 16 =C2=B7 Server: Marco</div><table role=3D"presenta=
+tion" width=3D"100%" cellpadding=3D"0" cellspacing=3D"0" style=3D"border-coll=
+apse:collapse;margin:6px 0 16px"><tr><td style=3D"padding:7px 0;border-top:1p=
+x solid #eef0f3">3 =C3=97 Margarita (classic)</td><td align=3D"right" style=
+=3D"padding:7px 0;border-top:1px solid #eef0f3">$42.00</td></tr><tr><td style=
+=3D"padding:7px 0;border-top:1px solid #eef0f3">1 =C3=97 Tacos al pastor</td>=
+<td align=3D"right" style=3D"padding:7px 0;border-top:1px solid #eef0f3">$18.=
+00</td></tr><tr><td style=3D"padding:7px 0;border-top:1px solid #eef0f3">2 =
+=C3=97 Enchiladas verdes</td><td align=3D"right" style=3D"padding:7px 0;borde=
+r-top:1px solid #eef0f3">$42.00</td></tr><tr><td style=3D"padding:7px 0;borde=
+r-top:1px solid #eef0f3">2 =C3=97 Guacamole &amp; chips</td><td align=3D"righ=
+t" style=3D"padding:7px 0;border-top:1px solid #eef0f3">$26.00</td></tr></tab=
+le><table role=3D"presentation" width=3D"100%" cellpadding=3D"0" cellspacing=
+=3D"0" style=3D"border-collapse:collapse;margin:6px 0 16px"><tr><td style=3D"=
+padding:7px 0;border-top:1px solid #eef0f3">Subtotal</td><td align=3D"right" =
+style=3D"padding:7px 0;border-top:1px solid #eef0f3">$128.00</td></tr><tr><td=
+ style=3D"padding:7px 0;border-top:1px solid #eef0f3">Tax</td><td align=3D"ri=
+ght" style=3D"padding:7px 0;border-top:1px solid #eef0f3">$13.76</td></tr><tr=
+><td style=3D"padding:7px 0;border-top:1px solid #eef0f3">Tip</td><td align=
+=3D"right" style=3D"padding:7px 0;border-top:1px solid #eef0f3">$25.60</td></=
+tr><tr><td style=3D"padding:7px 0;border-top:1px solid #eef0f3;font-weight:70=
+0">Total</td><td align=3D"right" style=3D"padding:7px 0;border-top:1px solid =
+#eef0f3;font-weight:700">$167.36</td></tr></table><p style=3D"margin:0 0 14px=
+"><span style=3D"color:#6b7280;font-size:13px">Visa ending in 4417</span></p>=
+<p style=3D"margin:0 0 14px">Thanks for dining with us!</p></td></tr><tr><td =
+style=3D"padding:14px 24px;background:#fafafa;color:#9ca3af;font-size:11px;li=
+ne-height:1.5">Receipt powered by Tabbit<br>Synthetic demo email =C2=B7 ficti=
+onal business =C2=B7 not a real transaction.</td></tr></table></td></tr></tab=
+le></body></html>
+
+--===============7247089372392619173==--

@@ -1,0 +1,40 @@
+From: EastBay Power <billing@eastbaypower.example>
+To: Lisa Hartley <lisa.hartley@mail.example>
+Subject: Your bill is ready
+Date: Sun, 12 Jul 2026 08:10:00 -0700
+Message-ID: <msg_0009.ab750754@demo.example>
+X-Demo-Data: synthetic
+MIME-Version: 1.0
+Content-Type: multipart/alternative;
+ boundary="===============9200785212007866362=="
+
+--===============9200785212007866362==
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+
+Hi Lisa,
+
+Your energy bill is ready. Autopay is on.
+
+EastBay Power
+
+--===============9200785212007866362==
+Content-Type: text/html; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
+
+<!doctype html><html><body style=3D"margin:0;background:#f4f4f5;font-family:-=
+apple-system,'Segoe UI',Helvetica,Arial,sans-serif;color:#1f2937"><table role=
+=3D"presentation" width=3D"100%" cellpadding=3D"0" cellspacing=3D"0"><tr><td =
+align=3D"center" style=3D"padding:24px 12px"><table role=3D"presentation" wid=
+th=3D"560" cellpadding=3D"0" cellspacing=3D"0" style=3D"max-width:560px;width=
+:100%;background:#ffffff;border-radius:10px;overflow:hidden"><tr><td style=3D=
+"background:#a16207;padding:18px 24px;color:#ffffff;font-size:18px;font-weigh=
+t:600;letter-spacing:.2px">EastBay Power</td></tr><tr><td style=3D"padding:24=
+px;font-size:15px;line-height:1.55"><p style=3D"margin:0 0 14px">Your energy =
+bill is ready. Autopay is on.</p></td></tr><tr><td style=3D"padding:14px 24px=
+;background:#fafafa;color:#9ca3af;font-size:11px;line-height:1.5">EastBay Pow=
+er<br>Synthetic demo email =C2=B7 fictional business =C2=B7 not a real transa=
+ction.</td></tr></table></td></tr></table></body></html>
+
+--===============9200785212007866362==--

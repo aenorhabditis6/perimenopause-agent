@@ -1,0 +1,196 @@
+{
+ "as_of": "2026-11-05",
+ "nights_seen": 122,
+ "baseline": {
+  "nights": 28,
+  "heat_nights": 1,
+  "first": "2026-07-06",
+  "last": "2026-08-02"
+ },
+ "awareness": {
+  "morning": "2026-08-13",
+  "heat_nights_last_14": 5,
+  "baseline_rate_per_week": 0.2
+ },
+ "trigger": {
+  "label": "alcohol (receipt or one-tap yes) vs no sign of alcohol",
+  "exposed": {
+   "heat_nights": 6,
+   "nights": 7
+  },
+  "unexposed": {
+   "heat_nights": 8,
+   "nights": 32
+  },
+  "rate_ratio": 3.43,
+  "fisher_p": 0.0051,
+  "window": [
+   "2026-07-24",
+   "2026-09-03"
+  ],
+  "unclear_nights": {
+   "nights": 3,
+   "heat_nights": 1
+  },
+  "controls": [
+   {
+    "label": "tennis evening vs not",
+    "exposed": {
+     "heat_nights": 2,
+     "nights": 5
+    },
+    "unexposed": {
+     "heat_nights": 13,
+     "nights": 37
+    },
+    "rate_ratio": 1.14,
+    "fisher_p": 1.0
+   },
+   {
+    "label": "dinner out without alcohol",
+    "nights": 1,
+    "heat_nights": 0
+   }
+  ],
+  "examples": [
+   {
+    "evening": "2026-07-24",
+    "evidence": "receipt: The Gilded Tap",
+    "night_heat": false
+   },
+   {
+    "evening": "2026-08-07",
+    "evidence": "receipt: Mesa Verde Cantina",
+    "night_heat": true
+   },
+   {
+    "evening": "2026-08-12",
+    "evidence": "one-tap answer",
+    "night_heat": true
+   },
+   {
+    "evening": "2026-08-14",
+    "evidence": "receipt: Osteria Lucca",
+    "night_heat": true
+   },
+   {
+    "evening": "2026-08-21",
+    "evidence": "one-tap answer",
+    "night_heat": true
+   },
+   {
+    "evening": "2026-08-22",
+    "evidence": "one-tap answer",
+    "night_heat": true
+   },
+   {
+    "evening": "2026-08-29",
+    "evidence": "one-tap answer",
+    "night_heat": true
+   }
+  ]
+ },
+ "change": {
+  "change": "new treatment (pharmacy first fill, confirmed in one tap)",
+  "start": "2026-09-04",
+  "before": {
+   "from": "2026-08-07",
+   "to": "2026-09-03",
+   "nights": 28,
+   "heat_nights": 13,
+   "heat_per_week": 3.2,
+   "alcohol_likely_per_week": 1.5,
+   "alcohol_possible_per_week": 0.5,
+   "travel_nights": 0,
+   "avg_awake_min": 44,
+   "avg_temp_dev_c": 0.29
+  },
+  "after": {
+   "from": "2026-10-08",
+   "to": "2026-11-04",
+   "nights": 28,
+   "heat_nights": 2,
+   "heat_per_week": 0.5,
+   "alcohol_likely_per_week": 1.5,
+   "alcohol_possible_per_week": 0.2,
+   "travel_nights": 2,
+   "avg_awake_min": 34,
+   "avg_temp_dev_c": 0.02
+  },
+  "fisher_p": 0.0019
+ },
+ "cycles": {
+  "starts": [
+   "2026-01-05",
+   "2026-02-02",
+   "2026-03-01",
+   "2026-03-29",
+   "2026-04-27",
+   "2026-05-21",
+   "2026-06-14",
+   "2026-07-10",
+   "2026-08-17",
+   "2026-09-08",
+   "2026-10-21"
+  ],
+  "lengths_days": [
+   28,
+   27,
+   28,
+   29,
+   24,
+   24,
+   26,
+   38,
+   22,
+   43
+  ],
+  "consecutive_differences_days": [
+   1,
+   1,
+   1,
+   5,
+   0,
+   2,
+   12,
+   16,
+   21
+  ],
+  "differences_7_or_more_in_last_4": 3
+ },
+ "already_tried": [
+  {
+   "date": "2026-08-12",
+   "item": "Cooling bamboo pillowcases (2-pack)",
+   "merchant": "Parcelly"
+  },
+  {
+   "date": "2026-08-20",
+   "item": "Moisture-wicking pajama set, women's M",
+   "merchant": "Parcelly"
+  },
+  {
+   "date": "2026-08-22",
+   "item": "Melatonin 3 mg gummies, 60 ct",
+   "merchant": "Harbor Pharmacy"
+  },
+  {
+   "date": "2026-09-01",
+   "item": "Quiet bedside oscillating fan",
+   "merchant": "Parcelly"
+  }
+ ],
+ "prescription_pickups": [
+  "2026-09-04",
+  "2026-10-03",
+  "2026-11-02"
+ ],
+ "next_appointment": {
+  "event_date": "2026-11-10",
+  "event_time": "09:30",
+  "provider": "Elena Ruiz, MD",
+  "specialty": "OB-GYN",
+  "visit_type": "follow-up"
+ },
+ "source": "oura"
+}

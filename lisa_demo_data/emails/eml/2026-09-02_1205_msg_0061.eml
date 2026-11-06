@@ -1,0 +1,44 @@
+From: Bayside Women's Health <appointments@baysidewomenshealth.example>
+To: Lisa Hartley <lisa.hartley@mail.example>
+Subject: Your visit summary is ready
+Date: Wed, 02 Sep 2026 12:05:00 -0700
+Message-ID: <msg_0061.de91203e@demo.example>
+X-Demo-Data: synthetic
+MIME-Version: 1.0
+Content-Type: multipart/alternative;
+ boundary="===============3709456396737857306=="
+
+--===============3709456396737857306==
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
+
+Hi Lisa,
+
+A new visit summary from your appointment with Elena Ruiz, MD on Sep 2 is ava=
+ilable.
+For your privacy, details are only available in the Bayside patient portal.
+
+Bayside Women's Health
+
+--===============3709456396737857306==
+Content-Type: text/html; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
+
+<!doctype html><html><body style=3D"margin:0;background:#f4f4f5;font-family:-=
+apple-system,'Segoe UI',Helvetica,Arial,sans-serif;color:#1f2937"><table role=
+=3D"presentation" width=3D"100%" cellpadding=3D"0" cellspacing=3D"0"><tr><td =
+align=3D"center" style=3D"padding:24px 12px"><table role=3D"presentation" wid=
+th=3D"560" cellpadding=3D"0" cellspacing=3D"0" style=3D"max-width:560px;width=
+:100%;background:#ffffff;border-radius:10px;overflow:hidden"><tr><td style=3D=
+"background:#9d174d;padding:18px 24px;color:#ffffff;font-size:18px;font-weigh=
+t:600;letter-spacing:.2px">Bayside Women&#x27;s Health</td></tr><tr><td style=
+=3D"padding:24px;font-size:15px;line-height:1.55"><p style=3D"margin:0 0 14px=
+">Hi Lisa,</p><p style=3D"margin:0 0 14px">A new visit summary from your appo=
+intment on Sep 2 is available in the patient portal.</p></td></tr><tr><td sty=
+le=3D"padding:14px 24px;background:#fafafa;color:#9ca3af;font-size:11px;line-=
+height:1.5">Bayside Women's Health<br>Synthetic demo email =C2=B7 fictional b=
+usiness =C2=B7 not a real transaction.</td></tr></table></td></tr></table></b=
+ody></html>
+
+--===============3709456396737857306==--

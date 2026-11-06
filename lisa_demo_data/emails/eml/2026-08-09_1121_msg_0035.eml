@@ -1,0 +1,100 @@
+From: FreshCart <orders@freshcart.example>
+To: Lisa Hartley <lisa.hartley@mail.example>
+Subject: Your FreshCart order was delivered
+Date: Sun, 09 Aug 2026 11:21:00 -0700
+Message-ID: <msg_0035.dd45b15e@demo.example>
+X-Demo-Data: synthetic
+MIME-Version: 1.0
+Content-Type: multipart/alternative;
+ boundary="===============2246597087697634386=="
+
+--===============2246597087697634386==
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+
+Hi Lisa,
+
+Your FreshCart order was delivered.
+
+Granola                                $11.61
+Chicken thighs (2 lb)                   $5.43
+Spinach                                $11.87
+Kids' cereal                            $6.94
+Oat milk                                $7.94
+Pasta                                  $13.68
+Cherry tomatoes                         $8.17
+Sourdough loaf                          $7.61
+Peanut butter                           $9.63
+Hummus                                  $3.35
+Salmon fillet                           $5.46
+Brown rice                              $5.51
+Black beans                             $5.96
+Apples (3 lb)                          $13.73
+Sauvignon Blanc, 750 ml                $13.99
+Delivery fee                            $5.99
+Total                                 $136.87
+
+Thanks for shopping with FreshCart.
+
+--===============2246597087697634386==
+Content-Type: text/html; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
+
+<!doctype html><html><body style=3D"margin:0;background:#f4f4f5;font-family:-=
+apple-system,'Segoe UI',Helvetica,Arial,sans-serif;color:#1f2937"><table role=
+=3D"presentation" width=3D"100%" cellpadding=3D"0" cellspacing=3D"0"><tr><td =
+align=3D"center" style=3D"padding:24px 12px"><table role=3D"presentation" wid=
+th=3D"560" cellpadding=3D"0" cellspacing=3D"0" style=3D"max-width:560px;width=
+:100%;background:#ffffff;border-radius:10px;overflow:hidden"><tr><td style=3D=
+"background:#15803d;padding:18px 24px;color:#ffffff;font-size:18px;font-weigh=
+t:600;letter-spacing:.2px">FreshCart</td></tr><tr><td style=3D"padding:24px;f=
+ont-size:15px;line-height:1.55"><p style=3D"margin:0 0 14px">Hi Lisa,</p><p s=
+tyle=3D"margin:0 0 14px">Your FreshCart order was delivered.</p><table role=
+=3D"presentation" width=3D"100%" cellpadding=3D"0" cellspacing=3D"0" style=3D=
+"border-collapse:collapse;margin:6px 0 16px"><tr><td style=3D"padding:7px 0;b=
+order-top:1px solid #eef0f3">Granola</td><td align=3D"right" style=3D"padding=
+:7px 0;border-top:1px solid #eef0f3">$11.61</td></tr><tr><td style=3D"padding=
+:7px 0;border-top:1px solid #eef0f3">Chicken thighs (2 lb)</td><td align=3D"r=
+ight" style=3D"padding:7px 0;border-top:1px solid #eef0f3">$5.43</td></tr><tr=
+><td style=3D"padding:7px 0;border-top:1px solid #eef0f3">Spinach</td><td ali=
+gn=3D"right" style=3D"padding:7px 0;border-top:1px solid #eef0f3">$11.87</td>=
+</tr><tr><td style=3D"padding:7px 0;border-top:1px solid #eef0f3">Kids&#x27; =
+cereal</td><td align=3D"right" style=3D"padding:7px 0;border-top:1px solid #e=
+ef0f3">$6.94</td></tr><tr><td style=3D"padding:7px 0;border-top:1px solid #ee=
+f0f3">Oat milk</td><td align=3D"right" style=3D"padding:7px 0;border-top:1px =
+solid #eef0f3">$7.94</td></tr><tr><td style=3D"padding:7px 0;border-top:1px s=
+olid #eef0f3">Pasta</td><td align=3D"right" style=3D"padding:7px 0;border-top=
+:1px solid #eef0f3">$13.68</td></tr><tr><td style=3D"padding:7px 0;border-top=
+:1px solid #eef0f3">Cherry tomatoes</td><td align=3D"right" style=3D"padding:=
+7px 0;border-top:1px solid #eef0f3">$8.17</td></tr><tr><td style=3D"padding:7=
+px 0;border-top:1px solid #eef0f3">Sourdough loaf</td><td align=3D"right" sty=
+le=3D"padding:7px 0;border-top:1px solid #eef0f3">$7.61</td></tr><tr><td styl=
+e=3D"padding:7px 0;border-top:1px solid #eef0f3">Peanut butter</td><td align=
+=3D"right" style=3D"padding:7px 0;border-top:1px solid #eef0f3">$9.63</td></t=
+r><tr><td style=3D"padding:7px 0;border-top:1px solid #eef0f3">Hummus</td><td=
+ align=3D"right" style=3D"padding:7px 0;border-top:1px solid #eef0f3">$3.35</=
+td></tr><tr><td style=3D"padding:7px 0;border-top:1px solid #eef0f3">Salmon f=
+illet</td><td align=3D"right" style=3D"padding:7px 0;border-top:1px solid #ee=
+f0f3">$5.46</td></tr><tr><td style=3D"padding:7px 0;border-top:1px solid #eef=
+0f3">Brown rice</td><td align=3D"right" style=3D"padding:7px 0;border-top:1px=
+ solid #eef0f3">$5.51</td></tr><tr><td style=3D"padding:7px 0;border-top:1px =
+solid #eef0f3">Black beans</td><td align=3D"right" style=3D"padding:7px 0;bor=
+der-top:1px solid #eef0f3">$5.96</td></tr><tr><td style=3D"padding:7px 0;bord=
+er-top:1px solid #eef0f3">Apples (3 lb)</td><td align=3D"right" style=3D"padd=
+ing:7px 0;border-top:1px solid #eef0f3">$13.73</td></tr><tr><td style=3D"padd=
+ing:7px 0;border-top:1px solid #eef0f3">Sauvignon Blanc, 750 ml</td><td align=
+=3D"right" style=3D"padding:7px 0;border-top:1px solid #eef0f3">$13.99</td></=
+tr></table><table role=3D"presentation" width=3D"100%" cellpadding=3D"0" cell=
+spacing=3D"0" style=3D"border-collapse:collapse;margin:6px 0 16px"><tr><td st=
+yle=3D"padding:7px 0;border-top:1px solid #eef0f3">Delivery fee</td><td align=
+=3D"right" style=3D"padding:7px 0;border-top:1px solid #eef0f3">$5.99</td></t=
+r><tr><td style=3D"padding:7px 0;border-top:1px solid #eef0f3;font-weight:700=
+">Total</td><td align=3D"right" style=3D"padding:7px 0;border-top:1px solid #=
+eef0f3;font-weight:700">$136.87</td></tr></table></td></tr><tr><td style=3D"p=
+adding:14px 24px;background:#fafafa;color:#9ca3af;font-size:11px;line-height:=
+1.5">FreshCart grocery delivery<br>Synthetic demo email =C2=B7 fictional busi=
+ness =C2=B7 not a real transaction.</td></tr></table></td></tr></table></body=
+></html>
+
+--===============2246597087697634386==--

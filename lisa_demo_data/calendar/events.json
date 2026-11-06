@@ -1,0 +1,1577 @@
+{
+ "kind": "calendar#events",
+ "summary": "lisa.hartley@mail.example",
+ "timeZone": "America/Los_Angeles",
+ "items": [
+  {
+   "kind": "calendar#event",
+   "id": "5acf65151898548f95bd02e029",
+   "status": "confirmed",
+   "summary": "Project sync",
+   "location": "Conf room Juniper",
+   "start": {
+    "dateTime": "2026-07-06T09:30:00-07:00",
+    "timeZone": "America/Los_Angeles"
+   },
+   "end": {
+    "dateTime": "2026-07-06T10:00:00-07:00",
+    "timeZone": "America/Los_Angeles"
+   },
+   "recurringEventId": "projectsyncmonday"
+  },
+  {
+   "kind": "calendar#event",
+   "id": "3e4a80c77fa45c06a1aff2bd90",
+   "status": "confirmed",
+   "summary": "1:1 with Dana",
+   "location": "Zoom",
+   "start": {
+    "dateTime": "2026-07-07T10:00:00-07:00",
+    "timeZone": "America/Los_Angeles"
+   },
+   "end": {
+    "dateTime": "2026-07-07T10:30:00-07:00",
+    "timeZone": "America/Los_Angeles"
+   },
+   "recurringEventId": "oneononedana"
+  },
+  {
+   "kind": "calendar#event",
+   "id": "13906fa7165854a5a134866b41",
+   "status": "confirmed",
+   "summary": "Book club @ Anna's",
+   "location": "Anna's place",
+   "start": {
+    "dateTime": "2026-07-08T19:00:00-07:00",
+    "timeZone": "America/Los_Angeles"
+   },
+   "end": {
+    "dateTime": "2026-07-08T21:00:00-07:00",
+    "timeZone": "America/Los_Angeles"
+   }
+  },
+  {
+   "kind": "calendar#event",
+   "id": "96c11337b1625667bc4fc1f736",
+   "status": "confirmed",
+   "summary": "Tennis doubles",
+   "location": "Courtside Tennis Club",
+   "start": {
+    "dateTime": "2026-07-09T19:00:00-07:00",
+    "timeZone": "America/Los_Angeles"
+   },
+   "end": {
+    "dateTime": "2026-07-09T20:30:00-07:00",
+    "timeZone": "America/Los_Angeles"
+   },
+   "recurringEventId": "tennisdoublesthursday"
+  },
+  {
+   "kind": "calendar#event",
+   "id": "5ca380becb6d5e95b58ff087b9",
+   "status": "confirmed",
+   "summary": "Dinner — Rosemary & Vine",
+   "location": "4120 Piedmont Ave, Oakland, CA",
+   "start": {
+    "dateTime": "2026-07-10T19:00:00-07:00",
+    "timeZone": "America/Los_Angeles"
+   },
+   "end": {
+    "dateTime": "2026-07-10T21:00:00-07:00",
+    "timeZone": "America/Los_Angeles"
+   }
+  },
+  {
+   "kind": "calendar#event",
+   "id": "0760b56495a65cbb8e80e7c2f6",
+   "status": "confirmed",
+   "summary": "Project sync",
+   "location": "Conf room Juniper",
+   "start": {
+    "dateTime": "2026-07-13T09:30:00-07:00",
+    "timeZone": "America/Los_Angeles"
+   },
+   "end": {
+    "dateTime": "2026-07-13T10:00:00-07:00",
+    "timeZone": "America/Los_Angeles"
+   },
+   "recurringEventId": "projectsyncmonday"
+  },
+  {
+   "kind": "calendar#event",
+   "id": "fde10e3f416b5952acffe36847",
+   "status": "confirmed",
+   "summary": "1:1 with Dana",
+   "location": "Zoom",
+   "start": {
+    "dateTime": "2026-07-14T10:00:00-07:00",
+    "timeZone": "America/Los_Angeles"
+   },
+   "end": {
+    "dateTime": "2026-07-14T10:30:00-07:00",
+    "timeZone": "America/Los_Angeles"
+   },
+   "recurringEventId": "oneononedana"
+  },
+  {
+   "kind": "calendar#event",
+   "id": "26425ac2629459c1b93fd5ec4c",
+   "status": "confirmed",
+   "summary": "Tennis doubles",
+   "location": "Courtside Tennis Club",
+   "start": {
+    "dateTime": "2026-07-16T19:00:00-07:00",
+    "timeZone": "America/Los_Angeles"
+   },
+   "end": {
+    "dateTime": "2026-07-16T20:30:00-07:00",
+    "timeZone": "America/Los_Angeles"
+   },
+   "recurringEventId": "tennisdoublesthursday"
+  },
+  {
+   "kind": "calendar#event",
+   "id": "f9327780c80350f09f65ba8f8c",
+   "status": "confirmed",
+   "summary": "Dinner — Spice Route Thai",
+   "location": "2289 Telegraph Ave, Oakland, CA",
+   "start": {
+    "dateTime": "2026-07-17T19:00:00-07:00",
+    "timeZone": "America/Los_Angeles"
+   },
+   "end": {
+    "dateTime": "2026-07-17T21:00:00-07:00",
+    "timeZone": "America/Los_Angeles"
+   }
+  },
+  {
+   "kind": "calendar#event",
+   "id": "48a7094d7aad5c7ab8e485e65c",
+   "status": "confirmed",
+   "summary": "Tennis lesson w/ Daniel",
+   "location": "Courtside Tennis Club",
+   "start": {
+    "dateTime": "2026-07-18T09:00:00-07:00",
+    "timeZone": "America/Los_Angeles"
+   },
+   "end": {
+    "dateTime": "2026-07-18T10:00:00-07:00",
+    "timeZone": "America/Los_Angeles"
+   }
+  },
+  {
+   "kind": "calendar#event",
+   "id": "5944620d993958b7a9e9ca269e",
+   "status": "confirmed",
+   "summary": "BBQ at the Parks'",
+   "location": "the Parks' backyard",
+   "start": {
+    "dateTime": "2026-07-18T17:00:00-07:00",
+    "timeZone": "America/Los_Angeles"
+   },
+   "end": {
+    "dateTime": "2026-07-18T21:00:00-07:00",
+    "timeZone": "America/Los_Angeles"
+   }
+  },
+  {
+   "kind": "calendar#event",
+   "id": "eda2f9440e22531ab8b6acd431",
+   "status": "confirmed",
+   "summary": "Project sync",
+   "location": "Conf room Juniper",
+   "start": {
+    "dateTime": "2026-07-20T09:30:00-07:00",
+    "timeZone": "America/Los_Angeles"
+   },
+   "end": {
+    "dateTime": "2026-07-20T10:00:00-07:00",
+    "timeZone": "America/Los_Angeles"
+   },
+   "recurringEventId": "projectsyncmonday"
+  },
+  {
+   "kind": "calendar#event",
+   "id": "72e22128380b513980bd05d30c",
+   "status": "confirmed",
+   "summary": "1:1 with Dana",
+   "location": "Zoom",
+   "start": {
+    "dateTime": "2026-07-21T10:00:00-07:00",
+    "timeZone": "America/Los_Angeles"
+   },
+   "end": {
+    "dateTime": "2026-07-21T10:30:00-07:00",
+    "timeZone": "America/Los_Angeles"
+   },
+   "recurringEventId": "oneononedana"
+  },
+  {
+   "kind": "calendar#event",
+   "id": "a9b215af51855705b1059f3c59",
+   "status": "confirmed",
+   "summary": "Leo — dentist",
+   "location": "Grand Lake Dental",
+   "start": {
+    "dateTime": "2026-07-22T15:30:00-07:00",
+    "timeZone": "America/Los_Angeles"
+   },
+   "end": {
+    "dateTime": "2026-07-22T16:30:00-07:00",
+    "timeZone": "America/Los_Angeles"
+   }
+  },
+  {
+   "kind": "calendar#event",
+   "id": "794b240feb7356d197ed59682a",
+   "status": "confirmed",
+   "summary": "Tennis doubles",
+   "location": "Courtside Tennis Club",
+   "start": {
+    "dateTime": "2026-07-23T19:00:00-07:00",
+    "timeZone": "America/Los_Angeles"
+   },
+   "end": {
+    "dateTime": "2026-07-23T20:30:00-07:00",
+    "timeZone": "America/Los_Angeles"
+   },
+   "recurringEventId": "tennisdoublesthursday"
+  },
+  {
+   "kind": "calendar#event",
+   "id": "d4eaf914398d52f7a839d68c11",
+   "status": "confirmed",
+   "summary": "Project sync",
+   "location": "Conf room Juniper",
+   "start": {
+    "dateTime": "2026-07-27T09:30:00-07:00",
+    "timeZone": "America/Los_Angeles"
+   },
+   "end": {
+    "dateTime": "2026-07-27T10:00:00-07:00",
+    "timeZone": "America/Los_Angeles"
+   },
+   "recurringEventId": "projectsyncmonday"
+  },
+  {
+   "kind": "calendar#event",
+   "id": "0702c560774f5e089a64011b0c",
+   "status": "confirmed",
+   "summary": "1:1 with Dana",
+   "location": "Zoom",
+   "start": {
+    "dateTime": "2026-07-28T10:00:00-07:00",
+    "timeZone": "America/Los_Angeles"
+   },
+   "end": {
+    "dateTime": "2026-07-28T10:30:00-07:00",
+    "timeZone": "America/Los_Angeles"
+   },
+   "recurringEventId": "oneononedana"
+  },
+  {
+   "kind": "calendar#event",
+   "id": "9ed66a8ef50c5e83bf979dbf18",
+   "status": "confirmed",
+   "summary": "Q3 roadmap review",
+   "location": "Conf room Sequoia",
+   "start": {
+    "dateTime": "2026-07-29T13:00:00-07:00",
+    "timeZone": "America/Los_Angeles"
+   },
+   "end": {
+    "dateTime": "2026-07-29T15:00:00-07:00",
+    "timeZone": "America/Los_Angeles"
+   }
+  },
+  {
+   "kind": "calendar#event",
+   "id": "1ee398e09d8f59899b1384a90e",
+   "status": "confirmed",
+   "summary": "Tennis doubles",
+   "location": "Courtside Tennis Club",
+   "start": {
+    "dateTime": "2026-07-30T19:00:00-07:00",
+    "timeZone": "America/Los_Angeles"
+   },
+   "end": {
+    "dateTime": "2026-07-30T20:30:00-07:00",
+    "timeZone": "America/Los_Angeles"
+   },
+   "recurringEventId": "tennisdoublesthursday"
+  },
+  {
+   "kind": "calendar#event",
+   "id": "510ec0e761225424acf0ad0d5d",
+   "status": "confirmed",
+   "summary": "Dinner — Sora Sushi",
+   "location": "3317 Lakeshore Ave, Oakland, CA",
+   "start": {
+    "dateTime": "2026-07-31T19:00:00-07:00",
+    "timeZone": "America/Los_Angeles"
+   },
+   "end": {
+    "dateTime": "2026-07-31T21:00:00-07:00",
+    "timeZone": "America/Los_Angeles"
+   }
+  },
+  {
+   "kind": "calendar#event",
+   "id": "b61d8352bbb35d3f9f49efe1b0",
+   "status": "confirmed",
+   "summary": "Tennis lesson w/ Daniel",
+   "location": "Courtside Tennis Club",
+   "start": {
+    "dateTime": "2026-08-01T09:00:00-07:00",
+    "timeZone": "America/Los_Angeles"
+   },
+   "end": {
+    "dateTime": "2026-08-01T10:00:00-07:00",
+    "timeZone": "America/Los_Angeles"
+   }
+  },
+  {
+   "kind": "calendar#event",
+   "id": "c10b44dbf77152ecb911451fe2",
+   "status": "confirmed",
+   "summary": "Project sync",
+   "location": "Conf room Juniper",
+   "start": {
+    "dateTime": "2026-08-03T09:30:00-07:00",
+    "timeZone": "America/Los_Angeles"
+   },
+   "end": {
+    "dateTime": "2026-08-03T10:00:00-07:00",
+    "timeZone": "America/Los_Angeles"
+   },
+   "recurringEventId": "projectsyncmonday"
+  },
+  {
+   "kind": "calendar#event",
+   "id": "6d3cc6edc6105813ae816026e8",
+   "status": "confirmed",
+   "summary": "1:1 with Dana",
+   "location": "Zoom",
+   "start": {
+    "dateTime": "2026-08-04T10:00:00-07:00",
+    "timeZone": "America/Los_Angeles"
+   },
+   "end": {
+    "dateTime": "2026-08-04T10:30:00-07:00",
+    "timeZone": "America/Los_Angeles"
+   },
+   "recurringEventId": "oneononedana"
+  },
+  {
+   "kind": "calendar#event",
+   "id": "5018a57789995d8f9965a18fd3",
+   "status": "confirmed",
+   "summary": "Tennis doubles",
+   "location": "Courtside Tennis Club",
+   "start": {
+    "dateTime": "2026-08-06T19:00:00-07:00",
+    "timeZone": "America/Los_Angeles"
+   },
+   "end": {
+    "dateTime": "2026-08-06T20:30:00-07:00",
+    "timeZone": "America/Los_Angeles"
+   },
+   "recurringEventId": "tennisdoublesthursday"
+  },
+  {
+   "kind": "calendar#event",
+   "id": "32cbfe7f1c0b5f2094eeea0c75",
+   "status": "confirmed",
+   "summary": "Dinner — Mesa Verde Cantina",
+   "location": "1820 Fruitvale Ave, Oakland, CA",
+   "start": {
+    "dateTime": "2026-08-07T19:00:00-07:00",
+    "timeZone": "America/Los_Angeles"
+   },
+   "end": {
+    "dateTime": "2026-08-07T21:00:00-07:00",
+    "timeZone": "America/Los_Angeles"
+   }
+  },
+  {
+   "kind": "calendar#event",
+   "id": "d92ad998ac245552adfd9e5d77",
+   "status": "confirmed",
+   "summary": "Dinner at ours — the Nguyens",
+   "location": "Home",
+   "start": {
+    "dateTime": "2026-08-08T18:00:00-07:00",
+    "timeZone": "America/Los_Angeles"
+   },
+   "end": {
+    "dateTime": "2026-08-08T22:00:00-07:00",
+    "timeZone": "America/Los_Angeles"
+   }
+  },
+  {
+   "kind": "calendar#event",
+   "id": "f29d1c2d686a56fa933f658de4",
+   "status": "confirmed",
+   "summary": "Project sync",
+   "location": "Conf room Juniper",
+   "start": {
+    "dateTime": "2026-08-10T09:30:00-07:00",
+    "timeZone": "America/Los_Angeles"
+   },
+   "end": {
+    "dateTime": "2026-08-10T10:00:00-07:00",
+    "timeZone": "America/Los_Angeles"
+   },
+   "recurringEventId": "projectsyncmonday"
+  },
+  {
+   "kind": "calendar#event",
+   "id": "7e805808d7c5554db0975e6aca",
+   "status": "confirmed",
+   "summary": "1:1 with Dana",
+   "location": "Zoom",
+   "start": {
+    "dateTime": "2026-08-11T10:00:00-07:00",
+    "timeZone": "America/Los_Angeles"
+   },
+   "end": {
+    "dateTime": "2026-08-11T10:30:00-07:00",
+    "timeZone": "America/Los_Angeles"
+   },
+   "recurringEventId": "oneononedana"
+  },
+  {
+   "kind": "calendar#event",
+   "id": "ba03600899ca577883f3b222b9",
+   "status": "confirmed",
+   "summary": "Book club @ Anna's",
+   "location": "Anna's place",
+   "start": {
+    "dateTime": "2026-08-12T19:00:00-07:00",
+    "timeZone": "America/Los_Angeles"
+   },
+   "end": {
+    "dateTime": "2026-08-12T21:00:00-07:00",
+    "timeZone": "America/Los_Angeles"
+   }
+  },
+  {
+   "kind": "calendar#event",
+   "id": "352eaacdbced5a2a8e6e33f4d4",
+   "status": "confirmed",
+   "summary": "Tennis doubles",
+   "location": "Courtside Tennis Club",
+   "start": {
+    "dateTime": "2026-08-13T19:00:00-07:00",
+    "timeZone": "America/Los_Angeles"
+   },
+   "end": {
+    "dateTime": "2026-08-13T20:30:00-07:00",
+    "timeZone": "America/Los_Angeles"
+   },
+   "recurringEventId": "tennisdoublesthursday"
+  },
+  {
+   "kind": "calendar#event",
+   "id": "9f984439aa695245b9dbecb33f",
+   "status": "confirmed",
+   "summary": "Dinner — Osteria Lucca",
+   "location": "5940 College Ave, Oakland, CA",
+   "start": {
+    "dateTime": "2026-08-14T19:00:00-07:00",
+    "timeZone": "America/Los_Angeles"
+   },
+   "end": {
+    "dateTime": "2026-08-14T21:00:00-07:00",
+    "timeZone": "America/Los_Angeles"
+   }
+  },
+  {
+   "kind": "calendar#event",
+   "id": "07cdb3c4bfb8503d86d4627e0f",
+   "status": "confirmed",
+   "summary": "Project sync",
+   "location": "Conf room Juniper",
+   "start": {
+    "dateTime": "2026-08-17T09:30:00-07:00",
+    "timeZone": "America/Los_Angeles"
+   },
+   "end": {
+    "dateTime": "2026-08-17T10:00:00-07:00",
+    "timeZone": "America/Los_Angeles"
+   },
+   "recurringEventId": "projectsyncmonday"
+  },
+  {
+   "kind": "calendar#event",
+   "id": "ed0800ea733753a0823309f59f",
+   "status": "confirmed",
+   "summary": "1:1 with Dana",
+   "location": "Zoom",
+   "start": {
+    "dateTime": "2026-08-18T10:00:00-07:00",
+    "timeZone": "America/Los_Angeles"
+   },
+   "end": {
+    "dateTime": "2026-08-18T10:30:00-07:00",
+    "timeZone": "America/Los_Angeles"
+   },
+   "recurringEventId": "oneononedana"
+  },
+  {
+   "kind": "calendar#event",
+   "id": "c20dbaface5954038c9844ecf8",
+   "status": "confirmed",
+   "summary": "Tennis doubles",
+   "location": "Courtside Tennis Club",
+   "start": {
+    "dateTime": "2026-08-20T19:00:00-07:00",
+    "timeZone": "America/Los_Angeles"
+   },
+   "end": {
+    "dateTime": "2026-08-20T20:30:00-07:00",
+    "timeZone": "America/Los_Angeles"
+   },
+   "recurringEventId": "tennisdoublesthursday"
+  },
+  {
+   "kind": "calendar#event",
+   "id": "6f7b3c0bffb958daa9c76ca21d",
+   "status": "confirmed",
+   "summary": "Dinner — Rosemary & Vine",
+   "location": "4120 Piedmont Ave, Oakland, CA",
+   "start": {
+    "dateTime": "2026-08-21T19:00:00-07:00",
+    "timeZone": "America/Los_Angeles"
+   },
+   "end": {
+    "dateTime": "2026-08-21T21:00:00-07:00",
+    "timeZone": "America/Los_Angeles"
+   }
+  },
+  {
+   "kind": "calendar#event",
+   "id": "cc9f1d48ae0155f3b79a47310a",
+   "status": "confirmed",
+   "summary": "Girls' night @ Sarah's",
+   "location": "Sarah's place",
+   "start": {
+    "dateTime": "2026-08-22T19:00:00-07:00",
+    "timeZone": "America/Los_Angeles"
+   },
+   "end": {
+    "dateTime": "2026-08-22T23:00:00-07:00",
+    "timeZone": "America/Los_Angeles"
+   }
+  },
+  {
+   "kind": "calendar#event",
+   "id": "fe91e9d7946659379a1f9012f9",
+   "status": "confirmed",
+   "summary": "Project sync",
+   "location": "Conf room Juniper",
+   "start": {
+    "dateTime": "2026-08-24T09:30:00-07:00",
+    "timeZone": "America/Los_Angeles"
+   },
+   "end": {
+    "dateTime": "2026-08-24T10:00:00-07:00",
+    "timeZone": "America/Los_Angeles"
+   },
+   "recurringEventId": "projectsyncmonday"
+  },
+  {
+   "kind": "calendar#event",
+   "id": "2ccf7049a442584fa6ce7ce228",
+   "status": "confirmed",
+   "summary": "1:1 with Dana",
+   "location": "Zoom",
+   "start": {
+    "dateTime": "2026-08-25T10:00:00-07:00",
+    "timeZone": "America/Los_Angeles"
+   },
+   "end": {
+    "dateTime": "2026-08-25T10:30:00-07:00",
+    "timeZone": "America/Los_Angeles"
+   },
+   "recurringEventId": "oneononedana"
+  },
+  {
+   "kind": "calendar#event",
+   "id": "265230364e785607a2017b8818",
+   "status": "confirmed",
+   "summary": "Dinner — Sora Sushi",
+   "location": "3317 Lakeshore Ave, Oakland, CA",
+   "start": {
+    "dateTime": "2026-08-26T19:00:00-07:00",
+    "timeZone": "America/Los_Angeles"
+   },
+   "end": {
+    "dateTime": "2026-08-26T21:00:00-07:00",
+    "timeZone": "America/Los_Angeles"
+   }
+  },
+  {
+   "kind": "calendar#event",
+   "id": "af775f9d97945e938b39d84ef6",
+   "status": "confirmed",
+   "summary": "Back-to-school night",
+   "location": "Oakwood Middle School",
+   "start": {
+    "dateTime": "2026-08-27T18:30:00-07:00",
+    "timeZone": "America/Los_Angeles"
+   },
+   "end": {
+    "dateTime": "2026-08-27T20:00:00-07:00",
+    "timeZone": "America/Los_Angeles"
+   }
+  },
+  {
+   "kind": "calendar#event",
+   "id": "bc4db4d01eeb5e8bacfaca5ff7",
+   "status": "confirmed",
+   "summary": "Dinner — Spice Route Thai",
+   "location": "2289 Telegraph Ave, Oakland, CA",
+   "start": {
+    "dateTime": "2026-08-28T19:00:00-07:00",
+    "timeZone": "America/Los_Angeles"
+   },
+   "end": {
+    "dateTime": "2026-08-28T21:00:00-07:00",
+    "timeZone": "America/Los_Angeles"
+   }
+  },
+  {
+   "kind": "calendar#event",
+   "id": "5e4a8696ed615920ac7008112a",
+   "status": "confirmed",
+   "summary": "Tennis lesson w/ Daniel",
+   "location": "Courtside Tennis Club",
+   "start": {
+    "dateTime": "2026-08-29T09:00:00-07:00",
+    "timeZone": "America/Los_Angeles"
+   },
+   "end": {
+    "dateTime": "2026-08-29T10:00:00-07:00",
+    "timeZone": "America/Los_Angeles"
+   }
+  },
+  {
+   "kind": "calendar#event",
+   "id": "893a451a67bb5b31ab38d297bf",
+   "status": "confirmed",
+   "summary": "Project sync",
+   "location": "Conf room Juniper",
+   "start": {
+    "dateTime": "2026-08-31T09:30:00-07:00",
+    "timeZone": "America/Los_Angeles"
+   },
+   "end": {
+    "dateTime": "2026-08-31T10:00:00-07:00",
+    "timeZone": "America/Los_Angeles"
+   },
+   "recurringEventId": "projectsyncmonday"
+  },
+  {
+   "kind": "calendar#event",
+   "id": "5c4003cc8d1c5df0879b10e75e",
+   "status": "confirmed",
+   "summary": "1:1 with Dana",
+   "location": "Zoom",
+   "start": {
+    "dateTime": "2026-09-01T10:00:00-07:00",
+    "timeZone": "America/Los_Angeles"
+   },
+   "end": {
+    "dateTime": "2026-09-01T10:30:00-07:00",
+    "timeZone": "America/Los_Angeles"
+   },
+   "recurringEventId": "oneononedana"
+  },
+  {
+   "kind": "calendar#event",
+   "id": "96fdb183ca2a5eb48d7ffe3dd0",
+   "status": "confirmed",
+   "summary": "Annual exam — Dr. Ruiz",
+   "location": "350 30th St, Suite 400, Oakland, CA",
+   "start": {
+    "dateTime": "2026-09-02T10:00:00-07:00",
+    "timeZone": "America/Los_Angeles"
+   },
+   "end": {
+    "dateTime": "2026-09-02T11:00:00-07:00",
+    "timeZone": "America/Los_Angeles"
+   }
+  },
+  {
+   "kind": "calendar#event",
+   "id": "cabe58b9817252078bc16bccb2",
+   "status": "confirmed",
+   "summary": "Tennis doubles",
+   "location": "Courtside Tennis Club",
+   "start": {
+    "dateTime": "2026-09-03T19:00:00-07:00",
+    "timeZone": "America/Los_Angeles"
+   },
+   "end": {
+    "dateTime": "2026-09-03T20:30:00-07:00",
+    "timeZone": "America/Los_Angeles"
+   },
+   "recurringEventId": "tennisdoublesthursday"
+  },
+  {
+   "kind": "calendar#event",
+   "id": "f58949e738a655a4a33f73c0b2",
+   "status": "confirmed",
+   "summary": "Project sync",
+   "location": "Conf room Juniper",
+   "start": {
+    "dateTime": "2026-09-07T09:30:00-07:00",
+    "timeZone": "America/Los_Angeles"
+   },
+   "end": {
+    "dateTime": "2026-09-07T10:00:00-07:00",
+    "timeZone": "America/Los_Angeles"
+   },
+   "recurringEventId": "projectsyncmonday"
+  },
+  {
+   "kind": "calendar#event",
+   "id": "92af79c670795172b525f6a054",
+   "status": "confirmed",
+   "summary": "1:1 with Dana",
+   "location": "Zoom",
+   "start": {
+    "dateTime": "2026-09-08T10:00:00-07:00",
+    "timeZone": "America/Los_Angeles"
+   },
+   "end": {
+    "dateTime": "2026-09-08T10:30:00-07:00",
+    "timeZone": "America/Los_Angeles"
+   },
+   "recurringEventId": "oneononedana"
+  },
+  {
+   "kind": "calendar#event",
+   "id": "8fb105ca88fa5279a72fe4aa65",
+   "status": "confirmed",
+   "summary": "Book club @ Anna's",
+   "location": "Anna's place",
+   "start": {
+    "dateTime": "2026-09-09T19:00:00-07:00",
+    "timeZone": "America/Los_Angeles"
+   },
+   "end": {
+    "dateTime": "2026-09-09T21:00:00-07:00",
+    "timeZone": "America/Los_Angeles"
+   }
+  },
+  {
+   "kind": "calendar#event",
+   "id": "396c772486cb59edb5474e8a35",
+   "status": "confirmed",
+   "summary": "Tennis doubles",
+   "location": "Courtside Tennis Club",
+   "start": {
+    "dateTime": "2026-09-10T19:00:00-07:00",
+    "timeZone": "America/Los_Angeles"
+   },
+   "end": {
+    "dateTime": "2026-09-10T20:30:00-07:00",
+    "timeZone": "America/Los_Angeles"
+   },
+   "recurringEventId": "tennisdoublesthursday"
+  },
+  {
+   "kind": "calendar#event",
+   "id": "dc725c637e7e50ce980457fd73",
+   "status": "confirmed",
+   "summary": "Dinner — Mesa Verde Cantina",
+   "location": "1820 Fruitvale Ave, Oakland, CA",
+   "start": {
+    "dateTime": "2026-09-11T19:00:00-07:00",
+    "timeZone": "America/Los_Angeles"
+   },
+   "end": {
+    "dateTime": "2026-09-11T21:00:00-07:00",
+    "timeZone": "America/Los_Angeles"
+   }
+  },
+  {
+   "kind": "calendar#event",
+   "id": "73413d41e20e5581858233b373",
+   "status": "confirmed",
+   "summary": "Leo — soccer game",
+   "location": "Bushrod Park",
+   "start": {
+    "dateTime": "2026-09-12T10:00:00-07:00",
+    "timeZone": "America/Los_Angeles"
+   },
+   "end": {
+    "dateTime": "2026-09-12T11:30:00-07:00",
+    "timeZone": "America/Los_Angeles"
+   },
+   "recurringEventId": "leosoccer"
+  },
+  {
+   "kind": "calendar#event",
+   "id": "26c9361efe6d5f6baac0e120ae",
+   "status": "confirmed",
+   "summary": "Project sync",
+   "location": "Conf room Juniper",
+   "start": {
+    "dateTime": "2026-09-14T09:30:00-07:00",
+    "timeZone": "America/Los_Angeles"
+   },
+   "end": {
+    "dateTime": "2026-09-14T10:00:00-07:00",
+    "timeZone": "America/Los_Angeles"
+   },
+   "recurringEventId": "projectsyncmonday"
+  },
+  {
+   "kind": "calendar#event",
+   "id": "d5fda3646969507c965a84ef2f",
+   "status": "confirmed",
+   "summary": "1:1 with Dana",
+   "location": "Zoom",
+   "start": {
+    "dateTime": "2026-09-15T10:00:00-07:00",
+    "timeZone": "America/Los_Angeles"
+   },
+   "end": {
+    "dateTime": "2026-09-15T10:30:00-07:00",
+    "timeZone": "America/Los_Angeles"
+   },
+   "recurringEventId": "oneononedana"
+  },
+  {
+   "kind": "calendar#event",
+   "id": "9b2ca53e18a651cfa73eed44ef",
+   "status": "confirmed",
+   "summary": "Team offsite (workshops)",
+   "location": "Lakeside Grill, Oakland",
+   "start": {
+    "dateTime": "2026-09-17T13:00:00-07:00",
+    "timeZone": "America/Los_Angeles"
+   },
+   "end": {
+    "dateTime": "2026-09-17T17:00:00-07:00",
+    "timeZone": "America/Los_Angeles"
+   }
+  },
+  {
+   "kind": "calendar#event",
+   "id": "fa7875c6e19f5dde8ec7a8a0f8",
+   "status": "confirmed",
+   "summary": "Team offsite dinner",
+   "location": "Lakeside Grill, Oakland",
+   "start": {
+    "dateTime": "2026-09-17T18:00:00-07:00",
+    "timeZone": "America/Los_Angeles"
+   },
+   "end": {
+    "dateTime": "2026-09-17T21:00:00-07:00",
+    "timeZone": "America/Los_Angeles"
+   }
+  },
+  {
+   "kind": "calendar#event",
+   "id": "4ff778ea88225fe4a192e4f9cc",
+   "status": "confirmed",
+   "summary": "Dinner — Spice Route Thai",
+   "location": "2289 Telegraph Ave, Oakland, CA",
+   "start": {
+    "dateTime": "2026-09-18T19:00:00-07:00",
+    "timeZone": "America/Los_Angeles"
+   },
+   "end": {
+    "dateTime": "2026-09-18T21:00:00-07:00",
+    "timeZone": "America/Los_Angeles"
+   }
+  },
+  {
+   "kind": "calendar#event",
+   "id": "497a482d4e055c6187176e4f63",
+   "status": "confirmed",
+   "summary": "Tennis lesson w/ Daniel",
+   "location": "Courtside Tennis Club",
+   "start": {
+    "dateTime": "2026-09-19T09:00:00-07:00",
+    "timeZone": "America/Los_Angeles"
+   },
+   "end": {
+    "dateTime": "2026-09-19T10:00:00-07:00",
+    "timeZone": "America/Los_Angeles"
+   }
+  },
+  {
+   "kind": "calendar#event",
+   "id": "95c6b56c7eba5be880315e28ac",
+   "status": "confirmed",
+   "summary": "Leo — soccer game",
+   "location": "Bushrod Park",
+   "start": {
+    "dateTime": "2026-09-19T10:00:00-07:00",
+    "timeZone": "America/Los_Angeles"
+   },
+   "end": {
+    "dateTime": "2026-09-19T11:30:00-07:00",
+    "timeZone": "America/Los_Angeles"
+   },
+   "recurringEventId": "leosoccer"
+  },
+  {
+   "kind": "calendar#event",
+   "id": "d3564249649e5faa9c0bf9822f",
+   "status": "confirmed",
+   "summary": "Project sync",
+   "location": "Conf room Juniper",
+   "start": {
+    "dateTime": "2026-09-21T09:30:00-07:00",
+    "timeZone": "America/Los_Angeles"
+   },
+   "end": {
+    "dateTime": "2026-09-21T10:00:00-07:00",
+    "timeZone": "America/Los_Angeles"
+   },
+   "recurringEventId": "projectsyncmonday"
+  },
+  {
+   "kind": "calendar#event",
+   "id": "94a86a2f314a51f7b34b2cd608",
+   "status": "confirmed",
+   "summary": "1:1 with Dana",
+   "location": "Zoom",
+   "start": {
+    "dateTime": "2026-09-22T10:00:00-07:00",
+    "timeZone": "America/Los_Angeles"
+   },
+   "end": {
+    "dateTime": "2026-09-22T10:30:00-07:00",
+    "timeZone": "America/Los_Angeles"
+   },
+   "recurringEventId": "oneononedana"
+  },
+  {
+   "kind": "calendar#event",
+   "id": "1cf7264fba415c18a7fd11fe1a",
+   "status": "confirmed",
+   "summary": "Tennis doubles",
+   "location": "Courtside Tennis Club",
+   "start": {
+    "dateTime": "2026-09-24T19:00:00-07:00",
+    "timeZone": "America/Los_Angeles"
+   },
+   "end": {
+    "dateTime": "2026-09-24T20:30:00-07:00",
+    "timeZone": "America/Los_Angeles"
+   },
+   "recurringEventId": "tennisdoublesthursday"
+  },
+  {
+   "kind": "calendar#event",
+   "id": "43e6bd5f99bd57be81268b3923",
+   "status": "confirmed",
+   "summary": "Dinner — Rosemary & Vine",
+   "location": "4120 Piedmont Ave, Oakland, CA",
+   "start": {
+    "dateTime": "2026-09-25T19:00:00-07:00",
+    "timeZone": "America/Los_Angeles"
+   },
+   "end": {
+    "dateTime": "2026-09-25T21:00:00-07:00",
+    "timeZone": "America/Los_Angeles"
+   }
+  },
+  {
+   "kind": "calendar#event",
+   "id": "043816ab5daa5f2cbeff7746ca",
+   "status": "confirmed",
+   "summary": "Leo — soccer game",
+   "location": "Bushrod Park",
+   "start": {
+    "dateTime": "2026-09-26T10:00:00-07:00",
+    "timeZone": "America/Los_Angeles"
+   },
+   "end": {
+    "dateTime": "2026-09-26T11:30:00-07:00",
+    "timeZone": "America/Los_Angeles"
+   },
+   "recurringEventId": "leosoccer"
+  },
+  {
+   "kind": "calendar#event",
+   "id": "bbd1cc8a0f225d4a929dd4a367",
+   "status": "confirmed",
+   "summary": "Project sync",
+   "location": "Conf room Juniper",
+   "start": {
+    "dateTime": "2026-09-28T09:30:00-07:00",
+    "timeZone": "America/Los_Angeles"
+   },
+   "end": {
+    "dateTime": "2026-09-28T10:00:00-07:00",
+    "timeZone": "America/Los_Angeles"
+   },
+   "recurringEventId": "projectsyncmonday"
+  },
+  {
+   "kind": "calendar#event",
+   "id": "9061ccb35c895f4ab391583377",
+   "status": "confirmed",
+   "summary": "1:1 with Dana",
+   "location": "Zoom",
+   "start": {
+    "dateTime": "2026-09-29T10:00:00-07:00",
+    "timeZone": "America/Los_Angeles"
+   },
+   "end": {
+    "dateTime": "2026-09-29T10:30:00-07:00",
+    "timeZone": "America/Los_Angeles"
+   },
+   "recurringEventId": "oneononedana"
+  },
+  {
+   "kind": "calendar#event",
+   "id": "7e2c29d573c15f60bd57c9108c",
+   "status": "confirmed",
+   "summary": "Haircut",
+   "location": "Studio Nine",
+   "start": {
+    "dateTime": "2026-09-30T12:00:00-07:00",
+    "timeZone": "America/Los_Angeles"
+   },
+   "end": {
+    "dateTime": "2026-09-30T13:00:00-07:00",
+    "timeZone": "America/Los_Angeles"
+   }
+  },
+  {
+   "kind": "calendar#event",
+   "id": "ea4aa00b59c05f32b7bcaeecae",
+   "status": "confirmed",
+   "summary": "Tennis doubles",
+   "location": "Courtside Tennis Club",
+   "start": {
+    "dateTime": "2026-10-01T19:00:00-07:00",
+    "timeZone": "America/Los_Angeles"
+   },
+   "end": {
+    "dateTime": "2026-10-01T20:30:00-07:00",
+    "timeZone": "America/Los_Angeles"
+   },
+   "recurringEventId": "tennisdoublesthursday"
+  },
+  {
+   "kind": "calendar#event",
+   "id": "328a26b58d86524fa268e02c50",
+   "status": "confirmed",
+   "summary": "Dinner — Sora Sushi",
+   "location": "3317 Lakeshore Ave, Oakland, CA",
+   "start": {
+    "dateTime": "2026-10-02T19:00:00-07:00",
+    "timeZone": "America/Los_Angeles"
+   },
+   "end": {
+    "dateTime": "2026-10-02T21:00:00-07:00",
+    "timeZone": "America/Los_Angeles"
+   }
+  },
+  {
+   "kind": "calendar#event",
+   "id": "60dfed9d46145c2da1123ac945",
+   "status": "confirmed",
+   "summary": "Leo — soccer game",
+   "location": "Bushrod Park",
+   "start": {
+    "dateTime": "2026-10-03T10:00:00-07:00",
+    "timeZone": "America/Los_Angeles"
+   },
+   "end": {
+    "dateTime": "2026-10-03T11:30:00-07:00",
+    "timeZone": "America/Los_Angeles"
+   },
+   "recurringEventId": "leosoccer"
+  },
+  {
+   "kind": "calendar#event",
+   "id": "a9408d5d99b85c85926ba77356",
+   "status": "confirmed",
+   "summary": "Girls' night @ Sarah's",
+   "location": "Sarah's place",
+   "start": {
+    "dateTime": "2026-10-03T19:00:00-07:00",
+    "timeZone": "America/Los_Angeles"
+   },
+   "end": {
+    "dateTime": "2026-10-03T23:00:00-07:00",
+    "timeZone": "America/Los_Angeles"
+   }
+  },
+  {
+   "kind": "calendar#event",
+   "id": "0cde9c0b38145cb2b63a4539dd",
+   "status": "confirmed",
+   "summary": "Project sync",
+   "location": "Conf room Juniper",
+   "start": {
+    "dateTime": "2026-10-05T09:30:00-07:00",
+    "timeZone": "America/Los_Angeles"
+   },
+   "end": {
+    "dateTime": "2026-10-05T10:00:00-07:00",
+    "timeZone": "America/Los_Angeles"
+   },
+   "recurringEventId": "projectsyncmonday"
+  },
+  {
+   "kind": "calendar#event",
+   "id": "45efa7dfefd051e3a50e20d5b7",
+   "status": "confirmed",
+   "summary": "1:1 with Dana",
+   "location": "Zoom",
+   "start": {
+    "dateTime": "2026-10-06T10:00:00-07:00",
+    "timeZone": "America/Los_Angeles"
+   },
+   "end": {
+    "dateTime": "2026-10-06T10:30:00-07:00",
+    "timeZone": "America/Los_Angeles"
+   },
+   "recurringEventId": "oneononedana"
+  },
+  {
+   "kind": "calendar#event",
+   "id": "31ded2cb757455418da74bf52d",
+   "status": "confirmed",
+   "summary": "Tennis doubles",
+   "location": "Courtside Tennis Club",
+   "start": {
+    "dateTime": "2026-10-08T19:00:00-07:00",
+    "timeZone": "America/Los_Angeles"
+   },
+   "end": {
+    "dateTime": "2026-10-08T20:30:00-07:00",
+    "timeZone": "America/Los_Angeles"
+   },
+   "recurringEventId": "tennisdoublesthursday"
+  },
+  {
+   "kind": "calendar#event",
+   "id": "0f10a45c340253449cf4d4d308",
+   "status": "confirmed",
+   "summary": "Dinner — Osteria Lucca",
+   "location": "5940 College Ave, Oakland, CA",
+   "start": {
+    "dateTime": "2026-10-09T19:00:00-07:00",
+    "timeZone": "America/Los_Angeles"
+   },
+   "end": {
+    "dateTime": "2026-10-09T21:00:00-07:00",
+    "timeZone": "America/Los_Angeles"
+   }
+  },
+  {
+   "kind": "calendar#event",
+   "id": "860d0bbd4e0d51a8b45b5116bb",
+   "status": "confirmed",
+   "summary": "Leo — soccer game",
+   "location": "Bushrod Park",
+   "start": {
+    "dateTime": "2026-10-10T10:00:00-07:00",
+    "timeZone": "America/Los_Angeles"
+   },
+   "end": {
+    "dateTime": "2026-10-10T11:30:00-07:00",
+    "timeZone": "America/Los_Angeles"
+   },
+   "recurringEventId": "leosoccer"
+  },
+  {
+   "kind": "calendar#event",
+   "id": "9e7b37b527e05c93882ae1ebe9",
+   "status": "confirmed",
+   "summary": "Project sync",
+   "location": "Conf room Juniper",
+   "start": {
+    "dateTime": "2026-10-12T09:30:00-07:00",
+    "timeZone": "America/Los_Angeles"
+   },
+   "end": {
+    "dateTime": "2026-10-12T10:00:00-07:00",
+    "timeZone": "America/Los_Angeles"
+   },
+   "recurringEventId": "projectsyncmonday"
+  },
+  {
+   "kind": "calendar#event",
+   "id": "e436e4a4e7e6527fa663254b23",
+   "status": "confirmed",
+   "summary": "1:1 with Dana",
+   "location": "Zoom",
+   "start": {
+    "dateTime": "2026-10-13T10:00:00-07:00",
+    "timeZone": "America/Los_Angeles"
+   },
+   "end": {
+    "dateTime": "2026-10-13T10:30:00-07:00",
+    "timeZone": "America/Los_Angeles"
+   },
+   "recurringEventId": "oneononedana"
+  },
+  {
+   "kind": "calendar#event",
+   "id": "9aed883974fa579c8eb9398fcb",
+   "status": "confirmed",
+   "summary": "Seattle — client workshop",
+   "location": "Seattle, WA",
+   "start": {
+    "date": "2026-10-14"
+   },
+   "end": {
+    "date": "2026-10-17"
+   }
+  },
+  {
+   "kind": "calendar#event",
+   "id": "80db441206d45f00ae907b418e",
+   "status": "confirmed",
+   "summary": "Flight BL 412 OAK→SEA",
+   "location": "Oakland International Airport",
+   "start": {
+    "dateTime": "2026-10-14T07:15:00-07:00",
+    "timeZone": "America/Los_Angeles"
+   },
+   "end": {
+    "dateTime": "2026-10-14T09:20:00-07:00",
+    "timeZone": "America/Los_Angeles"
+   }
+  },
+  {
+   "kind": "calendar#event",
+   "id": "f60f465317ce5484aec6657915",
+   "status": "confirmed",
+   "summary": "Team dinner — Seattle workshop",
+   "location": "Seattle",
+   "start": {
+    "dateTime": "2026-10-15T18:00:00-07:00",
+    "timeZone": "America/Los_Angeles"
+   },
+   "end": {
+    "dateTime": "2026-10-15T20:00:00-07:00",
+    "timeZone": "America/Los_Angeles"
+   }
+  },
+  {
+   "kind": "calendar#event",
+   "id": "4171dc71a1085120846290ca4c",
+   "status": "confirmed",
+   "summary": "Flight BL 419 SEA→OAK",
+   "location": "Seattle-Tacoma International Airport",
+   "start": {
+    "dateTime": "2026-10-16T18:40:00-07:00",
+    "timeZone": "America/Los_Angeles"
+   },
+   "end": {
+    "dateTime": "2026-10-16T20:45:00-07:00",
+    "timeZone": "America/Los_Angeles"
+   }
+  },
+  {
+   "kind": "calendar#event",
+   "id": "1bfb24a6dc6055bf9d5aac26af",
+   "status": "confirmed",
+   "summary": "Leo — soccer game",
+   "location": "Bushrod Park",
+   "start": {
+    "dateTime": "2026-10-17T10:00:00-07:00",
+    "timeZone": "America/Los_Angeles"
+   },
+   "end": {
+    "dateTime": "2026-10-17T11:30:00-07:00",
+    "timeZone": "America/Los_Angeles"
+   },
+   "recurringEventId": "leosoccer"
+  },
+  {
+   "kind": "calendar#event",
+   "id": "c7464cf7962a5523aaa41c32db",
+   "status": "confirmed",
+   "summary": "Dinner — Rosemary & Vine",
+   "location": "4120 Piedmont Ave, Oakland, CA",
+   "start": {
+    "dateTime": "2026-10-17T19:00:00-07:00",
+    "timeZone": "America/Los_Angeles"
+   },
+   "end": {
+    "dateTime": "2026-10-17T21:00:00-07:00",
+    "timeZone": "America/Los_Angeles"
+   }
+  },
+  {
+   "kind": "calendar#event",
+   "id": "85ae2d7a52b857e4913ad782fa",
+   "status": "confirmed",
+   "summary": "Project sync",
+   "location": "Conf room Juniper",
+   "start": {
+    "dateTime": "2026-10-19T09:30:00-07:00",
+    "timeZone": "America/Los_Angeles"
+   },
+   "end": {
+    "dateTime": "2026-10-19T10:00:00-07:00",
+    "timeZone": "America/Los_Angeles"
+   },
+   "recurringEventId": "projectsyncmonday"
+  },
+  {
+   "kind": "calendar#event",
+   "id": "3535f9b982865684b5e33758f1",
+   "status": "confirmed",
+   "summary": "1:1 with Dana",
+   "location": "Zoom",
+   "start": {
+    "dateTime": "2026-10-20T10:00:00-07:00",
+    "timeZone": "America/Los_Angeles"
+   },
+   "end": {
+    "dateTime": "2026-10-20T10:30:00-07:00",
+    "timeZone": "America/Los_Angeles"
+   },
+   "recurringEventId": "oneononedana"
+  },
+  {
+   "kind": "calendar#event",
+   "id": "d9a7bcb0cfb35004ac9df92caa",
+   "status": "confirmed",
+   "summary": "QBR — presenting",
+   "location": "Board room",
+   "start": {
+    "dateTime": "2026-10-22T14:00:00-07:00",
+    "timeZone": "America/Los_Angeles"
+   },
+   "end": {
+    "dateTime": "2026-10-22T15:30:00-07:00",
+    "timeZone": "America/Los_Angeles"
+   }
+  },
+  {
+   "kind": "calendar#event",
+   "id": "f5b3a66859c15f94901c0dc8b3",
+   "status": "confirmed",
+   "summary": "Tennis doubles",
+   "location": "Courtside Tennis Club",
+   "start": {
+    "dateTime": "2026-10-22T19:00:00-07:00",
+    "timeZone": "America/Los_Angeles"
+   },
+   "end": {
+    "dateTime": "2026-10-22T20:30:00-07:00",
+    "timeZone": "America/Los_Angeles"
+   },
+   "recurringEventId": "tennisdoublesthursday"
+  },
+  {
+   "kind": "calendar#event",
+   "id": "b21ea867e2a054bc8f707bf2cb",
+   "status": "confirmed",
+   "summary": "Tennis lesson w/ Daniel",
+   "location": "Courtside Tennis Club",
+   "start": {
+    "dateTime": "2026-10-24T09:00:00-07:00",
+    "timeZone": "America/Los_Angeles"
+   },
+   "end": {
+    "dateTime": "2026-10-24T10:00:00-07:00",
+    "timeZone": "America/Los_Angeles"
+   }
+  },
+  {
+   "kind": "calendar#event",
+   "id": "b4fb14fefb615d05871e6e3da3",
+   "status": "confirmed",
+   "summary": "Leo — soccer game",
+   "location": "Bushrod Park",
+   "start": {
+    "dateTime": "2026-10-24T10:00:00-07:00",
+    "timeZone": "America/Los_Angeles"
+   },
+   "end": {
+    "dateTime": "2026-10-24T11:30:00-07:00",
+    "timeZone": "America/Los_Angeles"
+   },
+   "recurringEventId": "leosoccer"
+  },
+  {
+   "kind": "calendar#event",
+   "id": "de6c71ff1bd1574a869e4bcb72",
+   "status": "confirmed",
+   "summary": "Jen's 50th",
+   "location": "Jen's house, Piedmont",
+   "start": {
+    "dateTime": "2026-10-24T19:00:00-07:00",
+    "timeZone": "America/Los_Angeles"
+   },
+   "end": {
+    "dateTime": "2026-10-24T23:00:00-07:00",
+    "timeZone": "America/Los_Angeles"
+   }
+  },
+  {
+   "kind": "calendar#event",
+   "id": "1c2b4f51a8b051d29908add967",
+   "status": "confirmed",
+   "summary": "Project sync",
+   "location": "Conf room Juniper",
+   "start": {
+    "dateTime": "2026-10-26T09:30:00-07:00",
+    "timeZone": "America/Los_Angeles"
+   },
+   "end": {
+    "dateTime": "2026-10-26T10:00:00-07:00",
+    "timeZone": "America/Los_Angeles"
+   },
+   "recurringEventId": "projectsyncmonday"
+  },
+  {
+   "kind": "calendar#event",
+   "id": "a6409ce13c0753b1a466b21afd",
+   "status": "confirmed",
+   "summary": "1:1 with Dana",
+   "location": "Zoom",
+   "start": {
+    "dateTime": "2026-10-27T10:00:00-07:00",
+    "timeZone": "America/Los_Angeles"
+   },
+   "end": {
+    "dateTime": "2026-10-27T10:30:00-07:00",
+    "timeZone": "America/Los_Angeles"
+   },
+   "recurringEventId": "oneononedana"
+  },
+  {
+   "kind": "calendar#event",
+   "id": "57dae0350bf05a599970467ce4",
+   "status": "confirmed",
+   "summary": "Tennis doubles",
+   "location": "Courtside Tennis Club",
+   "start": {
+    "dateTime": "2026-10-29T19:00:00-07:00",
+    "timeZone": "America/Los_Angeles"
+   },
+   "end": {
+    "dateTime": "2026-10-29T20:30:00-07:00",
+    "timeZone": "America/Los_Angeles"
+   },
+   "recurringEventId": "tennisdoublesthursday"
+  },
+  {
+   "kind": "calendar#event",
+   "id": "6081b636bf51538caa900a287f",
+   "status": "confirmed",
+   "summary": "Dinner — Mesa Verde Cantina",
+   "location": "1820 Fruitvale Ave, Oakland, CA",
+   "start": {
+    "dateTime": "2026-10-30T19:00:00-07:00",
+    "timeZone": "America/Los_Angeles"
+   },
+   "end": {
+    "dateTime": "2026-10-30T21:00:00-07:00",
+    "timeZone": "America/Los_Angeles"
+   }
+  },
+  {
+   "kind": "calendar#event",
+   "id": "3bad586eef695dfa802216ba8f",
+   "status": "confirmed",
+   "summary": "Leo — soccer game",
+   "location": "Bushrod Park",
+   "start": {
+    "dateTime": "2026-10-31T10:00:00-07:00",
+    "timeZone": "America/Los_Angeles"
+   },
+   "end": {
+    "dateTime": "2026-10-31T11:30:00-07:00",
+    "timeZone": "America/Los_Angeles"
+   },
+   "recurringEventId": "leosoccer"
+  },
+  {
+   "kind": "calendar#event",
+   "id": "40a2362a545653da9ff9970b9d",
+   "status": "confirmed",
+   "summary": "Trick-or-treat with the kids",
+   "start": {
+    "dateTime": "2026-10-31T17:30:00-07:00",
+    "timeZone": "America/Los_Angeles"
+   },
+   "end": {
+    "dateTime": "2026-10-31T20:00:00-07:00",
+    "timeZone": "America/Los_Angeles"
+   }
+  },
+  {
+   "kind": "calendar#event",
+   "id": "b19945371c6d59ab81c8e5a714",
+   "status": "confirmed",
+   "summary": "Project sync",
+   "location": "Conf room Juniper",
+   "start": {
+    "dateTime": "2026-11-02T09:30:00-08:00",
+    "timeZone": "America/Los_Angeles"
+   },
+   "end": {
+    "dateTime": "2026-11-02T10:00:00-08:00",
+    "timeZone": "America/Los_Angeles"
+   },
+   "recurringEventId": "projectsyncmonday"
+  },
+  {
+   "kind": "calendar#event",
+   "id": "787382edf0b85b23b7f8ba3158",
+   "status": "confirmed",
+   "summary": "1:1 with Dana",
+   "location": "Zoom",
+   "start": {
+    "dateTime": "2026-11-03T10:00:00-08:00",
+    "timeZone": "America/Los_Angeles"
+   },
+   "end": {
+    "dateTime": "2026-11-03T10:30:00-08:00",
+    "timeZone": "America/Los_Angeles"
+   },
+   "recurringEventId": "oneononedana"
+  },
+  {
+   "kind": "calendar#event",
+   "id": "589af91e5f4d52bf8fd59a4081",
+   "status": "confirmed",
+   "summary": "Dinner — Osteria Lucca",
+   "location": "5940 College Ave, Oakland, CA",
+   "start": {
+    "dateTime": "2026-11-03T19:00:00-08:00",
+    "timeZone": "America/Los_Angeles"
+   },
+   "end": {
+    "dateTime": "2026-11-03T21:00:00-08:00",
+    "timeZone": "America/Los_Angeles"
+   }
+  },
+  {
+   "kind": "calendar#event",
+   "id": "ff374da71cab50b6bd5d97b334",
+   "status": "confirmed",
+   "summary": "Follow-up — Dr. Ruiz",
+   "location": "350 30th St, Suite 400, Oakland, CA",
+   "start": {
+    "dateTime": "2026-11-10T09:30:00-08:00",
+    "timeZone": "America/Los_Angeles"
+   },
+   "end": {
+    "dateTime": "2026-11-10T10:15:00-08:00",
+    "timeZone": "America/Los_Angeles"
+   }
+  }
+ ]
+}

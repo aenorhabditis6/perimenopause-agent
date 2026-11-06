@@ -1,0 +1,79 @@
+From: The Gilded Tap via Tabbit <receipts@gildedtap.example>
+To: Lisa Hartley <lisa.hartley@mail.example>
+Subject: Your receipt from The Gilded Tap
+Date: Sat, 05 Sep 2026 21:52:00 -0700
+Message-ID: <msg_0066.a1590b9d@demo.example>
+X-Demo-Data: synthetic
+MIME-Version: 1.0
+Content-Type: multipart/alternative;
+ boundary="===============4192523873132362612=="
+
+--===============4192523873132362612==
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+
+The Gilded Tap
+510 Grand Ave, Oakland, CA
+Sat, Sep 5, 2026 · 9:51 PM · Table 23 · Server: Keiko
+
+2 × Glass — Sauvignon Blanc               $28.00
+2 × Fish & chips                          $48.00
+1 × Little gem salad                      $15.00
+1 × Truffle fries                         $11.00
+
+Subtotal                                 $102.00
+Tax                                       $10.96
+Tip                                       $20.40
+Total                                    $133.36
+Visa ending in 4417
+
+Thanks for dining with us!
+Receipt powered by Tabbit
+
+--===============4192523873132362612==
+Content-Type: text/html; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
+
+<!doctype html><html><body style=3D"margin:0;background:#f4f4f5;font-family:-=
+apple-system,'Segoe UI',Helvetica,Arial,sans-serif;color:#1f2937"><table role=
+=3D"presentation" width=3D"100%" cellpadding=3D"0" cellspacing=3D"0"><tr><td =
+align=3D"center" style=3D"padding:24px 12px"><table role=3D"presentation" wid=
+th=3D"560" cellpadding=3D"0" cellspacing=3D"0" style=3D"max-width:560px;width=
+:100%;background:#ffffff;border-radius:10px;overflow:hidden"><tr><td style=3D=
+"background:#111827;padding:18px 24px;color:#ffffff;font-size:18px;font-weigh=
+t:600;letter-spacing:.2px">The Gilded Tap</td></tr><tr><td style=3D"padding:2=
+4px;font-size:15px;line-height:1.55"><div style=3D"font-size:17px;font-weight=
+:600">The Gilded Tap</div><div style=3D"color:#6b7280;font-size:13px;margin-b=
+ottom:12px">510 Grand Ave, Oakland, CA<br>Sat, Sep 5, 2026 =C2=B7 9:51 PM =C2=
+=B7 Table 23 =C2=B7 Server: Keiko</div><table role=3D"presentation" width=3D"=
+100%" cellpadding=3D"0" cellspacing=3D"0" style=3D"border-collapse:collapse;m=
+argin:6px 0 16px"><tr><td style=3D"padding:7px 0;border-top:1px solid #eef0f3=
+">2 =C3=97 Glass =E2=80=94 Sauvignon Blanc</td><td align=3D"right" style=3D"p=
+adding:7px 0;border-top:1px solid #eef0f3">$28.00</td></tr><tr><td style=3D"p=
+adding:7px 0;border-top:1px solid #eef0f3">2 =C3=97 Fish &amp; chips</td><td =
+align=3D"right" style=3D"padding:7px 0;border-top:1px solid #eef0f3">$48.00</=
+td></tr><tr><td style=3D"padding:7px 0;border-top:1px solid #eef0f3">1 =C3=97=
+ Little gem salad</td><td align=3D"right" style=3D"padding:7px 0;border-top:1=
+px solid #eef0f3">$15.00</td></tr><tr><td style=3D"padding:7px 0;border-top:1=
+px solid #eef0f3">1 =C3=97 Truffle fries</td><td align=3D"right" style=3D"pad=
+ding:7px 0;border-top:1px solid #eef0f3">$11.00</td></tr></table><table role=
+=3D"presentation" width=3D"100%" cellpadding=3D"0" cellspacing=3D"0" style=3D=
+"border-collapse:collapse;margin:6px 0 16px"><tr><td style=3D"padding:7px 0;b=
+order-top:1px solid #eef0f3">Subtotal</td><td align=3D"right" style=3D"paddin=
+g:7px 0;border-top:1px solid #eef0f3">$102.00</td></tr><tr><td style=3D"paddi=
+ng:7px 0;border-top:1px solid #eef0f3">Tax</td><td align=3D"right" style=3D"p=
+adding:7px 0;border-top:1px solid #eef0f3">$10.96</td></tr><tr><td style=3D"p=
+adding:7px 0;border-top:1px solid #eef0f3">Tip</td><td align=3D"right" style=
+=3D"padding:7px 0;border-top:1px solid #eef0f3">$20.40</td></tr><tr><td style=
+=3D"padding:7px 0;border-top:1px solid #eef0f3;font-weight:700">Total</td><td=
+ align=3D"right" style=3D"padding:7px 0;border-top:1px solid #eef0f3;font-wei=
+ght:700">$133.36</td></tr></table><p style=3D"margin:0 0 14px"><span style=3D=
+"color:#6b7280;font-size:13px">Visa ending in 4417</span></p><p style=3D"marg=
+in:0 0 14px">Thanks for dining with us!</p></td></tr><tr><td style=3D"padding=
+:14px 24px;background:#fafafa;color:#9ca3af;font-size:11px;line-height:1.5">R=
+eceipt powered by Tabbit<br>Synthetic demo email =C2=B7 fictional business =
+=C2=B7 not a real transaction.</td></tr></table></td></tr></table></body></ht=
+ml>
+
+--===============4192523873132362612==--

@@ -1,0 +1,56 @@
+From: Courtside Tennis Club <bookings@courtsidetennis.example>
+To: Lisa Hartley <lisa.hartley@mail.example>
+Subject: Lesson booked: Sat, Sep 19, 9:00 AM
+Date: Wed, 16 Sep 2026 20:18:00 -0700
+Message-ID: <msg_0079.378d36a4@demo.example>
+X-Demo-Data: synthetic
+MIME-Version: 1.0
+Content-Type: multipart/alternative;
+ boundary="===============2335578289976399271=="
+
+--===============2335578289976399271==
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+
+Hi Lisa,
+
+Your private lesson is booked.
+
+Saturday, September 19, 2026 · 9:00–10:00 AM · Court 4
+Coach: Daniel Ortiz
+
+Cancel at least 24 hours ahead to avoid a fee.
+
+Courtside Tennis Club
+
+--===============2335578289976399271==
+Content-Type: text/html; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
+
+<!doctype html><html><body style=3D"margin:0;background:#f4f4f5;font-family:-=
+apple-system,'Segoe UI',Helvetica,Arial,sans-serif;color:#1f2937"><table role=
+=3D"presentation" width=3D"100%" cellpadding=3D"0" cellspacing=3D"0"><tr><td =
+align=3D"center" style=3D"padding:24px 12px"><table role=3D"presentation" wid=
+th=3D"560" cellpadding=3D"0" cellspacing=3D"0" style=3D"max-width:560px;width=
+:100%;background:#ffffff;border-radius:10px;overflow:hidden"><tr><td style=3D=
+"background:#047857;padding:18px 24px;color:#ffffff;font-size:18px;font-weigh=
+t:600;letter-spacing:.2px">Courtside Tennis Club</td></tr><tr><td style=3D"pa=
+dding:24px;font-size:15px;line-height:1.55"><p style=3D"margin:0 0 14px">Hi L=
+isa,</p><p style=3D"margin:0 0 14px">Your private lesson is booked.</p><table=
+ role=3D"presentation" width=3D"100%" cellpadding=3D"0" cellspacing=3D"0" sty=
+le=3D"border-collapse:collapse;margin:6px 0 16px"><tr><td style=3D"padding:7p=
+x 0;border-top:1px solid #eef0f3">Date</td><td align=3D"right" style=3D"paddi=
+ng:7px 0;border-top:1px solid #eef0f3">Saturday, September 19, 2026</td></tr>=
+<tr><td style=3D"padding:7px 0;border-top:1px solid #eef0f3">Time</td><td ali=
+gn=3D"right" style=3D"padding:7px 0;border-top:1px solid #eef0f3">9:00=E2=80=
+=9310:00 AM</td></tr><tr><td style=3D"padding:7px 0;border-top:1px solid #eef=
+0f3">Court</td><td align=3D"right" style=3D"padding:7px 0;border-top:1px soli=
+d #eef0f3">4</td></tr><tr><td style=3D"padding:7px 0;border-top:1px solid #ee=
+f0f3">Coach</td><td align=3D"right" style=3D"padding:7px 0;border-top:1px sol=
+id #eef0f3">Daniel Ortiz</td></tr></table></td></tr><tr><td style=3D"padding:=
+14px 24px;background:#fafafa;color:#9ca3af;font-size:11px;line-height:1.5">Co=
+urtside Tennis Club<br>Synthetic demo email =C2=B7 fictional business =C2=B7 =
+not a real transaction.</td></tr></table></td></tr></table></body></html>
+
+--===============2335578289976399271==--

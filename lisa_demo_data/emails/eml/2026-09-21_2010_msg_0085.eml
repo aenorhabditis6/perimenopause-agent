@@ -1,0 +1,51 @@
+From: Parcelly <orders@parcelly.example>
+To: Lisa Hartley <lisa.hartley@mail.example>
+Subject: Order confirmed: Phone case, clear
+Date: Mon, 21 Sep 2026 20:10:00 -0700
+Message-ID: <msg_0085.d06246a5@demo.example>
+X-Demo-Data: synthetic
+MIME-Version: 1.0
+Content-Type: multipart/alternative;
+ boundary="===============4303153985737472133=="
+
+--===============4303153985737472133==
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+
+Hello Lisa,
+
+Thanks for your order #112-3672430.
+
+Phone case, clear    $18.99
+
+Arriving Wed, Sep 23.
+Ship to: Lisa Hartley, Oakland, CA
+
+Parcelly
+
+--===============4303153985737472133==
+Content-Type: text/html; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
+
+<!doctype html><html><body style=3D"margin:0;background:#f4f4f5;font-family:-=
+apple-system,'Segoe UI',Helvetica,Arial,sans-serif;color:#1f2937"><table role=
+=3D"presentation" width=3D"100%" cellpadding=3D"0" cellspacing=3D"0"><tr><td =
+align=3D"center" style=3D"padding:24px 12px"><table role=3D"presentation" wid=
+th=3D"560" cellpadding=3D"0" cellspacing=3D"0" style=3D"max-width:560px;width=
+:100%;background:#ffffff;border-radius:10px;overflow:hidden"><tr><td style=3D=
+"background:#1d4ed8;padding:18px 24px;color:#ffffff;font-size:18px;font-weigh=
+t:600;letter-spacing:.2px">Parcelly</td></tr><tr><td style=3D"padding:24px;fo=
+nt-size:15px;line-height:1.55"><p style=3D"margin:0 0 14px">Hello Lisa,</p><p=
+ style=3D"margin:0 0 14px">Thanks for your order <strong>#112-3672430</strong=
+>.</p><table role=3D"presentation" width=3D"100%" cellpadding=3D"0" cellspaci=
+ng=3D"0" style=3D"border-collapse:collapse;margin:6px 0 16px"><tr><td style=
+=3D"padding:7px 0;border-top:1px solid #eef0f3">Phone case, clear</td><td ali=
+gn=3D"right" style=3D"padding:7px 0;border-top:1px solid #eef0f3">$18.99</td>=
+</tr></table><p style=3D"margin:0 0 14px">Arriving <strong>Wed, Sep 23</stron=
+g>.</p></td></tr><tr><td style=3D"padding:14px 24px;background:#fafafa;color:=
+#9ca3af;font-size:11px;line-height:1.5">Parcelly online store<br>Synthetic de=
+mo email =C2=B7 fictional business =C2=B7 not a real transaction.</td></tr></=
+table></td></tr></table></body></html>
+
+--===============4303153985737472133==--

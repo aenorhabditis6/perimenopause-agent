@@ -1,0 +1,50 @@
+From: Harbor Pharmacy <rx@harborpharmacy.example>
+To: Lisa Hartley <lisa.hartley@mail.example>
+Subject: Thanks for picking up your prescription
+Date: Mon, 02 Nov 2026 12:10:00 -0800
+Message-ID: <msg_0132.24c6f9a7@demo.example>
+X-Demo-Data: synthetic
+MIME-Version: 1.0
+Content-Type: multipart/alternative;
+ boundary="===============1333915484166151023=="
+
+--===============1333915484166151023==
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+
+Hi Lisa,
+
+Thanks for picking up your prescription today.
+
+Rx #4471-206 · Qty 30 · Copay $15.00
+Refills remaining: 3
+
+Harbor Pharmacy
+
+--===============1333915484166151023==
+Content-Type: text/html; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
+
+<!doctype html><html><body style=3D"margin:0;background:#f4f4f5;font-family:-=
+apple-system,'Segoe UI',Helvetica,Arial,sans-serif;color:#1f2937"><table role=
+=3D"presentation" width=3D"100%" cellpadding=3D"0" cellspacing=3D"0"><tr><td =
+align=3D"center" style=3D"padding:24px 12px"><table role=3D"presentation" wid=
+th=3D"560" cellpadding=3D"0" cellspacing=3D"0" style=3D"max-width:560px;width=
+:100%;background:#ffffff;border-radius:10px;overflow:hidden"><tr><td style=3D=
+"background:#0f766e;padding:18px 24px;color:#ffffff;font-size:18px;font-weigh=
+t:600;letter-spacing:.2px">Harbor Pharmacy</td></tr><tr><td style=3D"padding:=
+24px;font-size:15px;line-height:1.55"><p style=3D"margin:0 0 14px">Hi Lisa,</=
+p><p style=3D"margin:0 0 14px">Thanks for picking up your prescription today.=
+</p><table role=3D"presentation" width=3D"100%" cellpadding=3D"0" cellspacing=
+=3D"0" style=3D"border-collapse:collapse;margin:6px 0 16px"><tr><td style=3D"=
+padding:7px 0;border-top:1px solid #eef0f3">Rx #4471-206</td><td align=3D"rig=
+ht" style=3D"padding:7px 0;border-top:1px solid #eef0f3">Qty 30</td></tr><tr>=
+<td style=3D"padding:7px 0;border-top:1px solid #eef0f3">Copay</td><td align=
+=3D"right" style=3D"padding:7px 0;border-top:1px solid #eef0f3">$15.00</td></=
+tr></table></td></tr><tr><td style=3D"padding:14px 24px;background:#fafafa;co=
+lor:#9ca3af;font-size:11px;line-height:1.5">Harbor Pharmacy<br>Synthetic demo=
+ email =C2=B7 fictional business =C2=B7 not a real transaction.</td></tr></ta=
+ble></td></tr></table></body></html>
+
+--===============1333915484166151023==--

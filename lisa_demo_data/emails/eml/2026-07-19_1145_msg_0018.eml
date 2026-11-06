@@ -1,0 +1,80 @@
+From: FreshCart <orders@freshcart.example>
+To: Lisa Hartley <lisa.hartley@mail.example>
+Subject: Your FreshCart order was delivered
+Date: Sun, 19 Jul 2026 11:45:00 -0700
+Message-ID: <msg_0018.c66c4a52@demo.example>
+X-Demo-Data: synthetic
+MIME-Version: 1.0
+Content-Type: multipart/alternative;
+ boundary="===============1993441826680911570=="
+
+--===============1993441826680911570==
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+
+Hi Lisa,
+
+Your FreshCart order was delivered.
+
+Granola                                 $6.82
+Apples (3 lb)                          $11.06
+Cheddar                                 $5.11
+Peanut butter                           $8.92
+Tortillas                               $9.51
+Greek yogurt (32 oz)                    $7.71
+Pasta                                   $4.71
+Avocados (4)                            $6.42
+Marinara                                $7.37
+Delivery fee                            $5.99
+Total                                  $73.62
+
+Thanks for shopping with FreshCart.
+
+--===============1993441826680911570==
+Content-Type: text/html; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
+
+<!doctype html><html><body style=3D"margin:0;background:#f4f4f5;font-family:-=
+apple-system,'Segoe UI',Helvetica,Arial,sans-serif;color:#1f2937"><table role=
+=3D"presentation" width=3D"100%" cellpadding=3D"0" cellspacing=3D"0"><tr><td =
+align=3D"center" style=3D"padding:24px 12px"><table role=3D"presentation" wid=
+th=3D"560" cellpadding=3D"0" cellspacing=3D"0" style=3D"max-width:560px;width=
+:100%;background:#ffffff;border-radius:10px;overflow:hidden"><tr><td style=3D=
+"background:#15803d;padding:18px 24px;color:#ffffff;font-size:18px;font-weigh=
+t:600;letter-spacing:.2px">FreshCart</td></tr><tr><td style=3D"padding:24px;f=
+ont-size:15px;line-height:1.55"><p style=3D"margin:0 0 14px">Hi Lisa,</p><p s=
+tyle=3D"margin:0 0 14px">Your FreshCart order was delivered.</p><table role=
+=3D"presentation" width=3D"100%" cellpadding=3D"0" cellspacing=3D"0" style=3D=
+"border-collapse:collapse;margin:6px 0 16px"><tr><td style=3D"padding:7px 0;b=
+order-top:1px solid #eef0f3">Granola</td><td align=3D"right" style=3D"padding=
+:7px 0;border-top:1px solid #eef0f3">$6.82</td></tr><tr><td style=3D"padding:=
+7px 0;border-top:1px solid #eef0f3">Apples (3 lb)</td><td align=3D"right" sty=
+le=3D"padding:7px 0;border-top:1px solid #eef0f3">$11.06</td></tr><tr><td sty=
+le=3D"padding:7px 0;border-top:1px solid #eef0f3">Cheddar</td><td align=3D"ri=
+ght" style=3D"padding:7px 0;border-top:1px solid #eef0f3">$5.11</td></tr><tr>=
+<td style=3D"padding:7px 0;border-top:1px solid #eef0f3">Peanut butter</td><t=
+d align=3D"right" style=3D"padding:7px 0;border-top:1px solid #eef0f3">$8.92<=
+/td></tr><tr><td style=3D"padding:7px 0;border-top:1px solid #eef0f3">Tortill=
+as</td><td align=3D"right" style=3D"padding:7px 0;border-top:1px solid #eef0f=
+3">$9.51</td></tr><tr><td style=3D"padding:7px 0;border-top:1px solid #eef0f3=
+">Greek yogurt (32 oz)</td><td align=3D"right" style=3D"padding:7px 0;border-=
+top:1px solid #eef0f3">$7.71</td></tr><tr><td style=3D"padding:7px 0;border-t=
+op:1px solid #eef0f3">Pasta</td><td align=3D"right" style=3D"padding:7px 0;bo=
+rder-top:1px solid #eef0f3">$4.71</td></tr><tr><td style=3D"padding:7px 0;bor=
+der-top:1px solid #eef0f3">Avocados (4)</td><td align=3D"right" style=3D"padd=
+ing:7px 0;border-top:1px solid #eef0f3">$6.42</td></tr><tr><td style=3D"paddi=
+ng:7px 0;border-top:1px solid #eef0f3">Marinara</td><td align=3D"right" style=
+=3D"padding:7px 0;border-top:1px solid #eef0f3">$7.37</td></tr></table><table=
+ role=3D"presentation" width=3D"100%" cellpadding=3D"0" cellspacing=3D"0" sty=
+le=3D"border-collapse:collapse;margin:6px 0 16px"><tr><td style=3D"padding:7p=
+x 0;border-top:1px solid #eef0f3">Delivery fee</td><td align=3D"right" style=
+=3D"padding:7px 0;border-top:1px solid #eef0f3">$5.99</td></tr><tr><td style=
+=3D"padding:7px 0;border-top:1px solid #eef0f3;font-weight:700">Total</td><td=
+ align=3D"right" style=3D"padding:7px 0;border-top:1px solid #eef0f3;font-wei=
+ght:700">$73.62</td></tr></table></td></tr><tr><td style=3D"padding:14px 24px=
+;background:#fafafa;color:#9ca3af;font-size:11px;line-height:1.5">FreshCart g=
+rocery delivery<br>Synthetic demo email =C2=B7 fictional business =C2=B7 not =
+a real transaction.</td></tr></table></td></tr></table></body></html>
+
+--===============1993441826680911570==--

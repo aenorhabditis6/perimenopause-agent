@@ -1,0 +1,157 @@
+{
+ "synthetic": true,
+ "note": "Fictional persona for a hackathon demo. All names, merchants and addresses are made up (.example domains).",
+ "name": "Lisa Hartley",
+ "preferred_name": "Lisa",
+ "email": "lisa.hartley@mail.example",
+ "date_of_birth": "1980-03-14",
+ "age": 46,
+ "sex": "female",
+ "height_cm": 168,
+ "weight_kg": 64,
+ "home": "Oakland, CA",
+ "time_zone": "America/Los_Angeles",
+ "occupation": "Senior project manager at Fernwood Labs (fictional)",
+ "household": {
+  "partner": "Mark Hartley, 48",
+  "children": [
+   {
+    "name": "Emma",
+    "age": 15
+   },
+   {
+    "name": "Leo",
+    "age": 12
+   }
+  ]
+ },
+ "routines": [
+  "Tennis doubles, Thursdays 7–8:30 PM",
+  "Occasional Saturday tennis lessons",
+  "Dinner out about once a week",
+  "Wine club, 3 bottles a month",
+  "Book club, 2nd Wednesday of the month",
+  "Weekday wake-up 6:20 AM once school starts (Aug 12)"
+ ],
+ "devices": [
+  {
+   "device": "Oura Ring Gen4",
+   "since": "2024-11",
+   "worn": "every night",
+   "data": "wearables/oura"
+  },
+  {
+   "device": "iPhone (Health app)",
+   "data": "logs period start dates in Cycle Tracking — a habit she already had"
+  },
+  {
+   "device": "Apple Watch Series 10",
+   "data": "wearables/apple_health — the same nights as the Oura files, for the device-switch demo"
+  }
+ ],
+ "connected_in_demo": [
+  "Oura API (read)",
+  "Email inbox (read-only; only automated receipts, bookings, appointments)",
+  "Google Calendar (read-only)",
+  "Apple Health (cycle logs)"
+ ],
+ "health_background": {
+  "diagnoses": "none",
+  "regular_medications_before_sep_2026": "none",
+  "smoking": "never",
+  "alcohol": "social drinker, about 2 evenings a week",
+  "pregnancies": 2,
+  "previous_well_woman_visit": "2025-08-20",
+  "symptom_logging": "none — she has never used Oura tags or a symptom tracker"
+ },
+ "cycle_history": [
+  {
+   "start": "2026-01-05",
+   "length_days": 28
+  },
+  {
+   "start": "2026-02-02",
+   "length_days": 27
+  },
+  {
+   "start": "2026-03-01",
+   "length_days": 28
+  },
+  {
+   "start": "2026-03-29",
+   "length_days": 29
+  },
+  {
+   "start": "2026-04-27",
+   "length_days": 24
+  },
+  {
+   "start": "2026-05-21",
+   "length_days": 24
+  },
+  {
+   "start": "2026-06-14",
+   "length_days": 26
+  },
+  {
+   "start": "2026-07-10",
+   "length_days": 38
+  },
+  {
+   "start": "2026-08-17",
+   "length_days": 22
+  },
+  {
+   "start": "2026-09-08",
+   "length_days": 43
+  },
+  {
+   "start": "2026-10-21",
+   "length_days": null,
+   "note": "current cycle"
+  }
+ ],
+ "in_her_words": "I keep waking up around 3 AM, hot and sweaty. I figured it was work stress.",
+ "story": [
+  {
+   "when": "2026-07-06 → 2026-08-02",
+   "what": "Baseline. A few warm nights; nothing stands out."
+  },
+  {
+   "when": "2026-08 (first half)",
+   "what": "Warm nights with ~3 AM wake-ups become frequent. Cycle lengths start to swing (26 → 38 → 22 days)."
+  },
+  {
+   "when": "2026-08-12 → 2026-09-01",
+   "what": "She buys cooling pillowcases, moisture-wicking pajamas, melatonin and a bedside fan."
+  },
+  {
+   "when": "2026-08-19",
+   "what": "Books her annual exam for Sep 2 (confirmation email)."
+  },
+  {
+   "when": "2026-08-10 → 2026-09-18",
+   "what": "The agent asks a handful of one-tap questions ('Did you have a drink last night?')."
+  },
+  {
+   "when": "2026-09-02",
+   "what": "Annual exam with Dr. Elena Ruiz; follow-up booked for Nov 10."
+  },
+  {
+   "when": "2026-09-04",
+   "what": "Picks up a new prescription (pharmacy email has no drug name); confirms in one tap it is a new treatment."
+  },
+  {
+   "when": "2026-09-04 → 2026-11-04",
+   "what": "Warm nights fall off over ~3 weeks. Drinking stays about the same. Refills on time (Oct 3, Nov 2)."
+  },
+  {
+   "when": "2026-10-14 → 2026-10-16",
+   "what": "Work trip to Seattle (flight + hotel emails)."
+  },
+  {
+   "when": "2026-11-05 08:12",
+   "what": "LIVE DEMO: the clinic's reminder email for the Nov 10 follow-up arrives → the agent prepares the visit summary."
+  }
+ ]
+}

@@ -1,0 +1,21 @@
+{
+ "id": "msg_live",
+ "thread_id": "t3e8217d42c2455f",
+ "date": "2026-11-05T08:12:00-08:00",
+ "from": {
+  "name": "Bayside Women's Health",
+  "email": "appointments@baysidewomenshealth.example"
+ },
+ "to": [
+  {
+   "name": "Lisa Hartley",
+   "email": "lisa.hartley@mail.example"
+  }
+ ],
+ "subject": "Reminder: Follow-up visit on Tue, Nov 10",
+ "snippet": "Hi Lisa, This is a reminder of your upcoming appointment. Follow-up visit Tuesday, November 10, 2026 at 9:30 AM Elena Ruiz, MD · Obstetrics ",
+ "category": "updates",
+ "is_read": false,
+ "body_text": "Hi Lisa,\n\nThis is a reminder of your upcoming appointment.\n\nFollow-up visit\nTuesday, November 10, 2026 at 9:30 AM\nElena Ruiz, MD · Obstetrics & Gynecology\n350 30th St, Suite 400, Oakland, CA\n\nPlease arrive 10 minutes early. To reschedule, call (510) 555-0142 or use the Bayside patient portal.\n\nBayside Women's Health\n",
+ "body_html": "<!doctype html><html><body style=\"margin:0;background:#f4f4f5;font-family:-apple-system,'Segoe UI',Helvetica,Arial,sans-serif;color:#1f2937\"><table role=\"presentation\" width=\"100%\" cellpadding=\"0\" cellspacing=\"0\"><tr><td align=\"center\" style=\"padding:24px 12px\"><table role=\"presentation\" width=\"560\" cellpadding=\"0\" cellspacing=\"0\" style=\"max-width:560px;width:100%;background:#ffffff;border-radius:10px;overflow:hidden\"><tr><td style=\"background:#9d174d;padding:18px 24px;color:#ffffff;font-size:18px;font-weight:600;letter-spacing:.2px\">Bayside Women&#x27;s Health</td></tr><tr><td style=\"padding:24px;font-size:15px;line-height:1.55\"><p style=\"margin:0 0 14px\">Hi Lisa,</p><p style=\"margin:0 0 14px\">This is a reminder of your upcoming appointment.</p><div style=\"border-left:4px solid #9d174d;background:#fdf2f8;padding:12px 16px;margin:0 0 16px\"><div style=\"font-weight:600\">Follow-up visit</div><div>Tuesday, November 10, 2026 at 9:30 AM</div><div style=\"color:#6b7280;font-size:13px\">Elena Ruiz, MD · Obstetrics &amp; Gynecology<br>350 30th St, Suite 400, Oakland, CA</div></div><p style=\"margin:0 0 14px\">Please arrive 10 minutes early.</p><p style=\"margin:0 0 14px\"><span style=\"color:#6b7280;font-size:13px\">To reschedule, call (510) 555-0142 or use the Bayside patient portal.</span></p></td></tr><tr><td style=\"padding:14px 24px;background:#fafafa;color:#9ca3af;font-size:11px;line-height:1.5\">Bayside Women's Health · patient portal notifications<br>Synthetic demo email · fictional business · not a real transaction.</td></tr></table></td></tr></table></body></html>"
+}

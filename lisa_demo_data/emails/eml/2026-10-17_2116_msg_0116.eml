@@ -1,0 +1,75 @@
+From: Rosemary & Vine via Tabbit <receipts@rosemaryandvine.example>
+To: Lisa Hartley <lisa.hartley@mail.example>
+Subject: Your receipt from Rosemary & Vine
+Date: Sat, 17 Oct 2026 21:16:00 -0700
+Message-ID: <msg_0116.d2a8cc38@demo.example>
+X-Demo-Data: synthetic
+MIME-Version: 1.0
+Content-Type: multipart/alternative;
+ boundary="===============8839299465547590549=="
+
+--===============8839299465547590549==
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+
+Rosemary & Vine
+4120 Piedmont Ave, Oakland, CA
+Sat, Oct 17, 2026 · 9:15 PM · Table 11 · Server: Ana
+
+2 × Glass — Barbera d'Asti                $30.00
+1 × Wild mushroom risotto                 $28.00
+1 × Burrata                               $16.00
+
+Subtotal                                  $74.00
+Tax                                        $7.96
+Tip                                       $14.80
+Total                                     $96.76
+Visa ending in 4417
+
+Thanks for dining with us!
+Receipt powered by Tabbit
+
+--===============8839299465547590549==
+Content-Type: text/html; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
+
+<!doctype html><html><body style=3D"margin:0;background:#f4f4f5;font-family:-=
+apple-system,'Segoe UI',Helvetica,Arial,sans-serif;color:#1f2937"><table role=
+=3D"presentation" width=3D"100%" cellpadding=3D"0" cellspacing=3D"0"><tr><td =
+align=3D"center" style=3D"padding:24px 12px"><table role=3D"presentation" wid=
+th=3D"560" cellpadding=3D"0" cellspacing=3D"0" style=3D"max-width:560px;width=
+:100%;background:#ffffff;border-radius:10px;overflow:hidden"><tr><td style=3D=
+"background:#111827;padding:18px 24px;color:#ffffff;font-size:18px;font-weigh=
+t:600;letter-spacing:.2px">Rosemary &amp; Vine</td></tr><tr><td style=3D"padd=
+ing:24px;font-size:15px;line-height:1.55"><div style=3D"font-size:17px;font-w=
+eight:600">Rosemary &amp; Vine</div><div style=3D"color:#6b7280;font-size:13p=
+x;margin-bottom:12px">4120 Piedmont Ave, Oakland, CA<br>Sat, Oct 17, 2026 =C2=
+=B7 9:15 PM =C2=B7 Table 11 =C2=B7 Server: Ana</div><table role=3D"presentati=
+on" width=3D"100%" cellpadding=3D"0" cellspacing=3D"0" style=3D"border-collap=
+se:collapse;margin:6px 0 16px"><tr><td style=3D"padding:7px 0;border-top:1px =
+solid #eef0f3">2 =C3=97 Glass =E2=80=94 Barbera d&#x27;Asti</td><td align=3D"=
+right" style=3D"padding:7px 0;border-top:1px solid #eef0f3">$30.00</td></tr><=
+tr><td style=3D"padding:7px 0;border-top:1px solid #eef0f3">1 =C3=97 Wild mus=
+hroom risotto</td><td align=3D"right" style=3D"padding:7px 0;border-top:1px s=
+olid #eef0f3">$28.00</td></tr><tr><td style=3D"padding:7px 0;border-top:1px s=
+olid #eef0f3">1 =C3=97 Burrata</td><td align=3D"right" style=3D"padding:7px 0=
+;border-top:1px solid #eef0f3">$16.00</td></tr></table><table role=3D"present=
+ation" width=3D"100%" cellpadding=3D"0" cellspacing=3D"0" style=3D"border-col=
+lapse:collapse;margin:6px 0 16px"><tr><td style=3D"padding:7px 0;border-top:1=
+px solid #eef0f3">Subtotal</td><td align=3D"right" style=3D"padding:7px 0;bor=
+der-top:1px solid #eef0f3">$74.00</td></tr><tr><td style=3D"padding:7px 0;bor=
+der-top:1px solid #eef0f3">Tax</td><td align=3D"right" style=3D"padding:7px 0=
+;border-top:1px solid #eef0f3">$7.96</td></tr><tr><td style=3D"padding:7px 0;=
+border-top:1px solid #eef0f3">Tip</td><td align=3D"right" style=3D"padding:7p=
+x 0;border-top:1px solid #eef0f3">$14.80</td></tr><tr><td style=3D"padding:7p=
+x 0;border-top:1px solid #eef0f3;font-weight:700">Total</td><td align=3D"righ=
+t" style=3D"padding:7px 0;border-top:1px solid #eef0f3;font-weight:700">$96.7=
+6</td></tr></table><p style=3D"margin:0 0 14px"><span style=3D"color:#6b7280;=
+font-size:13px">Visa ending in 4417</span></p><p style=3D"margin:0 0 14px">Th=
+anks for dining with us!</p></td></tr><tr><td style=3D"padding:14px 24px;back=
+ground:#fafafa;color:#9ca3af;font-size:11px;line-height:1.5">Receipt powered =
+by Tabbit<br>Synthetic demo email =C2=B7 fictional business =C2=B7 not a real=
+ transaction.</td></tr></table></td></tr></table></body></html>
+
+--===============8839299465547590549==--

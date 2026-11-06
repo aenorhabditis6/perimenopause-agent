@@ -1,0 +1,85 @@
+{
+ "confirmations": [
+  {
+   "id": "a84d6e0f-1500-5b33-87f3-a6a2bc9f1731",
+   "asked_at": "2026-08-13T08:09:00-07:00",
+   "about_evening": "2026-08-12",
+   "reason": "You had Book club @ Anna's on the calendar",
+   "question": "Did you have a drink last night?",
+   "answer": "yes",
+   "answered_at": "2026-08-13T08:34:00-07:00"
+  },
+  {
+   "id": "7dba7f84-ba58-5259-b257-d585cf6079ed",
+   "asked_at": "2026-08-14T08:16:00-07:00",
+   "about_evening": "2026-08-13",
+   "reason": "Your night temperature jumped and you woke up around 3 AM",
+   "question": "Did you have a drink last night?",
+   "answer": "no",
+   "answered_at": "2026-08-14T08:23:00-07:00"
+  },
+  {
+   "id": "d042548f-b335-5b31-a6c9-4d93be33841f",
+   "asked_at": "2026-08-22T08:18:00-07:00",
+   "about_evening": "2026-08-21",
+   "reason": "You had a reservation at Rosemary & Vine",
+   "question": "Did you have a drink last night?",
+   "answer": "yes",
+   "answered_at": "2026-08-22T08:42:00-07:00"
+  },
+  {
+   "id": "c7ffe1ed-ce6f-5739-8abd-525cacd9ec2b",
+   "asked_at": "2026-08-23T08:00:00-07:00",
+   "about_evening": "2026-08-22",
+   "reason": "You had Girls' night @ Sarah's on the calendar",
+   "question": "Did you have a drink last night?",
+   "answer": "yes",
+   "answered_at": "2026-08-23T08:27:00-07:00"
+  },
+  {
+   "id": "586503f4-57c4-57df-8dbd-c8b50e2f8138",
+   "asked_at": "2026-08-30T08:14:00-07:00",
+   "about_evening": "2026-08-29",
+   "reason": "Your night temperature jumped and you woke up around 3 AM",
+   "question": "Did you have a drink last night?",
+   "answer": "yes",
+   "answered_at": "2026-08-30T09:33:00-07:00"
+  },
+  {
+   "id": "f2ce0dc7-d646-5229-981c-9fca36de7303",
+   "asked_at": "2026-08-31T08:05:00-07:00",
+   "about_evening": "2026-08-30",
+   "reason": "Your night temperature jumped and you woke up around 3 AM",
+   "question": "Did you have a drink last night?",
+   "answer": "no",
+   "answered_at": "2026-08-31T08:20:00-07:00"
+  },
+  {
+   "id": "a8f46560-6435-50e4-962b-9ae105be0d5f",
+   "asked_at": "2026-09-04T18:05:00-07:00",
+   "about_evening": "2026-09-04",
+   "reason": "Harbor Pharmacy says you picked up a prescription today (first fill)",
+   "question": "Is this a new treatment your doctor started? I'll compare your nights before and after.",
+   "answer": "yes — starting today",
+   "answered_at": "2026-09-04T18:21:00-07:00"
+  },
+  {
+   "id": "e1709bff-c937-59cb-a0b0-de5843ece633",
+   "asked_at": "2026-09-10T08:21:00-07:00",
+   "about_evening": "2026-09-09",
+   "reason": "You had Book club @ Anna's on the calendar",
+   "question": "Did you have a drink last night?",
+   "answer": "yes",
+   "answered_at": "2026-09-10T09:35:00-07:00"
+  },
+  {
+   "id": "0e07d548-dde8-59a1-aff8-46494b615f02",
+   "asked_at": "2026-09-18T08:01:00-07:00",
+   "about_evening": "2026-09-17",
+   "reason": "You had Team offsite dinner on the calendar",
+   "question": "Did you have a drink last night?",
+   "answer": "yes",
+   "answered_at": "2026-09-18T08:55:00-07:00"
+  }
+ ]
+}

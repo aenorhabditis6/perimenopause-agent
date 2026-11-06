@@ -1,0 +1,55 @@
+From: Bayside Women's Health <appointments@baysidewomenshealth.example>
+To: Lisa Hartley <lisa.hartley@mail.example>
+Subject: Appointment confirmed: Annual well-woman exam on Sep 2
+Date: Wed, 19 Aug 2026 10:42:00 -0700
+Message-ID: <msg_0045.0edc2665@demo.example>
+X-Demo-Data: synthetic
+MIME-Version: 1.0
+Content-Type: multipart/alternative;
+ boundary="===============7487423468294619750=="
+
+--===============7487423468294619750==
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+
+Hi Lisa,
+
+Your appointment is confirmed.
+
+Annual well-woman exam
+Wednesday, September 2, 2026 at 10:00 AM
+Elena Ruiz, MD · Obstetrics & Gynecology
+350 30th St, Suite 400, Oakland, CA
+
+To reschedule, call (510) 555-0142 or use the Bayside patient portal.
+
+Bayside Women's Health
+
+--===============7487423468294619750==
+Content-Type: text/html; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
+
+<!doctype html><html><body style=3D"margin:0;background:#f4f4f5;font-family:-=
+apple-system,'Segoe UI',Helvetica,Arial,sans-serif;color:#1f2937"><table role=
+=3D"presentation" width=3D"100%" cellpadding=3D"0" cellspacing=3D"0"><tr><td =
+align=3D"center" style=3D"padding:24px 12px"><table role=3D"presentation" wid=
+th=3D"560" cellpadding=3D"0" cellspacing=3D"0" style=3D"max-width:560px;width=
+:100%;background:#ffffff;border-radius:10px;overflow:hidden"><tr><td style=3D=
+"background:#9d174d;padding:18px 24px;color:#ffffff;font-size:18px;font-weigh=
+t:600;letter-spacing:.2px">Bayside Women&#x27;s Health</td></tr><tr><td style=
+=3D"padding:24px;font-size:15px;line-height:1.55"><p style=3D"margin:0 0 14px=
+">Hi Lisa,</p><p style=3D"margin:0 0 14px">Your appointment is confirmed.</p>=
+<div style=3D"border-left:4px solid #9d174d;background:#fdf2f8;padding:12px 1=
+6px;margin:0 0 16px"><div style=3D"font-weight:600">Annual well-woman exam</d=
+iv><div>Wednesday, September 2, 2026 at 10:00 AM</div><div style=3D"color:#6b=
+7280;font-size:13px">Elena Ruiz, MD =C2=B7 Obstetrics &amp; Gynecology<br>350=
+ 30th St, Suite 400, Oakland, CA</div></div><p style=3D"margin:0 0 14px"><spa=
+n style=3D"color:#6b7280;font-size:13px">To reschedule, call (510) 555-0142 o=
+r use the Bayside patient portal.</span></p></td></tr><tr><td style=3D"paddin=
+g:14px 24px;background:#fafafa;color:#9ca3af;font-size:11px;line-height:1.5">=
+Bayside Women's Health =C2=B7 patient portal notifications<br>Synthetic demo =
+email =C2=B7 fictional business =C2=B7 not a real transaction.</td></tr></tab=
+le></td></tr></table></body></html>
+
+--===============7487423468294619750==--

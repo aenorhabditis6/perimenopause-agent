@@ -1,0 +1,1533 @@
+{
+ "note": "Answer key for the extraction step. Personal and work mail is skipped by the sender prefilter and never sent to Claude.",
+ "expected": [
+  {
+   "email_id": "msg_0001",
+   "date": "2026-07-06T18:02:00-07:00",
+   "from": "anna.lindqvist@mail.example",
+   "subject": "Book club Wed!",
+   "relevant": false,
+   "prefilter": "skip_personal"
+  },
+  {
+   "email_id": "msg_0002",
+   "date": "2026-07-07T09:22:00-07:00",
+   "from": "dana@fernwoodlabs.example",
+   "subject": "Q3 roadmap review — draft deck",
+   "relevant": false,
+   "prefilter": "skip_personal"
+  },
+  {
+   "email_id": "msg_0003",
+   "date": "2026-07-08T06:30:00-07:00",
+   "from": "statements@pineconecu.example",
+   "subject": "Your statement is ready",
+   "relevant": false,
+   "category": "irrelevant"
+  },
+  {
+   "email_id": "msg_0004",
+   "date": "2026-07-08T10:14:00-07:00",
+   "from": "members@cellardoorwine.example",
+   "subject": "Your July shipment is on its way 🍷",
+   "relevant": true,
+   "category": "alcohol_purchase",
+   "event_date": "2026-07-10",
+   "merchant": "Cellar Door Wine Club",
+   "items": [
+    "2022 Paso Robles Zinfandel",
+    "2023 Willamette Pinot Noir",
+    "2022 Napa Cabernet Sauvignon"
+   ],
+   "alcohol_signal": "present",
+   "note": "home stock; not evidence for a specific evening"
+  },
+  {
+   "email_id": "msg_0005",
+   "date": "2026-07-08T12:46:00-07:00",
+   "from": "no-reply@tabletime.example",
+   "subject": "Reservation confirmed: Rosemary & Vine, Fri, Jul 10 at 7:00 PM",
+   "relevant": true,
+   "category": "restaurant_reservation",
+   "event_date": "2026-07-10",
+   "event_time": "19:00",
+   "merchant": "Rosemary & Vine",
+   "party_size": 2,
+   "alcohol_signal": "unknown"
+  },
+  {
+   "email_id": "msg_0006",
+   "date": "2026-07-10T14:22:00-07:00",
+   "from": "members@cellardoorwine.example",
+   "subject": "Delivered: your Cellar Door shipment",
+   "relevant": true,
+   "category": "alcohol_purchase",
+   "event_date": "2026-07-10",
+   "merchant": "Cellar Door Wine Club",
+   "alcohol_signal": "present",
+   "note": "delivery notice"
+  },
+  {
+   "email_id": "msg_0007",
+   "date": "2026-07-10T21:15:00-07:00",
+   "from": "receipts@rosemaryandvine.example",
+   "subject": "Your receipt from Rosemary & Vine",
+   "relevant": true,
+   "category": "restaurant_receipt",
+   "event_date": "2026-07-10",
+   "event_time": "21:14",
+   "merchant": "Rosemary & Vine",
+   "items": [
+    "Glass — Barbera d'Asti",
+    "Branzino",
+    "Wild mushroom risotto"
+   ],
+   "alcohol_signal": "present"
+  },
+  {
+   "email_id": "msg_0008",
+   "date": "2026-07-11T07:00:00-07:00",
+   "from": "digest@bayweekly.example",
+   "subject": "Bay Weekly: School board meeting recap",
+   "relevant": false,
+   "category": "irrelevant",
+   "note": ""
+  },
+  {
+   "email_id": "msg_0009",
+   "date": "2026-07-12T08:10:00-07:00",
+   "from": "billing@eastbaypower.example",
+   "subject": "Your bill is ready",
+   "relevant": false,
+   "category": "irrelevant"
+  },
+  {
+   "email_id": "msg_0010",
+   "date": "2026-07-12T11:33:00-07:00",
+   "from": "orders@freshcart.example",
+   "subject": "Your FreshCart order was delivered",
+   "relevant": true,
+   "category": "alcohol_purchase",
+   "event_date": "2026-07-12",
+   "merchant": "FreshCart",
+   "alcohol_signal": "present",
+   "note": "home stock; not evidence for a specific evening"
+  },
+  {
+   "email_id": "msg_0011",
+   "date": "2026-07-13T20:11:00-07:00",
+   "from": "grace.park@mail.example",
+   "subject": "BBQ Saturday?",
+   "relevant": false,
+   "prefilter": "skip_personal"
+  },
+  {
+   "email_id": "msg_0012",
+   "date": "2026-07-14T16:26:00-07:00",
+   "from": "no-reply@tabletime.example",
+   "subject": "Reservation confirmed: Spice Route Thai, Fri, Jul 17 at 7:00 PM",
+   "relevant": true,
+   "category": "restaurant_reservation",
+   "event_date": "2026-07-17",
+   "event_time": "19:00",
+   "merchant": "Spice Route Thai",
+   "party_size": 4,
+   "alcohol_signal": "unknown"
+  },
+  {
+   "email_id": "msg_0013",
+   "date": "2026-07-14T20:09:00-07:00",
+   "from": "orders@parcelly.example",
+   "subject": "Order confirmed: Kids' soccer cleats, size 6",
+   "relevant": false,
+   "category": "other_purchase",
+   "event_date": "2026-07-14",
+   "merchant": "Parcelly",
+   "items": [
+    "Kids' soccer cleats, size 6"
+   ]
+  },
+  {
+   "email_id": "msg_0014",
+   "date": "2026-07-15T11:02:00-07:00",
+   "from": "raj@fernwoodlabs.example",
+   "subject": "Sprint 31 retro notes",
+   "relevant": false,
+   "prefilter": "skip_personal"
+  },
+  {
+   "email_id": "msg_0015",
+   "date": "2026-07-15T20:28:00-07:00",
+   "from": "bookings@courtsidetennis.example",
+   "subject": "Lesson booked: Sat, Jul 18, 9:00 AM",
+   "relevant": true,
+   "category": "exercise_booking",
+   "event_date": "2026-07-18",
+   "event_time": "09:00",
+   "activity": "tennis lesson"
+  },
+  {
+   "email_id": "msg_0016",
+   "date": "2026-07-17T03:05:00-07:00",
+   "from": "billing@streamly.example",
+   "subject": "Your Streamly receipt",
+   "relevant": false,
+   "category": "irrelevant"
+  },
+  {
+   "email_id": "msg_0017",
+   "date": "2026-07-17T21:16:00-07:00",
+   "from": "receipts@spiceroute.example",
+   "subject": "Your receipt from Spice Route Thai",
+   "relevant": true,
+   "category": "restaurant_receipt",
+   "event_date": "2026-07-17",
+   "event_time": "21:15",
+   "merchant": "Spice Route Thai",
+   "items": [
+    "Thai iced tea",
+    "Pad see ew",
+    "Mango sticky rice",
+    "Green curry"
+   ],
+   "alcohol_signal": "absent"
+  },
+  {
+   "email_id": "msg_0018",
+   "date": "2026-07-19T11:45:00-07:00",
+   "from": "orders@freshcart.example",
+   "subject": "Your FreshCart order was delivered",
+   "relevant": true,
+   "category": "grocery_order",
+   "event_date": "2026-07-19",
+   "merchant": "FreshCart",
+   "alcohol_signal": "absent",
+   "note": ""
+  },
+  {
+   "email_id": "msg_0019",
+   "date": "2026-07-24T21:53:00-07:00",
+   "from": "receipts@gildedtap.example",
+   "subject": "Your receipt from The Gilded Tap",
+   "relevant": true,
+   "category": "restaurant_receipt",
+   "event_date": "2026-07-24",
+   "event_time": "21:52",
+   "merchant": "The Gilded Tap",
+   "items": [
+    "Glass — Sauvignon Blanc",
+    "Little gem salad",
+    "Truffle fries",
+    "Fish & chips"
+   ],
+   "alcohol_signal": "present"
+  },
+  {
+   "email_id": "msg_0020",
+   "date": "2026-07-25T07:00:00-07:00",
+   "from": "digest@bayweekly.example",
+   "subject": "Bay Weekly: School board meeting recap",
+   "relevant": false,
+   "category": "irrelevant",
+   "note": ""
+  },
+  {
+   "email_id": "msg_0021",
+   "date": "2026-07-25T13:43:00-07:00",
+   "from": "no-reply@tabletime.example",
+   "subject": "Reservation confirmed: Sora Sushi, Fri, Jul 31 at 7:15 PM",
+   "relevant": true,
+   "category": "restaurant_reservation",
+   "event_date": "2026-07-31",
+   "event_time": "19:15",
+   "merchant": "Sora Sushi",
+   "party_size": 2,
+   "alcohol_signal": "unknown"
+  },
+  {
+   "email_id": "msg_0022",
+   "date": "2026-07-29T12:59:00-07:00",
+   "from": "dana@fernwoodlabs.example",
+   "subject": "Thanks for today",
+   "relevant": false,
+   "prefilter": "skip_personal"
+  },
+  {
+   "email_id": "msg_0023",
+   "date": "2026-07-29T20:27:00-07:00",
+   "from": "bookings@courtsidetennis.example",
+   "subject": "Lesson booked: Sat, Aug 1, 9:00 AM",
+   "relevant": true,
+   "category": "exercise_booking",
+   "event_date": "2026-08-01",
+   "event_time": "09:00",
+   "activity": "tennis lesson"
+  },
+  {
+   "email_id": "msg_0024",
+   "date": "2026-08-02T11:03:00-07:00",
+   "from": "orders@freshcart.example",
+   "subject": "Your FreshCart order was delivered",
+   "relevant": true,
+   "category": "grocery_order",
+   "event_date": "2026-08-02",
+   "merchant": "FreshCart",
+   "alcohol_signal": "absent",
+   "note": ""
+  },
+  {
+   "email_id": "msg_0025",
+   "date": "2026-08-03T07:30:00-07:00",
+   "from": "news@courtsidetennis.example",
+   "subject": "Courtside Club News — August",
+   "relevant": false
+  },
+  {
+   "email_id": "msg_0026",
+   "date": "2026-08-03T15:00:00-07:00",
+   "from": "no-reply@oakwoodms.example",
+   "subject": "Welcome back! First day is Wed, Aug 12",
+   "relevant": false,
+   "category": "irrelevant"
+  },
+  {
+   "email_id": "msg_0027",
+   "date": "2026-08-03T16:05:00-07:00",
+   "from": "no-reply@tabletime.example",
+   "subject": "Reservation confirmed: Mesa Verde Cantina, Fri, Aug 7 at 7:30 PM",
+   "relevant": true,
+   "category": "restaurant_reservation",
+   "event_date": "2026-08-07",
+   "event_time": "19:30",
+   "merchant": "Mesa Verde Cantina",
+   "party_size": 4,
+   "alcohol_signal": "unknown"
+  },
+  {
+   "email_id": "msg_0028",
+   "date": "2026-08-04T09:46:00-07:00",
+   "from": "priyanka@fernwoodlabs.example",
+   "subject": "Vendor contract — redlines",
+   "relevant": false,
+   "prefilter": "skip_personal"
+  },
+  {
+   "email_id": "msg_0029",
+   "date": "2026-08-05T20:20:00-07:00",
+   "from": "orders@parcelly.example",
+   "subject": "Order confirmed: Graph-paper notebooks (6-pack) + highlighters",
+   "relevant": false,
+   "category": "other_purchase",
+   "event_date": "2026-08-05",
+   "merchant": "Parcelly",
+   "items": [
+    "Graph-paper notebooks (6-pack) + highlighters"
+   ]
+  },
+  {
+   "email_id": "msg_0030",
+   "date": "2026-08-06T12:30:00-07:00",
+   "from": "mark.hartley@mail.example",
+   "subject": "Sat dinner",
+   "relevant": false,
+   "prefilter": "skip_personal"
+  },
+  {
+   "email_id": "msg_0031",
+   "date": "2026-08-07T10:14:00-07:00",
+   "from": "members@cellardoorwine.example",
+   "subject": "Your August shipment is on its way 🍷",
+   "relevant": true,
+   "category": "alcohol_purchase",
+   "event_date": "2026-08-10",
+   "merchant": "Cellar Door Wine Club",
+   "items": [
+    "2023 Santa Barbara Syrah",
+    "2023 Anderson Valley Pinot Gris",
+    "2024 Mendocino Sauvignon Blanc"
+   ],
+   "alcohol_signal": "present",
+   "note": "home stock; not evidence for a specific evening"
+  },
+  {
+   "email_id": "msg_0032",
+   "date": "2026-08-07T21:24:00-07:00",
+   "from": "receipts@mesaverde.example",
+   "subject": "Your receipt from Mesa Verde Cantina",
+   "relevant": true,
+   "category": "restaurant_receipt",
+   "event_date": "2026-08-07",
+   "event_time": "21:23",
+   "merchant": "Mesa Verde Cantina",
+   "items": [
+    "Margarita (classic)",
+    "Tacos al pastor",
+    "Enchiladas verdes",
+    "Guacamole & chips"
+   ],
+   "alcohol_signal": "present"
+  },
+  {
+   "email_id": "msg_0033",
+   "date": "2026-08-08T06:30:00-07:00",
+   "from": "statements@pineconecu.example",
+   "subject": "Your statement is ready",
+   "relevant": false,
+   "category": "irrelevant"
+  },
+  {
+   "email_id": "msg_0034",
+   "date": "2026-08-08T07:00:00-07:00",
+   "from": "digest@bayweekly.example",
+   "subject": "Bay Weekly: School board meeting recap",
+   "relevant": false,
+   "category": "irrelevant",
+   "note": ""
+  },
+  {
+   "email_id": "msg_0035",
+   "date": "2026-08-09T11:21:00-07:00",
+   "from": "orders@freshcart.example",
+   "subject": "Your FreshCart order was delivered",
+   "relevant": true,
+   "category": "alcohol_purchase",
+   "event_date": "2026-08-09",
+   "merchant": "FreshCart",
+   "alcohol_signal": "present",
+   "note": "home stock; not evidence for a specific evening"
+  },
+  {
+   "email_id": "msg_0036",
+   "date": "2026-08-10T09:15:00-07:00",
+   "from": "anna.lindqvist@mail.example",
+   "subject": "Book club this Wed",
+   "relevant": false,
+   "prefilter": "skip_personal"
+  },
+  {
+   "email_id": "msg_0037",
+   "date": "2026-08-10T14:22:00-07:00",
+   "from": "members@cellardoorwine.example",
+   "subject": "Delivered: your Cellar Door shipment",
+   "relevant": true,
+   "category": "alcohol_purchase",
+   "event_date": "2026-08-10",
+   "merchant": "Cellar Door Wine Club",
+   "alcohol_signal": "present",
+   "note": "delivery notice"
+  },
+  {
+   "email_id": "msg_0038",
+   "date": "2026-08-12T08:10:00-07:00",
+   "from": "billing@eastbaypower.example",
+   "subject": "Your bill is ready",
+   "relevant": false,
+   "category": "irrelevant"
+  },
+  {
+   "email_id": "msg_0039",
+   "date": "2026-08-12T20:52:00-07:00",
+   "from": "orders@parcelly.example",
+   "subject": "Order confirmed: Cooling bamboo pillowcases (2-pack)",
+   "relevant": true,
+   "category": "symptom_relief_purchase",
+   "event_date": "2026-08-12",
+   "merchant": "Parcelly",
+   "items": [
+    "Cooling bamboo pillowcases (2-pack)"
+   ],
+   "related_to": "night heat / sleep"
+  },
+  {
+   "email_id": "msg_0040",
+   "date": "2026-08-13T17:09:00-07:00",
+   "from": "no-reply@tabletime.example",
+   "subject": "Reservation confirmed: Osteria Lucca, Fri, Aug 14 at 7:15 PM",
+   "relevant": true,
+   "category": "restaurant_reservation",
+   "event_date": "2026-08-14",
+   "event_time": "19:15",
+   "merchant": "Osteria Lucca",
+   "party_size": 2,
+   "alcohol_signal": "unknown"
+  },
+  {
+   "email_id": "msg_0041",
+   "date": "2026-08-14T21:37:00-07:00",
+   "from": "receipts@osterialucca.example",
+   "subject": "Your receipt from Osteria Lucca",
+   "relevant": true,
+   "category": "restaurant_receipt",
+   "event_date": "2026-08-14",
+   "event_time": "21:36",
+   "merchant": "Osteria Lucca",
+   "items": [
+    "Bottle — Chianti Classico",
+    "Cacio e pepe",
+    "Grilled octopus"
+   ],
+   "alcohol_signal": "present"
+  },
+  {
+   "email_id": "msg_0042",
+   "date": "2026-08-17T03:05:00-07:00",
+   "from": "billing@streamly.example",
+   "subject": "Your Streamly receipt",
+   "relevant": false,
+   "category": "irrelevant"
+  },
+  {
+   "email_id": "msg_0043",
+   "date": "2026-08-17T19:48:00-07:00",
+   "from": "sarah.kim@mail.example",
+   "subject": "Girls' night Sat 22nd?",
+   "relevant": false,
+   "prefilter": "skip_personal"
+  },
+  {
+   "email_id": "msg_0044",
+   "date": "2026-08-18T09:36:00-07:00",
+   "from": "raj@fernwoodlabs.example",
+   "subject": "Sprint 33 planning",
+   "relevant": false,
+   "prefilter": "skip_personal"
+  },
+  {
+   "email_id": "msg_0045",
+   "date": "2026-08-19T10:42:00-07:00",
+   "from": "appointments@baysidewomenshealth.example",
+   "subject": "Appointment confirmed: Annual well-woman exam on Sep 2",
+   "relevant": true,
+   "category": "medical_appointment",
+   "event_date": "2026-09-02",
+   "event_time": "10:00",
+   "provider": "Elena Ruiz, MD",
+   "specialty": "OB-GYN",
+   "visit_type": "annual exam"
+  },
+  {
+   "email_id": "msg_0046",
+   "date": "2026-08-20T15:00:00-07:00",
+   "from": "no-reply@oakwoodms.example",
+   "subject": "Back-to-school night: Thu, Aug 27, 6:30 PM",
+   "relevant": false,
+   "category": "irrelevant"
+  },
+  {
+   "email_id": "msg_0047",
+   "date": "2026-08-20T16:32:00-07:00",
+   "from": "no-reply@tabletime.example",
+   "subject": "Reservation confirmed: Rosemary & Vine, Fri, Aug 21 at 7:00 PM",
+   "relevant": true,
+   "category": "restaurant_reservation",
+   "event_date": "2026-08-21",
+   "event_time": "19:00",
+   "merchant": "Rosemary & Vine",
+   "party_size": 4,
+   "alcohol_signal": "unknown"
+  },
+  {
+   "email_id": "msg_0048",
+   "date": "2026-08-20T16:39:00-07:00",
+   "from": "no-reply@tabletime.example",
+   "subject": "Reservation confirmed: Sora Sushi, Wed, Aug 26 at 7:00 PM",
+   "relevant": true,
+   "category": "restaurant_reservation",
+   "event_date": "2026-08-26",
+   "event_time": "19:00",
+   "merchant": "Sora Sushi",
+   "party_size": 2,
+   "alcohol_signal": "unknown"
+  },
+  {
+   "email_id": "msg_0049",
+   "date": "2026-08-20T21:51:00-07:00",
+   "from": "orders@parcelly.example",
+   "subject": "Order confirmed: Moisture-wicking pajama set, women's M",
+   "relevant": true,
+   "category": "symptom_relief_purchase",
+   "event_date": "2026-08-20",
+   "merchant": "Parcelly",
+   "items": [
+    "Moisture-wicking pajama set, women's M"
+   ],
+   "related_to": "night heat / sleep"
+  },
+  {
+   "email_id": "msg_0050",
+   "date": "2026-08-22T07:00:00-07:00",
+   "from": "digest@bayweekly.example",
+   "subject": "Bay Weekly: New bike lanes on Telegraph",
+   "relevant": false,
+   "category": "irrelevant",
+   "note": ""
+  },
+  {
+   "email_id": "msg_0051",
+   "date": "2026-08-22T18:24:00-07:00",
+   "from": "no-reply@tabletime.example",
+   "subject": "Reservation confirmed: Spice Route Thai, Fri, Aug 28 at 7:15 PM",
+   "relevant": true,
+   "category": "restaurant_reservation",
+   "event_date": "2026-08-28",
+   "event_time": "19:15",
+   "merchant": "Spice Route Thai",
+   "party_size": 4,
+   "alcohol_signal": "unknown"
+  },
+  {
+   "email_id": "msg_0052",
+   "date": "2026-08-22T18:41:00-07:00",
+   "from": "receipts@harborpharmacy.example",
+   "subject": "Your Harbor Pharmacy receipt",
+   "relevant": true,
+   "category": "symptom_relief_purchase",
+   "event_date": "2026-08-22",
+   "merchant": "Harbor Pharmacy",
+   "items": [
+    "Melatonin 3 mg gummies, 60 ct"
+   ],
+   "related_to": "sleep"
+  },
+  {
+   "email_id": "msg_0053",
+   "date": "2026-08-23T11:02:00-07:00",
+   "from": "orders@freshcart.example",
+   "subject": "Your FreshCart order was delivered",
+   "relevant": true,
+   "category": "grocery_order",
+   "event_date": "2026-08-23",
+   "merchant": "FreshCart",
+   "alcohol_signal": "absent",
+   "note": ""
+  },
+  {
+   "email_id": "msg_0054",
+   "date": "2026-08-24T17:30:00-07:00",
+   "from": "team@baystrikers.example",
+   "subject": "Game schedule — week of Mon, Aug 24",
+   "relevant": false,
+   "category": "irrelevant"
+  },
+  {
+   "email_id": "msg_0055",
+   "date": "2026-08-26T20:56:00-07:00",
+   "from": "bookings@courtsidetennis.example",
+   "subject": "Lesson booked: Sat, Aug 29, 9:00 AM",
+   "relevant": true,
+   "category": "exercise_booking",
+   "event_date": "2026-08-29",
+   "event_time": "09:00",
+   "activity": "tennis lesson"
+  },
+  {
+   "email_id": "msg_0056",
+   "date": "2026-08-28T21:32:00-07:00",
+   "from": "receipts@spiceroute.example",
+   "subject": "Your receipt from Spice Route Thai",
+   "relevant": true,
+   "category": "restaurant_receipt",
+   "event_date": "2026-08-28",
+   "event_time": "21:31",
+   "merchant": "Spice Route Thai",
+   "items": [
+    "Thai iced tea",
+    "Mango sticky rice",
+    "Green curry",
+    "Pad see ew"
+   ],
+   "alcohol_signal": "absent"
+  },
+  {
+   "email_id": "msg_0057",
+   "date": "2026-08-30T11:09:00-07:00",
+   "from": "orders@freshcart.example",
+   "subject": "Your FreshCart order was delivered",
+   "relevant": true,
+   "category": "grocery_order",
+   "event_date": "2026-08-30",
+   "merchant": "FreshCart",
+   "alcohol_signal": "absent",
+   "note": ""
+  },
+  {
+   "email_id": "msg_0058",
+   "date": "2026-08-31T09:00:00-07:00",
+   "from": "appointments@baysidewomenshealth.example",
+   "subject": "Reminder: Annual well-woman exam on Wed, Sep 2",
+   "relevant": true,
+   "category": "appointment_reminder",
+   "event_date": "2026-09-02",
+   "event_time": "10:00",
+   "provider": "Elena Ruiz, MD",
+   "specialty": "OB-GYN",
+   "visit_type": "annual exam",
+   "triggers": "doctor_visit_brief"
+  },
+  {
+   "email_id": "msg_0059",
+   "date": "2026-09-01T07:30:00-07:00",
+   "from": "news@courtsidetennis.example",
+   "subject": "Courtside Club News — September",
+   "relevant": false
+  },
+  {
+   "email_id": "msg_0060",
+   "date": "2026-09-01T20:14:00-07:00",
+   "from": "orders@parcelly.example",
+   "subject": "Order confirmed: Quiet bedside oscillating fan",
+   "relevant": true,
+   "category": "symptom_relief_purchase",
+   "event_date": "2026-09-01",
+   "merchant": "Parcelly",
+   "items": [
+    "Quiet bedside oscillating fan"
+   ],
+   "related_to": "night heat / sleep"
+  },
+  {
+   "email_id": "msg_0061",
+   "date": "2026-09-02T12:05:00-07:00",
+   "from": "appointments@baysidewomenshealth.example",
+   "subject": "Your visit summary is ready",
+   "relevant": true,
+   "category": "medical_portal_notice",
+   "event_date": "2026-09-02"
+  },
+  {
+   "email_id": "msg_0062",
+   "date": "2026-09-02T12:20:00-07:00",
+   "from": "appointments@baysidewomenshealth.example",
+   "subject": "Appointment confirmed: Follow-up visit on Nov 10",
+   "relevant": true,
+   "category": "medical_appointment",
+   "event_date": "2026-11-10",
+   "event_time": "09:30",
+   "provider": "Elena Ruiz, MD",
+   "specialty": "OB-GYN",
+   "visit_type": "follow-up"
+  },
+  {
+   "email_id": "msg_0063",
+   "date": "2026-09-03T16:05:00-07:00",
+   "from": "rx@harborpharmacy.example",
+   "subject": "Your prescription is ready for pickup",
+   "relevant": true,
+   "category": "pharmacy_rx_ready",
+   "event_date": "2026-09-03",
+   "merchant": "Harbor Pharmacy"
+  },
+  {
+   "email_id": "msg_0064",
+   "date": "2026-09-04T17:48:00-07:00",
+   "from": "rx@harborpharmacy.example",
+   "subject": "Thanks for picking up your prescription",
+   "relevant": true,
+   "category": "pharmacy_rx_pickup",
+   "event_date": "2026-09-04",
+   "merchant": "Harbor Pharmacy",
+   "rx_number": "4471-206",
+   "is_first_fill": true
+  },
+  {
+   "email_id": "msg_0065",
+   "date": "2026-09-05T07:00:00-07:00",
+   "from": "digest@bayweekly.example",
+   "subject": "Bay Weekly: Farmers markets open late this month",
+   "relevant": false,
+   "category": "irrelevant",
+   "note": ""
+  },
+  {
+   "email_id": "msg_0066",
+   "date": "2026-09-05T21:52:00-07:00",
+   "from": "receipts@gildedtap.example",
+   "subject": "Your receipt from The Gilded Tap",
+   "relevant": true,
+   "category": "restaurant_receipt",
+   "event_date": "2026-09-05",
+   "event_time": "21:51",
+   "merchant": "The Gilded Tap",
+   "items": [
+    "Glass — Sauvignon Blanc",
+    "Fish & chips",
+    "Little gem salad",
+    "Truffle fries"
+   ],
+   "alcohol_signal": "present"
+  },
+  {
+   "email_id": "msg_0067",
+   "date": "2026-09-07T10:02:00-07:00",
+   "from": "anna.lindqvist@mail.example",
+   "subject": "September book pick",
+   "relevant": false,
+   "prefilter": "skip_personal"
+  },
+  {
+   "email_id": "msg_0068",
+   "date": "2026-09-07T17:30:00-07:00",
+   "from": "team@baystrikers.example",
+   "subject": "Game schedule — week of Mon, Sep 7",
+   "relevant": false,
+   "category": "irrelevant"
+  },
+  {
+   "email_id": "msg_0069",
+   "date": "2026-09-08T06:30:00-07:00",
+   "from": "statements@pineconecu.example",
+   "subject": "Your statement is ready",
+   "relevant": false,
+   "category": "irrelevant"
+  },
+  {
+   "email_id": "msg_0070",
+   "date": "2026-09-08T15:23:00-07:00",
+   "from": "dana@fernwoodlabs.example",
+   "subject": "Offsite agenda — Sep 17",
+   "relevant": false,
+   "prefilter": "skip_personal"
+  },
+  {
+   "email_id": "msg_0071",
+   "date": "2026-09-09T10:14:00-07:00",
+   "from": "members@cellardoorwine.example",
+   "subject": "Your September shipment is on its way 🍷",
+   "relevant": true,
+   "category": "alcohol_purchase",
+   "event_date": "2026-09-11",
+   "merchant": "Cellar Door Wine Club",
+   "items": [
+    "2022 Paso Robles Zinfandel",
+    "2023 Willamette Pinot Noir",
+    "2023 Anderson Valley Pinot Gris"
+   ],
+   "alcohol_signal": "present",
+   "note": "home stock; not evidence for a specific evening"
+  },
+  {
+   "email_id": "msg_0072",
+   "date": "2026-09-10T17:44:00-07:00",
+   "from": "no-reply@tabletime.example",
+   "subject": "Reservation confirmed: Mesa Verde Cantina, Fri, Sep 11 at 7:15 PM",
+   "relevant": true,
+   "category": "restaurant_reservation",
+   "event_date": "2026-09-11",
+   "event_time": "19:15",
+   "merchant": "Mesa Verde Cantina",
+   "party_size": 2,
+   "alcohol_signal": "unknown"
+  },
+  {
+   "email_id": "msg_0073",
+   "date": "2026-09-11T14:22:00-07:00",
+   "from": "members@cellardoorwine.example",
+   "subject": "Delivered: your Cellar Door shipment",
+   "relevant": true,
+   "category": "alcohol_purchase",
+   "event_date": "2026-09-11",
+   "merchant": "Cellar Door Wine Club",
+   "alcohol_signal": "present",
+   "note": "delivery notice"
+  },
+  {
+   "email_id": "msg_0074",
+   "date": "2026-09-11T15:00:00-07:00",
+   "from": "no-reply@oakwoodms.example",
+   "subject": "Picture day is Sep 24",
+   "relevant": false,
+   "category": "irrelevant"
+  },
+  {
+   "email_id": "msg_0075",
+   "date": "2026-09-11T21:32:00-07:00",
+   "from": "receipts@mesaverde.example",
+   "subject": "Your receipt from Mesa Verde Cantina",
+   "relevant": true,
+   "category": "restaurant_receipt",
+   "event_date": "2026-09-11",
+   "event_time": "21:31",
+   "merchant": "Mesa Verde Cantina",
+   "items": [
+    "Margarita (classic)",
+    "Guacamole & chips",
+    "Tacos al pastor"
+   ],
+   "alcohol_signal": "present"
+  },
+  {
+   "email_id": "msg_0076",
+   "date": "2026-09-12T08:10:00-07:00",
+   "from": "billing@eastbaypower.example",
+   "subject": "Your bill is ready",
+   "relevant": false,
+   "category": "irrelevant"
+  },
+  {
+   "email_id": "msg_0077",
+   "date": "2026-09-13T11:39:00-07:00",
+   "from": "orders@freshcart.example",
+   "subject": "Your FreshCart order was delivered",
+   "relevant": true,
+   "category": "alcohol_purchase",
+   "event_date": "2026-09-13",
+   "merchant": "FreshCart",
+   "alcohol_signal": "present",
+   "note": "home stock; not evidence for a specific evening"
+  },
+  {
+   "email_id": "msg_0078",
+   "date": "2026-09-14T10:51:00-07:00",
+   "from": "no-reply@tabletime.example",
+   "subject": "Reservation confirmed: Spice Route Thai, Fri, Sep 18 at 7:30 PM",
+   "relevant": true,
+   "category": "restaurant_reservation",
+   "event_date": "2026-09-18",
+   "event_time": "19:30",
+   "merchant": "Spice Route Thai",
+   "party_size": 4,
+   "alcohol_signal": "unknown"
+  },
+  {
+   "email_id": "msg_0079",
+   "date": "2026-09-16T20:18:00-07:00",
+   "from": "bookings@courtsidetennis.example",
+   "subject": "Lesson booked: Sat, Sep 19, 9:00 AM",
+   "relevant": true,
+   "category": "exercise_booking",
+   "event_date": "2026-09-19",
+   "event_time": "09:00",
+   "activity": "tennis lesson"
+  },
+  {
+   "email_id": "msg_0080",
+   "date": "2026-09-17T03:05:00-07:00",
+   "from": "billing@streamly.example",
+   "subject": "Your Streamly receipt",
+   "relevant": false,
+   "category": "irrelevant"
+  },
+  {
+   "email_id": "msg_0081",
+   "date": "2026-09-18T21:44:00-07:00",
+   "from": "receipts@spiceroute.example",
+   "subject": "Your receipt from Spice Route Thai",
+   "relevant": true,
+   "category": "restaurant_receipt",
+   "event_date": "2026-09-18",
+   "event_time": "21:43",
+   "merchant": "Spice Route Thai",
+   "items": [
+    "Thai iced tea",
+    "Kids' pad thai",
+    "Pad see ew",
+    "Green curry"
+   ],
+   "alcohol_signal": "absent"
+  },
+  {
+   "email_id": "msg_0082",
+   "date": "2026-09-19T07:00:00-07:00",
+   "from": "digest@bayweekly.example",
+   "subject": "Bay Weekly: This weekend: the Oakland Wine Walk, 30+ tasting rooms on Broadway",
+   "relevant": false,
+   "category": "irrelevant",
+   "note": "newsletter; the wine walk is not Lisa's plan"
+  },
+  {
+   "email_id": "msg_0083",
+   "date": "2026-09-20T11:48:00-07:00",
+   "from": "orders@freshcart.example",
+   "subject": "Your FreshCart order was delivered",
+   "relevant": true,
+   "category": "grocery_order",
+   "event_date": "2026-09-20",
+   "merchant": "FreshCart",
+   "alcohol_signal": "absent",
+   "note": ""
+  },
+  {
+   "email_id": "msg_0084",
+   "date": "2026-09-21T17:30:00-07:00",
+   "from": "team@baystrikers.example",
+   "subject": "Game schedule — week of Mon, Sep 21",
+   "relevant": false,
+   "category": "irrelevant"
+  },
+  {
+   "email_id": "msg_0085",
+   "date": "2026-09-21T20:10:00-07:00",
+   "from": "orders@parcelly.example",
+   "subject": "Order confirmed: Phone case, clear",
+   "relevant": false,
+   "category": "other_purchase",
+   "event_date": "2026-09-21",
+   "merchant": "Parcelly",
+   "items": [
+    "Phone case, clear"
+   ]
+  },
+  {
+   "email_id": "msg_0086",
+   "date": "2026-09-22T09:34:00-07:00",
+   "from": "priyanka@fernwoodlabs.example",
+   "subject": "Seattle client workshop — logistics",
+   "relevant": false,
+   "prefilter": "skip_personal"
+  },
+  {
+   "email_id": "msg_0087",
+   "date": "2026-09-23T21:14:00-07:00",
+   "from": "no-reply@tabletime.example",
+   "subject": "Reservation confirmed: Rosemary & Vine, Fri, Sep 25 at 7:15 PM",
+   "relevant": true,
+   "category": "restaurant_reservation",
+   "event_date": "2026-09-25",
+   "event_time": "19:15",
+   "merchant": "Rosemary & Vine",
+   "party_size": 2,
+   "alcohol_signal": "unknown"
+  },
+  {
+   "email_id": "msg_0088",
+   "date": "2026-09-24T14:03:00-07:00",
+   "from": "itinerary@baylineair.example",
+   "subject": "Your trip to Seattle is booked — QZ7K4P",
+   "relevant": true,
+   "category": "travel_booking",
+   "event_date": "2026-10-14",
+   "end_date": "2026-10-16",
+   "details": "OAK→SEA Oct 14 07:15, SEA→OAK Oct 16 18:40"
+  },
+  {
+   "email_id": "msg_0089",
+   "date": "2026-09-24T14:40:00-07:00",
+   "from": "stay@marloweseattle.example",
+   "subject": "Reservation confirmed — The Marlowe Seattle, Oct 14–16",
+   "relevant": true,
+   "category": "hotel_booking",
+   "event_date": "2026-10-14",
+   "end_date": "2026-10-16"
+  },
+  {
+   "email_id": "msg_0090",
+   "date": "2026-09-25T21:48:00-07:00",
+   "from": "receipts@rosemaryandvine.example",
+   "subject": "Your receipt from Rosemary & Vine",
+   "relevant": true,
+   "category": "restaurant_receipt",
+   "event_date": "2026-09-25",
+   "event_time": "21:47",
+   "merchant": "Rosemary & Vine",
+   "items": [
+    "Glass — Barbera d'Asti",
+    "Burrata",
+    "Branzino"
+   ],
+   "alcohol_signal": "present"
+  },
+  {
+   "email_id": "msg_0091",
+   "date": "2026-09-27T13:29:00-07:00",
+   "from": "no-reply@tabletime.example",
+   "subject": "Reservation confirmed: Sora Sushi, Fri, Oct 2 at 7:15 PM",
+   "relevant": true,
+   "category": "restaurant_reservation",
+   "event_date": "2026-10-02",
+   "event_time": "19:15",
+   "merchant": "Sora Sushi",
+   "party_size": 2,
+   "alcohol_signal": "unknown"
+  },
+  {
+   "email_id": "msg_0092",
+   "date": "2026-09-28T21:05:00-07:00",
+   "from": "sarah.kim@mail.example",
+   "subject": "Round two — Sat Oct 3?",
+   "relevant": false,
+   "prefilter": "skip_personal"
+  },
+  {
+   "email_id": "msg_0093",
+   "date": "2026-10-01T07:30:00-07:00",
+   "from": "news@courtsidetennis.example",
+   "subject": "Courtside Club News — October",
+   "relevant": false
+  },
+  {
+   "email_id": "msg_0094",
+   "date": "2026-10-01T10:00:00-07:00",
+   "from": "rx@harborpharmacy.example",
+   "subject": "Refill reminder: Rx #4471-206",
+   "relevant": true,
+   "category": "pharmacy_refill_reminder",
+   "event_date": "2026-10-01",
+   "rx_number": "4471-206"
+  },
+  {
+   "email_id": "msg_0095",
+   "date": "2026-10-02T15:30:00-07:00",
+   "from": "rx@harborpharmacy.example",
+   "subject": "Your prescription is ready for pickup",
+   "relevant": true,
+   "category": "pharmacy_rx_ready",
+   "event_date": "2026-10-02",
+   "merchant": "Harbor Pharmacy"
+  },
+  {
+   "email_id": "msg_0096",
+   "date": "2026-10-03T07:00:00-07:00",
+   "from": "digest@bayweekly.example",
+   "subject": "Bay Weekly: Lake Merritt lights festival",
+   "relevant": false,
+   "category": "irrelevant",
+   "note": ""
+  },
+  {
+   "email_id": "msg_0097",
+   "date": "2026-10-03T11:20:00-07:00",
+   "from": "rx@harborpharmacy.example",
+   "subject": "Thanks for picking up your prescription",
+   "relevant": true,
+   "category": "pharmacy_rx_pickup",
+   "event_date": "2026-10-03",
+   "merchant": "Harbor Pharmacy",
+   "rx_number": "4471-206",
+   "is_first_fill": false
+  },
+  {
+   "email_id": "msg_0098",
+   "date": "2026-10-04T11:17:00-07:00",
+   "from": "orders@freshcart.example",
+   "subject": "Your FreshCart order was delivered",
+   "relevant": true,
+   "category": "grocery_order",
+   "event_date": "2026-10-04",
+   "merchant": "FreshCart",
+   "alcohol_signal": "absent",
+   "note": ""
+  },
+  {
+   "email_id": "msg_0099",
+   "date": "2026-10-05T11:51:00-07:00",
+   "from": "no-reply@tabletime.example",
+   "subject": "Reservation confirmed: Osteria Lucca, Fri, Oct 9 at 7:30 PM",
+   "relevant": true,
+   "category": "restaurant_reservation",
+   "event_date": "2026-10-09",
+   "event_time": "19:30",
+   "merchant": "Osteria Lucca",
+   "party_size": 4,
+   "alcohol_signal": "unknown"
+  },
+  {
+   "email_id": "msg_0100",
+   "date": "2026-10-05T13:40:00-07:00",
+   "from": "jen.alvarez@mail.example",
+   "subject": "You're invited: Jen's 50th 🎉",
+   "relevant": false,
+   "prefilter": "skip_personal"
+  },
+  {
+   "email_id": "msg_0101",
+   "date": "2026-10-05T17:30:00-07:00",
+   "from": "team@baystrikers.example",
+   "subject": "Game schedule — week of Mon, Oct 5",
+   "relevant": false,
+   "category": "irrelevant"
+  },
+  {
+   "email_id": "msg_0102",
+   "date": "2026-10-06T12:03:00-07:00",
+   "from": "raj@fernwoodlabs.example",
+   "subject": "QBR slides due Oct 20",
+   "relevant": false,
+   "prefilter": "skip_personal"
+  },
+  {
+   "email_id": "msg_0103",
+   "date": "2026-10-06T20:05:00-07:00",
+   "from": "orders@parcelly.example",
+   "subject": "Order confirmed: Halloween costume — dinosaur, kids' L",
+   "relevant": false,
+   "category": "other_purchase",
+   "event_date": "2026-10-06",
+   "merchant": "Parcelly",
+   "items": [
+    "Halloween costume — dinosaur, kids' L"
+   ]
+  },
+  {
+   "email_id": "msg_0104",
+   "date": "2026-10-08T06:30:00-07:00",
+   "from": "statements@pineconecu.example",
+   "subject": "Your statement is ready",
+   "relevant": false,
+   "category": "irrelevant"
+  },
+  {
+   "email_id": "msg_0105",
+   "date": "2026-10-08T10:14:00-07:00",
+   "from": "members@cellardoorwine.example",
+   "subject": "Your October shipment is on its way 🍷",
+   "relevant": true,
+   "category": "alcohol_purchase",
+   "event_date": "2026-10-10",
+   "merchant": "Cellar Door Wine Club",
+   "items": [
+    "2022 Napa Cabernet Sauvignon",
+    "2024 Mendocino Sauvignon Blanc",
+    "2024 Lodi Rosé"
+   ],
+   "alcohol_signal": "present",
+   "note": "home stock; not evidence for a specific evening"
+  },
+  {
+   "email_id": "msg_0106",
+   "date": "2026-10-09T15:00:00-07:00",
+   "from": "no-reply@oakwoodms.example",
+   "subject": "Fall conferences sign-up",
+   "relevant": false,
+   "category": "irrelevant"
+  },
+  {
+   "email_id": "msg_0107",
+   "date": "2026-10-09T21:25:00-07:00",
+   "from": "receipts@osterialucca.example",
+   "subject": "Your receipt from Osteria Lucca",
+   "relevant": true,
+   "category": "restaurant_receipt",
+   "event_date": "2026-10-09",
+   "event_time": "21:24",
+   "merchant": "Osteria Lucca",
+   "items": [
+    "Bottle — Chianti Classico",
+    "Cacio e pepe",
+    "Grilled octopus",
+    "Panna cotta"
+   ],
+   "alcohol_signal": "present"
+  },
+  {
+   "email_id": "msg_0108",
+   "date": "2026-10-10T14:22:00-07:00",
+   "from": "members@cellardoorwine.example",
+   "subject": "Delivered: your Cellar Door shipment",
+   "relevant": true,
+   "category": "alcohol_purchase",
+   "event_date": "2026-10-10",
+   "merchant": "Cellar Door Wine Club",
+   "alcohol_signal": "present",
+   "note": "delivery notice"
+  },
+  {
+   "email_id": "msg_0109",
+   "date": "2026-10-11T11:32:00-07:00",
+   "from": "orders@freshcart.example",
+   "subject": "Your FreshCart order was delivered",
+   "relevant": true,
+   "category": "alcohol_purchase",
+   "event_date": "2026-10-11",
+   "merchant": "FreshCart",
+   "alcohol_signal": "present",
+   "note": "home stock; not evidence for a specific evening"
+  },
+  {
+   "email_id": "msg_0110",
+   "date": "2026-10-12T08:10:00-07:00",
+   "from": "billing@eastbaypower.example",
+   "subject": "Your bill is ready",
+   "relevant": false,
+   "category": "irrelevant"
+  },
+  {
+   "email_id": "msg_0111",
+   "date": "2026-10-13T07:15:00-07:00",
+   "from": "itinerary@baylineair.example",
+   "subject": "Check in now for your flight to Seattle tomorrow",
+   "relevant": true,
+   "category": "travel_checkin",
+   "event_date": "2026-10-14",
+   "event_time": "07:15"
+  },
+  {
+   "email_id": "msg_0112",
+   "date": "2026-10-14T21:06:00-07:00",
+   "from": "receipts@harborview-oyster.example",
+   "subject": "Your receipt from Harborview Oyster Bar",
+   "relevant": true,
+   "category": "restaurant_receipt",
+   "event_date": "2026-10-14",
+   "event_time": "21:05",
+   "merchant": "Harborview Oyster Bar",
+   "items": [
+    "Glass — Albariño",
+    "Dungeness crab cakes",
+    "Clam chowder",
+    "Oysters (dozen)"
+   ],
+   "alcohol_signal": "present"
+  },
+  {
+   "email_id": "msg_0113",
+   "date": "2026-10-15T17:30:00-07:00",
+   "from": "no-reply@tabletime.example",
+   "subject": "Reservation confirmed: Rosemary & Vine, Sat, Oct 17 at 7:15 PM",
+   "relevant": true,
+   "category": "restaurant_reservation",
+   "event_date": "2026-10-17",
+   "event_time": "19:15",
+   "merchant": "Rosemary & Vine",
+   "party_size": 2,
+   "alcohol_signal": "unknown"
+  },
+  {
+   "email_id": "msg_0114",
+   "date": "2026-10-17T03:05:00-07:00",
+   "from": "billing@streamly.example",
+   "subject": "Your Streamly receipt",
+   "relevant": false,
+   "category": "irrelevant"
+  },
+  {
+   "email_id": "msg_0115",
+   "date": "2026-10-17T07:00:00-07:00",
+   "from": "digest@bayweekly.example",
+   "subject": "Bay Weekly: Lake Merritt lights festival",
+   "relevant": false,
+   "category": "irrelevant",
+   "note": ""
+  },
+  {
+   "email_id": "msg_0116",
+   "date": "2026-10-17T21:16:00-07:00",
+   "from": "receipts@rosemaryandvine.example",
+   "subject": "Your receipt from Rosemary & Vine",
+   "relevant": true,
+   "category": "restaurant_receipt",
+   "event_date": "2026-10-17",
+   "event_time": "21:15",
+   "merchant": "Rosemary & Vine",
+   "items": [
+    "Glass — Barbera d'Asti",
+    "Wild mushroom risotto",
+    "Burrata"
+   ],
+   "alcohol_signal": "present"
+  },
+  {
+   "email_id": "msg_0117",
+   "date": "2026-10-19T10:39:00-07:00",
+   "from": "dana@fernwoodlabs.example",
+   "subject": "QBR dry run",
+   "relevant": false,
+   "prefilter": "skip_personal"
+  },
+  {
+   "email_id": "msg_0118",
+   "date": "2026-10-19T17:30:00-07:00",
+   "from": "team@baystrikers.example",
+   "subject": "Game schedule — week of Mon, Oct 19",
+   "relevant": false,
+   "category": "irrelevant"
+  },
+  {
+   "email_id": "msg_0119",
+   "date": "2026-10-20T08:55:00-07:00",
+   "from": "mark.hartley@mail.example",
+   "subject": "Leo dentist moved",
+   "relevant": false,
+   "prefilter": "skip_personal"
+  },
+  {
+   "email_id": "msg_0120",
+   "date": "2026-10-21T20:11:00-07:00",
+   "from": "bookings@courtsidetennis.example",
+   "subject": "Lesson booked: Sat, Oct 24, 9:00 AM",
+   "relevant": true,
+   "category": "exercise_booking",
+   "event_date": "2026-10-24",
+   "event_time": "09:00",
+   "activity": "tennis lesson"
+  },
+  {
+   "email_id": "msg_0121",
+   "date": "2026-10-23T15:00:00-07:00",
+   "from": "no-reply@oakwoodms.example",
+   "subject": "Halloween parade Oct 30",
+   "relevant": false,
+   "category": "irrelevant"
+  },
+  {
+   "email_id": "msg_0122",
+   "date": "2026-10-23T21:24:00-07:00",
+   "from": "receipts@gildedtap.example",
+   "subject": "Your receipt from The Gilded Tap",
+   "relevant": true,
+   "category": "restaurant_receipt",
+   "event_date": "2026-10-23",
+   "event_time": "21:23",
+   "merchant": "The Gilded Tap",
+   "items": [
+    "Glass — Sauvignon Blanc",
+    "Truffle fries",
+    "Little gem salad",
+    "Fish & chips"
+   ],
+   "alcohol_signal": "present"
+  },
+  {
+   "email_id": "msg_0123",
+   "date": "2026-10-25T11:21:00-07:00",
+   "from": "orders@freshcart.example",
+   "subject": "Your FreshCart order was delivered",
+   "relevant": true,
+   "category": "grocery_order",
+   "event_date": "2026-10-25",
+   "merchant": "FreshCart",
+   "alcohol_signal": "absent",
+   "note": ""
+  },
+  {
+   "email_id": "msg_0124",
+   "date": "2026-10-27T21:11:00-07:00",
+   "from": "no-reply@tabletime.example",
+   "subject": "Reservation confirmed: Mesa Verde Cantina, Fri, Oct 30 at 7:00 PM",
+   "relevant": true,
+   "category": "restaurant_reservation",
+   "event_date": "2026-10-30",
+   "event_time": "19:00",
+   "merchant": "Mesa Verde Cantina",
+   "party_size": 4,
+   "alcohol_signal": "unknown"
+  },
+  {
+   "email_id": "msg_0125",
+   "date": "2026-10-28T11:42:00-07:00",
+   "from": "hr@fernwoodlabs.example",
+   "subject": "Open enrollment: elections due Nov 13",
+   "relevant": false,
+   "prefilter": "skip_personal"
+  },
+  {
+   "email_id": "msg_0126",
+   "date": "2026-10-29T09:38:00-07:00",
+   "from": "no-reply@tabletime.example",
+   "subject": "Reservation confirmed: Osteria Lucca, Tue, Nov 3 at 7:30 PM",
+   "relevant": true,
+   "category": "restaurant_reservation",
+   "event_date": "2026-11-03",
+   "event_time": "19:30",
+   "merchant": "Osteria Lucca",
+   "party_size": 2,
+   "alcohol_signal": "unknown"
+  },
+  {
+   "email_id": "msg_0127",
+   "date": "2026-10-30T21:25:00-07:00",
+   "from": "receipts@mesaverde.example",
+   "subject": "Your receipt from Mesa Verde Cantina",
+   "relevant": true,
+   "category": "restaurant_receipt",
+   "event_date": "2026-10-30",
+   "event_time": "21:24",
+   "merchant": "Mesa Verde Cantina",
+   "items": [
+    "Margarita (classic)",
+    "Guacamole & chips",
+    "Enchiladas verdes",
+    "Tacos al pastor"
+   ],
+   "alcohol_signal": "present"
+  },
+  {
+   "email_id": "msg_0128",
+   "date": "2026-10-31T07:00:00-07:00",
+   "from": "digest@bayweekly.example",
+   "subject": "Bay Weekly: School board meeting recap",
+   "relevant": false,
+   "category": "irrelevant",
+   "note": ""
+  },
+  {
+   "email_id": "msg_0129",
+   "date": "2026-11-01T10:05:00-08:00",
+   "from": "rx@harborpharmacy.example",
+   "subject": "Your prescription is ready for pickup",
+   "relevant": true,
+   "category": "pharmacy_rx_ready",
+   "event_date": "2026-11-01",
+   "merchant": "Harbor Pharmacy"
+  },
+  {
+   "email_id": "msg_0130",
+   "date": "2026-11-01T11:15:00-08:00",
+   "from": "orders@freshcart.example",
+   "subject": "Your FreshCart order was delivered",
+   "relevant": true,
+   "category": "grocery_order",
+   "event_date": "2026-11-01",
+   "merchant": "FreshCart",
+   "alcohol_signal": "absent",
+   "note": ""
+  },
+  {
+   "email_id": "msg_0131",
+   "date": "2026-11-02T07:30:00-08:00",
+   "from": "news@courtsidetennis.example",
+   "subject": "Courtside Club News — November",
+   "relevant": false
+  },
+  {
+   "email_id": "msg_0132",
+   "date": "2026-11-02T12:10:00-08:00",
+   "from": "rx@harborpharmacy.example",
+   "subject": "Thanks for picking up your prescription",
+   "relevant": true,
+   "category": "pharmacy_rx_pickup",
+   "event_date": "2026-11-02",
+   "merchant": "Harbor Pharmacy",
+   "rx_number": "4471-206",
+   "is_first_fill": false
+  },
+  {
+   "email_id": "msg_0133",
+   "date": "2026-11-02T17:30:00-08:00",
+   "from": "team@baystrikers.example",
+   "subject": "Game schedule — week of Mon, Nov 2",
+   "relevant": false,
+   "category": "irrelevant"
+  },
+  {
+   "email_id": "msg_0134",
+   "date": "2026-11-03T21:36:00-08:00",
+   "from": "receipts@osterialucca.example",
+   "subject": "Your receipt from Osteria Lucca",
+   "relevant": true,
+   "category": "restaurant_receipt",
+   "event_date": "2026-11-03",
+   "event_time": "21:35",
+   "merchant": "Osteria Lucca",
+   "items": [
+    "Bottle — Chianti Classico",
+    "Panna cotta",
+    "Cacio e pepe"
+   ],
+   "alcohol_signal": "present"
+  },
+  {
+   "email_id": "msg_live",
+   "date": "2026-11-05T08:12:00-08:00",
+   "from": "appointments@baysidewomenshealth.example",
+   "subject": "Reminder: Follow-up visit on Tue, Nov 10",
+   "relevant": true,
+   "category": "appointment_reminder",
+   "event_date": "2026-11-10",
+   "event_time": "09:30",
+   "provider": "Elena Ruiz, MD",
+   "specialty": "OB-GYN",
+   "visit_type": "follow-up",
+   "triggers": "doctor_visit_brief"
+  }
+ ]
+}

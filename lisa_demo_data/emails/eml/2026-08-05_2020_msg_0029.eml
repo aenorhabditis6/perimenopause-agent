@@ -1,0 +1,51 @@
+From: Parcelly <orders@parcelly.example>
+To: Lisa Hartley <lisa.hartley@mail.example>
+Subject: Order confirmed: Graph-paper notebooks (6-pack) + highlighters
+Date: Wed, 05 Aug 2026 20:20:00 -0700
+Message-ID: <msg_0029.19167cdc@demo.example>
+X-Demo-Data: synthetic
+MIME-Version: 1.0
+Content-Type: multipart/alternative;
+ boundary="===============2101507010879013398=="
+
+--===============2101507010879013398==
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+
+Hello Lisa,
+
+Thanks for your order #112-4588727.
+
+Graph-paper notebooks (6-pack) + highlighters    $23.47
+
+Arriving Fri, Aug 7.
+Ship to: Lisa Hartley, Oakland, CA
+
+Parcelly
+
+--===============2101507010879013398==
+Content-Type: text/html; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
+
+<!doctype html><html><body style=3D"margin:0;background:#f4f4f5;font-family:-=
+apple-system,'Segoe UI',Helvetica,Arial,sans-serif;color:#1f2937"><table role=
+=3D"presentation" width=3D"100%" cellpadding=3D"0" cellspacing=3D"0"><tr><td =
+align=3D"center" style=3D"padding:24px 12px"><table role=3D"presentation" wid=
+th=3D"560" cellpadding=3D"0" cellspacing=3D"0" style=3D"max-width:560px;width=
+:100%;background:#ffffff;border-radius:10px;overflow:hidden"><tr><td style=3D=
+"background:#1d4ed8;padding:18px 24px;color:#ffffff;font-size:18px;font-weigh=
+t:600;letter-spacing:.2px">Parcelly</td></tr><tr><td style=3D"padding:24px;fo=
+nt-size:15px;line-height:1.55"><p style=3D"margin:0 0 14px">Hello Lisa,</p><p=
+ style=3D"margin:0 0 14px">Thanks for your order <strong>#112-4588727</strong=
+>.</p><table role=3D"presentation" width=3D"100%" cellpadding=3D"0" cellspaci=
+ng=3D"0" style=3D"border-collapse:collapse;margin:6px 0 16px"><tr><td style=
+=3D"padding:7px 0;border-top:1px solid #eef0f3">Graph-paper notebooks (6-pack=
+) + highlighters</td><td align=3D"right" style=3D"padding:7px 0;border-top:1p=
+x solid #eef0f3">$23.47</td></tr></table><p style=3D"margin:0 0 14px">Arrivin=
+g <strong>Fri, Aug 7</strong>.</p></td></tr><tr><td style=3D"padding:14px 24p=
+x;background:#fafafa;color:#9ca3af;font-size:11px;line-height:1.5">Parcelly o=
+nline store<br>Synthetic demo email =C2=B7 fictional business =C2=B7 not a re=
+al transaction.</td></tr></table></td></tr></table></body></html>
+
+--===============2101507010879013398==--

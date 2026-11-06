@@ -1,0 +1,79 @@
+From: Harborview Oyster Bar via Tabbit <receipts@harborview-oyster.example>
+To: Lisa Hartley <lisa.hartley@mail.example>
+Subject: Your receipt from Harborview Oyster Bar
+Date: Wed, 14 Oct 2026 21:06:00 -0700
+Message-ID: <msg_0112.16e4e12f@demo.example>
+X-Demo-Data: synthetic
+MIME-Version: 1.0
+Content-Type: multipart/alternative;
+ boundary="===============8681420086720073597=="
+
+--===============8681420086720073597==
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+
+Harborview Oyster Bar
+1101 Alaskan Way, Seattle, WA
+Wed, Oct 14, 2026 · 9:05 PM · Table 19 · Server: Priya
+
+2 × Glass — Albariño                      $30.00
+2 × Dungeness crab cakes                  $52.00
+1 × Clam chowder                          $12.00
+2 × Oysters (dozen)                       $84.00
+
+Subtotal                                 $178.00
+Tax                                       $18.24
+Tip                                       $35.60
+Total                                    $231.84
+Visa ending in 4417
+
+Thanks for dining with us!
+Receipt powered by Tabbit
+
+--===============8681420086720073597==
+Content-Type: text/html; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
+
+<!doctype html><html><body style=3D"margin:0;background:#f4f4f5;font-family:-=
+apple-system,'Segoe UI',Helvetica,Arial,sans-serif;color:#1f2937"><table role=
+=3D"presentation" width=3D"100%" cellpadding=3D"0" cellspacing=3D"0"><tr><td =
+align=3D"center" style=3D"padding:24px 12px"><table role=3D"presentation" wid=
+th=3D"560" cellpadding=3D"0" cellspacing=3D"0" style=3D"max-width:560px;width=
+:100%;background:#ffffff;border-radius:10px;overflow:hidden"><tr><td style=3D=
+"background:#111827;padding:18px 24px;color:#ffffff;font-size:18px;font-weigh=
+t:600;letter-spacing:.2px">Harborview Oyster Bar</td></tr><tr><td style=3D"pa=
+dding:24px;font-size:15px;line-height:1.55"><div style=3D"font-size:17px;font=
+-weight:600">Harborview Oyster Bar</div><div style=3D"color:#6b7280;font-size=
+:13px;margin-bottom:12px">1101 Alaskan Way, Seattle, WA<br>Wed, Oct 14, 2026 =
+=C2=B7 9:05 PM =C2=B7 Table 19 =C2=B7 Server: Priya</div><table role=3D"prese=
+ntation" width=3D"100%" cellpadding=3D"0" cellspacing=3D"0" style=3D"border-c=
+ollapse:collapse;margin:6px 0 16px"><tr><td style=3D"padding:7px 0;border-top=
+:1px solid #eef0f3">2 =C3=97 Glass =E2=80=94 Albari=C3=B1o</td><td align=3D"r=
+ight" style=3D"padding:7px 0;border-top:1px solid #eef0f3">$30.00</td></tr><t=
+r><td style=3D"padding:7px 0;border-top:1px solid #eef0f3">2 =C3=97 Dungeness=
+ crab cakes</td><td align=3D"right" style=3D"padding:7px 0;border-top:1px sol=
+id #eef0f3">$52.00</td></tr><tr><td style=3D"padding:7px 0;border-top:1px sol=
+id #eef0f3">1 =C3=97 Clam chowder</td><td align=3D"right" style=3D"padding:7p=
+x 0;border-top:1px solid #eef0f3">$12.00</td></tr><tr><td style=3D"padding:7p=
+x 0;border-top:1px solid #eef0f3">2 =C3=97 Oysters (dozen)</td><td align=3D"r=
+ight" style=3D"padding:7px 0;border-top:1px solid #eef0f3">$84.00</td></tr></=
+table><table role=3D"presentation" width=3D"100%" cellpadding=3D"0" cellspaci=
+ng=3D"0" style=3D"border-collapse:collapse;margin:6px 0 16px"><tr><td style=
+=3D"padding:7px 0;border-top:1px solid #eef0f3">Subtotal</td><td align=3D"rig=
+ht" style=3D"padding:7px 0;border-top:1px solid #eef0f3">$178.00</td></tr><tr=
+><td style=3D"padding:7px 0;border-top:1px solid #eef0f3">Tax</td><td align=
+=3D"right" style=3D"padding:7px 0;border-top:1px solid #eef0f3">$18.24</td></=
+tr><tr><td style=3D"padding:7px 0;border-top:1px solid #eef0f3">Tip</td><td a=
+lign=3D"right" style=3D"padding:7px 0;border-top:1px solid #eef0f3">$35.60</t=
+d></tr><tr><td style=3D"padding:7px 0;border-top:1px solid #eef0f3;font-weigh=
+t:700">Total</td><td align=3D"right" style=3D"padding:7px 0;border-top:1px so=
+lid #eef0f3;font-weight:700">$231.84</td></tr></table><p style=3D"margin:0 0 =
+14px"><span style=3D"color:#6b7280;font-size:13px">Visa ending in 4417</span>=
+</p><p style=3D"margin:0 0 14px">Thanks for dining with us!</p></td></tr><tr>=
+<td style=3D"padding:14px 24px;background:#fafafa;color:#9ca3af;font-size:11p=
+x;line-height:1.5">Receipt powered by Tabbit<br>Synthetic demo email =C2=B7 f=
+ictional business =C2=B7 not a real transaction.</td></tr></table></td></tr><=
+/table></body></html>
+
+--===============8681420086720073597==--
