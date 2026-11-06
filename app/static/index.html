@@ -138,6 +138,11 @@ header { gap: 10px; }
 .notif .answered { font-size: 11px; color: #5b6170; margin-top: 5px; }
 .quiet { text-align: center; font-size: 12.5px; opacity: .75; margin-top: 20px; }
 .flash { animation: flash 1.2s ease-out; }
+.caption { position: fixed; left: calc(50% - 170px); bottom: 26px; transform: translate(-50%, 10px); width: min(640px, 52vw); z-index: 30; pointer-events: none;
+  background: rgba(17, 20, 28, .88); color: #fff; border-radius: 14px; padding: 14px 18px; font-size: 18px; line-height: 1.4; opacity: 0; transition: opacity .35s, transform .35s; }
+.caption.on { opacity: 1; transform: translate(-50%, 0); }
+.caption .k { font-size: 11.5px; text-transform: uppercase; letter-spacing: .8px; color: #a9c2ff; margin-bottom: 4px; }
+.nocaptions .caption { display: none; }
 @keyframes flash { 0% { box-shadow: 0 0 0 4px rgba(47, 111, 214, .45); } 100% { box-shadow: 0 0 0 0 rgba(47, 111, 214, 0); } }
 </style>
 </head>
@@ -149,6 +154,7 @@ header { gap: 10px; }
   <div class="stops" id="stops"></div>
   <div class="stops" id="modes" title="Manual: only receipt photos you upload. Filtered: an on-device model decides what Claude may read. Full: every source, personal mail still skipped."><button data-m="manual">Manual</button><button data-m="filtered">Filtered</button><button data-m="full">Full</button></div>
   <label class="switch"><input type="checkbox" id="agentToggle"><span class="track"></span><span>Agent view</span></label>
+  <button class="ghost" id="playBtn" title="Play the whole story with captions (P). C hides captions.">▶ Play story</button>
   <button class="primary" id="liveBtn">▶ New email</button>
   <button class="ghost" id="phoneBtn" title="Show or hide the phone">Phone</button>
   <span class="pill" id="statusPill">…</span>
@@ -158,6 +164,7 @@ header { gap: 10px; }
   <section class="mid" id="mid"></section>
   <section class="reader" id="reader"><div class="empty">Select an email</div></section>
 </main>
+<div class="caption" id="caption" aria-live="polite"></div>
 <div class="phone" aria-label="Lisa's phone"><div class="screen"><div class="island"></div>
   <div class="lock-date" id="lockDate"></div><div class="lock-time" id="lockTime"></div><div id="notifs"></div></div></div>
 <script>
@@ -417,6 +424,7 @@ async function liveEmail() {
   S.filter = "all";
   await setAsOf("2026-11-05");
   await openEmail("msg_live");
+  S.briefDone = !res.triggers_brief;
   if (!res.triggers_brief) return;
   const r = $("reader");
   const box = document.createElement("div");
@@ -432,9 +440,121 @@ async function liveEmail() {
   es.onmessage = e => {
     const msg = JSON.parse(e.data);
     if (msg.text) { text += msg.text; brief.innerHTML = mdToHtml(text); }
-    if (msg.done) { es.close(); brief.insertAdjacentHTML("beforeend", `<div class="meta" style="margin-top:10px">Written by ${esc(msg.by)} · Lisa reviews it and decides whether to share it.</div>`); }
+    if (msg.done) { es.close(); S.briefDone = true; brief.insertAdjacentHTML("beforeend", `<div class="meta" style="margin-top:10px">Written by ${esc(msg.by)} · Lisa reviews it and decides whether to share it.</div>`); }
   };
-  es.onerror = () => es.close();
+  es.onerror = () => { es.close(); S.briefDone = true; };
+}
+
+// ------------------------------------------------------------- autoplay: the story, narrated by the agent
+// ?autoplay=1 starts it on load; ?speed=1.5 makes every pause 1.5x longer. P plays or stops, C hides captions.
+const SPEED = Number(new URLSearchParams(location.search).get("speed") || 1);
+const STOP = Symbol("stop");
+let playing = false, stopRequested = false;
+
+async function pause(ms) {
+  const end = Date.now() + ms * SPEED;
+  while (Date.now() < end) {
+    if (stopRequested) throw STOP;
+    await new Promise(r => setTimeout(r, 100));
+  }
+}
+async function waitFor(cond, maxMs) {
+  const end = Date.now() + maxMs;
+  while (!cond() && Date.now() < end) {
+    if (stopRequested) throw STOP;
+    await new Promise(r => setTimeout(r, 200));
+  }
+}
+const dayN = d => Math.round((Date.parse(d) - Date.parse("2026-07-06")) / 864e5) + 1;
+function caption(text, kicker) {
+  const c = $("caption");
+  c.classList.remove("on");
+  void c.offsetWidth;
+  c.innerHTML = (kicker ? `<div class="k">${esc(kicker)}</div>` : "") + `<div>${esc(text)}</div>`;
+  c.classList.add("on");
+}
+async function say(text, ms, kicker) { caption(text, kicker); await pause(ms); }
+function flashToday() {
+  $("mid").scrollTo({ top: 0, behavior: "smooth" });
+  const c = document.querySelector("#today .card");
+  if (c) { c.classList.remove("flash"); void c.offsetWidth; c.classList.add("flash"); }
+}
+const cardOf = kind => S.ins.cards.find(c => c.kind === kind && c.as_of === S.asOf);
+
+async function playStory() {
+  if (playing) { stopRequested = true; return; }
+  playing = true; stopRequested = false;
+  $("playBtn").textContent = "■ Stop";
+  try {
+    await setMode("filtered");
+    $("agentToggle").checked = true; document.body.classList.add("agent"); renderList();
+    document.body.classList.remove("nophone");
+    $("list").scrollTop = 0;
+    await setAsOf("2026-08-13");
+    await say("She has never logged a symptom. She wears a ring, and she gets email.", 4500, "Lisa, 46 · Oakland");
+
+    const a = cardOf("awareness").numbers;
+    flashToday();
+    await say(`${a.heat_nights_last_14} warm wake-ups around 3 AM in two weeks. In the month before: ${a.baseline_heat_nights_first_28}. Time to say something. Once.`,
+      7000, `Agent's diary · Day ${dayN("2026-08-13")}`);
+
+    await setAsOf("2026-08-23");
+    flashToday();
+    await say("She tapped “Yes” on her lock screen. That was the missing piece.", 4500, `Agent's diary · Day ${dayN("2026-08-23")}`);
+    const t = cardOf("trigger").numbers;
+    document.querySelector("#today table.why")?.scrollIntoView({ behavior: "smooth", block: "center" });
+    await say(`Drink nights: ${t.alcohol_nights_with_heat} of ${t.alcohol_nights} hot. Other nights: ${t.other_nights_with_heat} of ${t.other_nights}. Tennis nights: no difference.`,
+      7000, `Agent's diary · Day ${dayN("2026-08-23")}`);
+
+    await setAsOf("2026-09-04");
+    await say("A new prescription. No drug name, and I won't guess. One question, then I wait 28 nights.", 6000, `Agent's diary · Day ${dayN("2026-09-04")}`);
+
+    await setAsOf("2026-10-08");
+    flashToday();
+    const ch = cardOf("change").numbers;
+    await say(`Hot wake-ups: ${ch.heat_per_week_before} → ${ch.heat_per_week_after} a week. But she drank less too, so I'm not taking credit yet.`,
+      7000, `Agent's diary · Day ${dayN("2026-10-08")}`);
+
+    caption("Her clinic just sent a reminder. Follow-up in five days.", `Agent's diary · Day ${dayN("2026-11-05")}`);
+    await liveEmail();
+    await pause(2600);
+    document.body.classList.add("nophone");          // she opens the notification
+    $("reader").scrollTo({ top: 0, behavior: "smooth" });
+    await waitFor(() => S.briefDone, 45000);
+    await pause(1500);
+    const summary = $("reader").innerHTML;                // shown again behind the closing line
+    await say("Three months on one page. Not “I just feel off.”", 5500, `Agent's diary · Day ${dayN("2026-11-05")}`);
+
+    const sarah = S.emails.find(m => m.subject.startsWith("Girls' night"));
+    if (sarah) await openEmail(sarah.id);
+    await say("Sarah's email about girls' night? Not mine to read. It never left her phone.", 5500, "Privacy");
+
+    await fetch("/api/receipts", { method: "DELETE" });
+    await setMode("manual");
+    document.body.classList.remove("nophone");
+    const sample = document.querySelector(".samples img");
+    if (sample) await uploadReceipt(await (await fetch(sample.dataset.url)).blob(), sample.dataset.name);
+    await say("Prefer to choose? Snap a receipt. Location data is stripped before Claude reads it.", 6500, "Manual mode");
+
+    await setMode("full");
+    $("list").scrollTop = 0;
+    await say("Or switch everything on. Only restaurant and bar visits leave her phone. Never home, never the clinic.", 6500, "Full mode");
+
+    await setMode("filtered");
+    await setAsOf("2026-11-05");
+    S.briefing = true; renderMid();
+    document.body.classList.add("nophone");
+    $("reader").innerHTML = summary;
+    $("reader").scrollTop = 0;
+    const asked = S.ins.confirmations.length, spoke = S.ins.cards.length + 1;
+    await say(`Things Lisa logged: 0. Times I interrupted her: ${asked + spoke} in 17 weeks.`, 7000, "The agent's job is mostly staying quiet");
+  } catch (e) {
+    if (e !== STOP) console.error(e);
+  } finally {
+    playing = false; stopRequested = false;
+    $("playBtn").textContent = "▶ Play story";
+    $("caption").classList.remove("on");
+  }
 }
 
 // ------------------------------------------------------------- start
@@ -534,10 +654,17 @@ async function init() {
   $("agentToggle").onchange = e => { document.body.classList.toggle("agent", e.target.checked); renderList(); };
   $("liveBtn").onclick = liveEmail;
   $("phoneBtn").onclick = () => document.body.classList.toggle("nophone");
+  $("playBtn").onclick = playStory;
+  document.addEventListener("keydown", e => {
+    if (e.target.matches("input, textarea")) return;
+    if (e.key === "p" || e.key === "P") playStory();
+    if (e.key === "c" || e.key === "C") document.body.classList.toggle("nocaptions");
+  });
   [S.emails, S.nights] = await Promise.all([api("/api/emails"), api("/api/nights")]);
   renderList();
   if (st.mode === "manual") await renderReceipts();
   await setAsOf(S.asOf);
+  if (new URLSearchParams(location.search).get("autoplay")) playStory();
 }
 init();
 </script>
