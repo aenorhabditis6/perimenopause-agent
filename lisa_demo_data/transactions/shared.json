@@ -1,0 +1,384 @@
+{
+ "rule": "only restaurant, beer/wine/liquor and pharmacy charges leave the phone; amount as a range; time as evening or not",
+ "shared": [
+  {
+   "id": "tx_0024",
+   "date": "2026-07-08",
+   "merchant": "Cellar Door Wine Club",
+   "category": "beer_wine_liquor",
+   "amount_range": "$50–100",
+   "evening": false,
+   "channel": "online"
+  },
+  {
+   "id": "tx_0001",
+   "date": "2026-07-10",
+   "merchant": "Rosemary & Vine",
+   "category": "restaurant",
+   "amount_range": "$100–150",
+   "evening": true,
+   "channel": "in store"
+  },
+  {
+   "id": "tx_0037",
+   "date": "2026-07-14",
+   "merchant": "Green Fork",
+   "category": "restaurant",
+   "amount_range": "under $25",
+   "evening": false,
+   "channel": "in store"
+  },
+  {
+   "id": "tx_0002",
+   "date": "2026-07-17",
+   "merchant": "Spice Route Thai",
+   "category": "restaurant",
+   "amount_range": "$100–150",
+   "evening": true,
+   "channel": "in store"
+  },
+  {
+   "id": "tx_0003",
+   "date": "2026-07-24",
+   "merchant": "The Gilded Tap",
+   "category": "restaurant",
+   "amount_range": "$100–150",
+   "evening": true,
+   "channel": "in store"
+  },
+  {
+   "id": "tx_0021",
+   "date": "2026-07-25",
+   "merchant": "Grand Lake Wine & Spirits",
+   "category": "beer_wine_liquor",
+   "amount_range": "under $25",
+   "evening": true,
+   "channel": "in store"
+  },
+  {
+   "id": "tx_0045",
+   "date": "2026-07-29",
+   "merchant": "Noodle Bar 88",
+   "category": "restaurant",
+   "amount_range": "under $25",
+   "evening": false,
+   "channel": "in store"
+  },
+  {
+   "id": "tx_0004",
+   "date": "2026-07-31",
+   "merchant": "Sora Sushi",
+   "category": "restaurant",
+   "amount_range": "$100–150",
+   "evening": true,
+   "channel": "in store"
+  },
+  {
+   "id": "tx_0025",
+   "date": "2026-08-07",
+   "merchant": "Cellar Door Wine Club",
+   "category": "beer_wine_liquor",
+   "amount_range": "$50–100",
+   "evening": false,
+   "channel": "online"
+  },
+  {
+   "id": "tx_0005",
+   "date": "2026-08-07",
+   "merchant": "Mesa Verde Cantina",
+   "category": "restaurant",
+   "amount_range": "$150–250",
+   "evening": true,
+   "channel": "in store"
+  },
+  {
+   "id": "tx_0056",
+   "date": "2026-08-14",
+   "merchant": "Noodle Bar 88",
+   "category": "restaurant",
+   "amount_range": "under $25",
+   "evening": false,
+   "channel": "in store"
+  },
+  {
+   "id": "tx_0006",
+   "date": "2026-08-14",
+   "merchant": "Osteria Lucca",
+   "category": "restaurant",
+   "amount_range": "$100–150",
+   "evening": true,
+   "channel": "in store"
+  },
+  {
+   "id": "tx_0007",
+   "date": "2026-08-21",
+   "merchant": "Rosemary & Vine",
+   "category": "restaurant",
+   "amount_range": "$100–150",
+   "evening": true,
+   "channel": "in store"
+  },
+  {
+   "id": "tx_0028",
+   "date": "2026-08-22",
+   "merchant": "Harbor Pharmacy",
+   "category": "pharmacy",
+   "amount_range": "under $25",
+   "evening": true,
+   "channel": "in store"
+  },
+  {
+   "id": "tx_0065",
+   "date": "2026-08-24",
+   "merchant": "Green Fork",
+   "category": "restaurant",
+   "amount_range": "under $25",
+   "evening": false,
+   "channel": "in store"
+  },
+  {
+   "id": "tx_0008",
+   "date": "2026-08-26",
+   "merchant": "Sora Sushi",
+   "category": "restaurant",
+   "amount_range": "$50–100",
+   "evening": true,
+   "channel": "in store"
+  },
+  {
+   "id": "tx_0009",
+   "date": "2026-08-28",
+   "merchant": "Spice Route Thai",
+   "category": "restaurant",
+   "amount_range": "$100–150",
+   "evening": true,
+   "channel": "in store"
+  },
+  {
+   "id": "tx_0022",
+   "date": "2026-08-29",
+   "merchant": "Grand Lake Wine & Spirits",
+   "category": "beer_wine_liquor",
+   "amount_range": "under $25",
+   "evening": true,
+   "channel": "in store"
+  },
+  {
+   "id": "tx_0029",
+   "date": "2026-09-04",
+   "merchant": "Harbor Pharmacy",
+   "category": "pharmacy",
+   "amount_range": "under $25",
+   "evening": true,
+   "channel": "in store"
+  },
+  {
+   "id": "tx_0010",
+   "date": "2026-09-05",
+   "merchant": "The Gilded Tap",
+   "category": "restaurant",
+   "amount_range": "$100–150",
+   "evening": true,
+   "channel": "in store"
+  },
+  {
+   "id": "tx_0071",
+   "date": "2026-09-07",
+   "merchant": "Noodle Bar 88",
+   "category": "restaurant",
+   "amount_range": "under $25",
+   "evening": false,
+   "channel": "in store"
+  },
+  {
+   "id": "tx_0026",
+   "date": "2026-09-09",
+   "merchant": "Cellar Door Wine Club",
+   "category": "beer_wine_liquor",
+   "amount_range": "$50–100",
+   "evening": false,
+   "channel": "online"
+  },
+  {
+   "id": "tx_0011",
+   "date": "2026-09-11",
+   "merchant": "Mesa Verde Cantina",
+   "category": "restaurant",
+   "amount_range": "$50–100",
+   "evening": true,
+   "channel": "in store"
+  },
+  {
+   "id": "tx_0076",
+   "date": "2026-09-17",
+   "merchant": "Green Fork",
+   "category": "restaurant",
+   "amount_range": "under $25",
+   "evening": false,
+   "channel": "in store"
+  },
+  {
+   "id": "tx_0079",
+   "date": "2026-09-18",
+   "merchant": "Juniper Café",
+   "category": "restaurant",
+   "amount_range": "under $25",
+   "evening": false,
+   "channel": "in store"
+  },
+  {
+   "id": "tx_0012",
+   "date": "2026-09-18",
+   "merchant": "Spice Route Thai",
+   "category": "restaurant",
+   "amount_range": "$100–150",
+   "evening": true,
+   "channel": "in store"
+  },
+  {
+   "id": "tx_0013",
+   "date": "2026-09-25",
+   "merchant": "Rosemary & Vine",
+   "category": "restaurant",
+   "amount_range": "$100–150",
+   "evening": true,
+   "channel": "in store"
+  },
+  {
+   "id": "tx_0023",
+   "date": "2026-09-26",
+   "merchant": "Grand Lake Wine & Spirits",
+   "category": "beer_wine_liquor",
+   "amount_range": "$25–50",
+   "evening": true,
+   "channel": "in store"
+  },
+  {
+   "id": "tx_0084",
+   "date": "2026-10-01",
+   "merchant": "Noodle Bar 88",
+   "category": "restaurant",
+   "amount_range": "under $25",
+   "evening": false,
+   "channel": "in store"
+  },
+  {
+   "id": "tx_0014",
+   "date": "2026-10-02",
+   "merchant": "Sora Sushi",
+   "category": "restaurant",
+   "amount_range": "$50–100",
+   "evening": true,
+   "channel": "in store"
+  },
+  {
+   "id": "tx_0030",
+   "date": "2026-10-03",
+   "merchant": "Harbor Pharmacy",
+   "category": "pharmacy",
+   "amount_range": "under $25",
+   "evening": false,
+   "channel": "in store"
+  },
+  {
+   "id": "tx_0027",
+   "date": "2026-10-08",
+   "merchant": "Cellar Door Wine Club",
+   "category": "beer_wine_liquor",
+   "amount_range": "$50–100",
+   "evening": false,
+   "channel": "online"
+  },
+  {
+   "id": "tx_0092",
+   "date": "2026-10-09",
+   "merchant": "Noodle Bar 88",
+   "category": "restaurant",
+   "amount_range": "under $25",
+   "evening": false,
+   "channel": "in store"
+  },
+  {
+   "id": "tx_0015",
+   "date": "2026-10-09",
+   "merchant": "Osteria Lucca",
+   "category": "restaurant",
+   "amount_range": "$150–250",
+   "evening": true,
+   "channel": "in store"
+  },
+  {
+   "id": "tx_0016",
+   "date": "2026-10-14",
+   "merchant": "Harborview Oyster Bar",
+   "category": "restaurant",
+   "amount_range": "$150–250",
+   "evening": true,
+   "channel": "in store"
+  },
+  {
+   "id": "tx_0017",
+   "date": "2026-10-17",
+   "merchant": "Rosemary & Vine",
+   "category": "restaurant",
+   "amount_range": "$50–100",
+   "evening": true,
+   "channel": "in store"
+  },
+  {
+   "id": "tx_0018",
+   "date": "2026-10-23",
+   "merchant": "The Gilded Tap",
+   "category": "restaurant",
+   "amount_range": "$100–150",
+   "evening": true,
+   "channel": "in store"
+  },
+  {
+   "id": "tx_0103",
+   "date": "2026-10-27",
+   "merchant": "Noodle Bar 88",
+   "category": "restaurant",
+   "amount_range": "under $25",
+   "evening": false,
+   "channel": "in store"
+  },
+  {
+   "id": "tx_0104",
+   "date": "2026-10-28",
+   "merchant": "Juniper Café",
+   "category": "restaurant",
+   "amount_range": "under $25",
+   "evening": false,
+   "channel": "in store"
+  },
+  {
+   "id": "tx_0019",
+   "date": "2026-10-30",
+   "merchant": "Mesa Verde Cantina",
+   "category": "restaurant",
+   "amount_range": "$100–150",
+   "evening": true,
+   "channel": "in store"
+  },
+  {
+   "id": "tx_0031",
+   "date": "2026-11-02",
+   "merchant": "Harbor Pharmacy",
+   "category": "pharmacy",
+   "amount_range": "under $25",
+   "evening": false,
+   "channel": "in store"
+  },
+  {
+   "id": "tx_0020",
+   "date": "2026-11-03",
+   "merchant": "Osteria Lucca",
+   "category": "restaurant",
+   "amount_range": "$100–150",
+   "evening": true,
+   "channel": "in store"
+  }
+ ],
+ "kept_on_phone": 88
+}

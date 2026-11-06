@@ -39,7 +39,8 @@ def claude_on() -> bool:
 
 
 def _insights(as_of: str, source: str = "oura") -> dict:
-    return data.insights(as_of, source, str(data.active_events_path()), data.unasked_questions(), data.use_calendar(), data.use_places())
+    return data.insights(as_of, source, str(data.active_events_path()), data.unasked_questions(), data.use_calendar(), data.use_places(),
+                         data.use_transactions())
 
 
 def _key_event(email_id: str) -> dict:

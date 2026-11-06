@@ -212,13 +212,24 @@ def model_info() -> dict:
 
 @lru_cache(maxsize=64)
 def insights(as_of: str, source: str = "oura", events_file: str | None = None, unasked: tuple[str, ...] = (),
-             use_calendar: bool = True, use_places: bool = False) -> dict:
-    return analyze.run_analysis(date.fromisoformat(as_of), source, events_file or events_path(), unasked, use_calendar, use_places)
+             use_calendar: bool = True, use_places: bool = False, use_transactions: bool = False) -> dict:
+    return analyze.run_analysis(date.fromisoformat(as_of), source, events_file or events_path(), unasked, use_calendar, use_places,
+                                use_transactions)
 
 
 def use_places() -> bool:
     """Restaurant and bar visits from the on-device location app: a Full-mode source."""
     return SETTINGS["mode"] == "full"
+
+
+def use_transactions() -> bool:
+    """Card charges shared by the phone's bank-data filter: a Full-mode source."""
+    return SETTINGS["mode"] == "full"
+
+
+def transactions_summary() -> dict:
+    s = load_json(DATA / "transactions" / "shared.json")
+    return {"shared": len(s["shared"]), "kept_on_phone": s["kept_on_phone"]}
 
 
 def places_summary() -> dict:
@@ -231,7 +242,7 @@ def places_summary() -> dict:
 def sources() -> list[dict]:
     """What each data source contributes in the current mode, for the page's sources panel."""
     mode, p = SETTINGS["mode"], privacy_summary()
-    pl = places_summary()
+    pl, tx = places_summary(), transactions_summary()
     return [
         {"name": "Ring (Oura)", "on": True, "detail": "nightly temperature, sleep and heart rate"},
         {"name": "Inbox", "on": mode != "manual",
@@ -241,7 +252,9 @@ def sources() -> list[dict]:
          "detail": (f"only restaurant and bar visits leave the phone: {pl['uploaded_visits']} uploaded, "
                     f"{pl['kept_on_phone']} other visits kept on the phone") if use_places() else "Full mode only"},
         {"name": "Receipt photos", "on": mode == "manual", "detail": f"{len(receipts())} you uploaded" if mode == "manual" else "Manual mode"},
-        {"name": "Card transactions", "on": False, "detail": "idea: merchant + amount via a bank-data API, restaurant/bar/pharmacy only"},
+        {"name": "Card transactions", "on": use_transactions(),
+         "detail": (f"only restaurant, liquor-store and pharmacy charges leave the phone, amounts as ranges: {tx['shared']} shared, "
+                    f"{tx['kept_on_phone']} other charges kept on the phone") if use_transactions() else "Full mode only"},
     ]
 
 

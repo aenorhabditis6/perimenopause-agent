@@ -131,20 +131,31 @@ def period_starts_from_apple(xml_path: Path) -> list[date]:
 
 # ---------------------------------------------------------------- context
 
-def evening_context(events: list[dict], calendar: dict, confirmations: list[dict], workouts: list[dict], visits: list[dict] = ()):
+def evening_context(events: list[dict], calendar: dict, confirmations: list[dict], workouts: list[dict], visits: list[dict] = (),
+                    charges: list[dict] = ()):
     """Per evening: alcohol evidence, tennis, travel. Evidence order: one-tap answer > receipt > possible > none.
 
     visits: restaurant and bar visits from the on-device location app (only evening visits count).
+    charges: card charges the phone shared (only evening, in-store restaurant and liquor-store charges count).
     """
     ctx: dict[date, dict] = {}
 
     def c(d):
-        return ctx.setdefault(d, {"evidence": "none", "why": "", "email_id": None, "tennis": False, "travel": False, "restaurant": False})
+        return ctx.setdefault(d, {"evidence": "none", "why": "", "email_id": None, "also": [], "tennis": False, "travel": False,
+                                  "restaurant": False})
 
     rank = {"none": 0, "possible": 1, "receipt_no_alcohol": 2, "receipt_alcohol": 2, "confirmed_no": 3, "confirmed_yes": 3}
 
     def set_ev(d, level, why, email_id=None):
         x = c(d)
+        if level == "possible" == x["evidence"]:
+            # a second weak clue for the same evening: keep the first (an email or the calendar, which the
+            # evidence row links back to) and list the others as agreeing, e.g. "reservation: X · also location, card"
+            src, first = why.split(":", 1)[0], x["why"].split(" · also ")[0]
+            if not first.startswith(src + ":") and src not in x["also"]:
+                x["also"].append(src)
+                x["why"] = f"{first} · also {', '.join(x['also'])}"
+            return
         if rank[level] >= rank[x["evidence"]]:
             if level.startswith("confirmed") and x["why"]:
                 why = f"{x['why']}; {why}"          # keep what made the agent ask
@@ -180,6 +191,13 @@ def evening_context(events: list[dict], calendar: dict, confirmations: list[dict
         if t.hour >= 17:
             c(t.date())["restaurant"] = True
             set_ev(t.date(), "possible", f"location: {v['place']} ({v['place_type']}), {t:%H:%M}–{left:%H:%M}")
+    for ch in charges:
+        if ch["evening"] and ch["channel"] == "in store" and ch["category"] in ("restaurant", "beer_wine_liquor"):
+            d = D(ch["date"])
+            if ch["category"] == "restaurant":
+                c(d)["restaurant"] = True
+            kind = "liquor store" if ch["category"] == "beer_wine_liquor" else "restaurant"
+            set_ev(d, "possible", f"card: {ch['merchant']} ({kind}), {ch['amount_range']}")
     for w in workouts:
         t = datetime.fromisoformat(w["start_datetime"])
         if w["activity"] == "tennis" and t.hour >= 17:
@@ -327,7 +345,8 @@ def night_row(n: dict) -> dict:
 
 
 def run_analysis(as_of: date, source: str = "oura", events_path: Path | str | None = None,
-                 unasked: tuple[str, ...] = (), use_calendar: bool = True, use_places: bool = False) -> dict:
+                 unasked: tuple[str, ...] = (), use_calendar: bool = True, use_places: bool = False,
+                 use_transactions: bool = False) -> dict:
     """Everything the app needs for one morning. events_path = Claude's extraction, or the answer key.
 
     unasked: one-tap questions that could not have been asked because what prompted them was not
@@ -347,7 +366,9 @@ def run_analysis(as_of: date, source: str = "oura", events_path: Path | str | No
     nights = nights_from_oura(ROOT / "wearables" / "oura") if source == "oura" else nights_from_apple(apple)
     visits = json.loads((ROOT / "places" / "visits.json").read_text())["visits"] if use_places else []
     visits = [v for v in visits if D(v["arrived_at"]) < as_of]
-    ctx, treatment = evening_context(events, calendar, confirmations, workouts, visits)
+    charges = json.loads((ROOT / "transactions" / "shared.json").read_text())["shared"] if use_transactions else []
+    charges = [ch for ch in charges if D(ch["date"]) < as_of]
+    ctx, treatment = evening_context(events, calendar, confirmations, workouts, visits, charges)
     res = analyze(nights, ctx, treatment, period_starts_from_apple(apple), events, as_of)
     res["source"] = source
     res["confirmations"] = confirmations
