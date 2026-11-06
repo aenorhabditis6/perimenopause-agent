@@ -23,8 +23,9 @@ def main():
     events, checked, right = [], 0, {"category": 0, "event_date": 0, "alcohol_signal": 0}
     misses = []
     for m in data.emails() + [data.live_email()]:
-        label = classifier.classify(m)["label"]
-        if label not in classifier.RELEVANT:
+        loc = classifier.classify(m)
+        label = loc["label"]
+        if not classifier.may_leave(loc):
             continue
         ev = extract.extract(m, label)
         events.append(ev)

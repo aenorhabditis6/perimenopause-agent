@@ -51,7 +51,7 @@ section { min-height: 0; overflow-y: auto; }
 .agent .tag { display: block; }
 .tag.sent_to_claude { background: var(--accent-soft); color: #1f4f9e; }
 .tag.on_device_event { background: var(--read); color: var(--read-ink); }
-.tag.on_device_personal, .tag.not_shared { background: var(--skip); color: var(--muted); }
+.tag.on_device_personal, .tag.on_device_guard, .tag.not_shared { background: var(--skip); color: var(--muted); }
 .tag.on_device_nothing { background: #f7f7f8; color: var(--faint); }
 .sharebar { display: none; padding: 10px 12px; border-bottom: 1px solid var(--line); background: #f5faf7; font-size: 12.5px; }
 .private .sharebar { display: block; }
@@ -159,11 +159,13 @@ function colorFor(s) { let h = 0; for (const c of s) h = (h * 31 + c.charCodeAt(
 const LOCAL_LABEL = { personal: "personal", noise: "newsletter, bill or ad", restaurant: "restaurant", grocery_alcohol: "groceries & wine",
   sleep_purchase: "bought for sleep", other_purchase: "other shopping", pharmacy: "pharmacy", medical: "doctor's office", travel: "travel", exercise: "exercise booking" };
 const STATES = [["all", "All"], ["sent_to_claude", "Sent to Claude"], ["on_device_event", "Shared as events"], ["not_shared", "Not shared"],
-  ["on_device_personal", "Personal"], ["on_device_nothing", "Nothing kept"]];
+  ["on_device_personal", "Personal"], ["on_device_guard", "Might be personal"], ["on_device_nothing", "Nothing kept"]];
+const pct = x => Math.round((x || 0) * 100);
 
 function tagText(st) {
   const lab = LOCAL_LABEL[st.local?.label] || "";
   if (st.state === "on_device_personal") return "🔒 On device · personal, never sent";
+  if (st.state === "on_device_guard") return `🔒 On device · might be personal (${pct(st.local?.p_personal)}%)`;
   if (st.state === "on_device_nothing") return `On device · ${lab}, nothing kept`;
   if (st.state === "not_shared") return `Not shared · ${lab} (your setting)`;
   const e = st.event || {};
@@ -224,9 +226,10 @@ function agentBox(st, by) {
   const box = document.createElement("div");
   box.className = "agentbox";
   const loc = st.local || {};
-  const lm = loc.label ? `<div class="lm">On-device model (fastText): <b>${esc(LOCAL_LABEL[loc.label] || loc.label)}</b>${loc.confidence != null ? ` · ${Math.round(loc.confidence * 100)}% sure` : ""}${loc.ms != null ? ` · ${loc.ms} ms` : ""}</div>` : "";
+  const lm = loc.label ? `<div class="lm">On-device model (fastText): <b>${esc(LOCAL_LABEL[loc.label] || loc.label)}</b>${loc.confidence != null ? ` · ${pct(loc.confidence)}% sure` : ""}${loc.p_personal >= 0.05 && loc.label !== "personal" ? ` · personal ${pct(loc.p_personal)}%` : ""}${loc.ms != null ? ` · ${loc.ms} ms` : ""}</div>` : "";
   const quiet = {
     on_device_personal: ["Stayed on the device", "The on-device model reads this as person-to-person mail. It is never sent anywhere, in either mode."],
+    on_device_guard: ["Stayed on the device", `Probably ${esc(LOCAL_LABEL[loc.label] || "")}, but the model gives it a ${pct(loc.p_personal)}% chance of being personal mail. Anything at 10% or more never leaves the device.`],
     on_device_nothing: ["Stayed on the device", "Nothing health-related here, so nothing was kept and nothing was sent."],
     not_shared: ["Not shared", "You switched this kind of email off in Private mode, so the agent ignores it."],
   }[st.state];

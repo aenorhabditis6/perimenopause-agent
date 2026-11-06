@@ -20,6 +20,7 @@ SHAREABLE = {  # what a Private-mode user can switch on or off, in the words the
     "pharmacy": "Pharmacy", "medical": "Doctor's appointments", "travel": "Travel", "exercise": "Exercise bookings",
 }
 MAX_BODY_CHARS = 600   # the model only ever looks at the start of an email
+PERSONAL_GUARD = 0.10  # an email the model gives this much chance of being personal never leaves the device
 COARSE = {  # answer-key category -> coarse label (for evaluation, and the fallback when fastText is missing)
     "restaurant_reservation": "restaurant", "restaurant_receipt": "restaurant",
     "alcohol_purchase": "grocery_alcohol", "grocery_order": "grocery_alcohol",
@@ -55,9 +56,17 @@ def available() -> bool:
 
 
 def classify(msg: dict) -> dict:
-    """{'label', 'confidence', 'ms'} for one email dict (emails.json shape)."""
+    """{'label', 'confidence', 'p_personal', 'guarded', 'ms'} for one email dict (emails.json shape)."""
     text = model_text(msg["from"]["name"], msg["from"]["email"], msg["subject"], msg.get("body_text", ""))
     t0 = time.perf_counter()
-    labels, probs = _model().predict(text, k=1)
-    return {"label": labels[0].removeprefix("__label__"), "confidence": round(float(probs[0]), 3),
-            "ms": round((time.perf_counter() - t0) * 1000, 3)}
+    labels, probs = _model().predict(text, k=-1)
+    ms = round((time.perf_counter() - t0) * 1000, 3)
+    p = {lab.removeprefix("__label__"): float(v) for lab, v in zip(labels, probs)}
+    top = max(p, key=p.get)
+    return {"label": top, "confidence": round(p[top], 3), "p_personal": round(p.get("personal", 0.0), 3),
+            "guarded": top in RELEVANT and p.get("personal", 0.0) >= PERSONAL_GUARD, "ms": ms}
+
+
+def may_leave(loc: dict) -> bool:
+    """Only a relevant email the model is not even slightly worried is personal may leave the device."""
+    return loc["label"] in RELEVANT and not loc.get("guarded")

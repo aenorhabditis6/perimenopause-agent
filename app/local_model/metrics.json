@@ -18,12 +18,18 @@
  "personal_emails_that_would_leave_device": 0,
  "relevant_emails_missed": "0/76",
  "noise_emails_that_would_be_sent": 4,
+ "with_personal_guard": {
+  "rule": "never send if P(personal) >= 0.1",
+  "personal_emails_that_would_leave_device": 0,
+  "relevant_emails_missed": "0/76",
+  "noise_emails_that_would_be_sent": 0
+ },
  "model_size_kb": 362.7,
- "median_ms_per_email": 0.016,
- "train_seconds": 1.6,
+ "median_ms_per_email": 0.02,
  "errors": [
-  "personal \u2192 noise (1)",
-  "noise \u2192 personal (14)",
-  "noise \u2192 exercise (4)"
- ]
+  "personal → noise (1)",
+  "noise → personal (14)",
+  "noise → exercise (4)"
+ ],
+ "train_seconds": 1.6
 }

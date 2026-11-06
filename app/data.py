@@ -75,7 +75,7 @@ def local_labels() -> dict[str, dict]:
     for m in msgs:
         k = key[m["id"]]
         label = "personal" if k.get("prefilter") == "skip_personal" else classifier.COARSE.get(k.get("category") or "irrelevant", "noise")
-        out[m["id"]] = {"label": label, "confidence": None, "ms": None, "fallback": True}
+        out[m["id"]] = {"label": label, "confidence": None, "p_personal": None, "guarded": False, "ms": None, "fallback": True}
     return out
 
 
@@ -84,8 +84,8 @@ def on_device_events() -> dict[str, dict]:
     """Private mode: events extracted on the device from emails the local model calls relevant."""
     labels, out = local_labels(), {}
     for m in emails() + [live_email()]:
-        label = labels[m["id"]]["label"]
-        if label in classifier.RELEVANT and (ev := extract.extract(m, label)):
+        loc = labels[m["id"]]
+        if classifier.may_leave(loc) and (ev := extract.extract(m, loc["label"])):
             out[m["id"]] = ev
     return out
 
@@ -95,6 +95,8 @@ def email_status(msg: dict, extracted: dict[str, dict]) -> dict:
     label = loc["label"]
     if label == "personal":
         return {"state": "on_device_personal", "local": loc, "event": None}
+    if loc.get("guarded"):
+        return {"state": "on_device_guard", "local": loc, "event": None}
     if label not in classifier.RELEVANT:
         return {"state": "on_device_nothing", "local": loc, "event": None}
     if SETTINGS["mode"] == "private":
@@ -114,7 +116,7 @@ def active_events_path() -> Path:
         evs = [ev for eid, ev in on_device_events().items() if labels[eid]["label"] in SETTINGS["share"]]
         tag = "private_" + hashlib.md5(",".join(sorted(SETTINGS["share"])).encode()).hexdigest()[:8]
     else:
-        evs = [e for eid, e in extracted_by_id().items() if labels.get(eid, {}).get("label") in classifier.RELEVANT]
+        evs = [e for eid, e in extracted_by_id().items() if eid in labels and classifier.may_leave(labels[eid])]
         tag = f"auto_{events_source().replace(' ', '_')}_{int(events_path().stat().st_mtime)}"
     CACHE.mkdir(exist_ok=True)
     p = CACHE / f"events_{tag}.json"
@@ -126,14 +128,15 @@ def active_events_path() -> Path:
 def privacy_summary() -> dict:
     labels = local_labels()
     ids = [m["id"] for m in emails()]
-    relevant = [i for i in ids if labels[i]["label"] in classifier.RELEVANT]
+    relevant = [i for i in ids if classifier.may_leave(labels[i])]
     personal = sum(labels[i]["label"] == "personal" for i in ids)
+    guarded = sum(bool(labels[i].get("guarded")) for i in ids)
     if SETTINGS["mode"] == "auto":
         return {"mode": "auto", "emails": len(ids), "sent_to_claude": len(relevant), "stayed_on_device": len(ids) - len(relevant),
-                "personal_on_device": personal}
+                "personal_on_device": personal, "held_might_be_personal": guarded}
     shared = [i for i in relevant if labels[i]["label"] in SETTINGS["share"] and i in on_device_events()]
     return {"mode": "private", "emails": len(ids), "sent_to_claude": 0, "stayed_on_device": len(ids), "events_shared": len(shared),
-            "personal_on_device": personal}
+            "personal_on_device": personal, "held_might_be_personal": guarded}
 
 
 def model_info() -> dict:

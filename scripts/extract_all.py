@@ -27,9 +27,9 @@ def main():
     ap.add_argument("--workers", type=int, default=8)
     args = ap.parse_args()
 
-    # Only what the on-device model calls relevant ever reaches Claude
+    # Only what the on-device model calls relevant (and not possibly personal) ever reaches Claude
     labels = data.local_labels()
-    todo = [m for m in data.emails() if labels[m["id"]]["label"] in classifier.RELEVANT][: args.limit]
+    todo = [m for m in data.emails() if classifier.may_leave(labels[m["id"]])][: args.limit]
     results, errors = {}, {}
     t0 = time.time()
     with ThreadPoolExecutor(args.workers) as pool:

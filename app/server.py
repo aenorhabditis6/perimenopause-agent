@@ -114,8 +114,8 @@ def live_email():
     m = data.live_email()
     loc = data.local_labels()["msg_live"]
     event = None
-    if loc["label"] not in classifier.RELEVANT:
-        state, by = "on_device_nothing", "on-device model"
+    if not classifier.may_leave(loc):
+        state, by = ("on_device_guard" if loc.get("guarded") else "on_device_nothing"), "on-device model"
     elif data.SETTINGS["mode"] == "private":
         if loc["label"] in data.SETTINGS["share"]:
             event, state, by = data.on_device_events().get("msg_live"), "on_device_event", "on-device rules (nothing sent)"

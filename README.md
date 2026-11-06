@@ -32,11 +32,11 @@ cp .env.example .env                              # 填上 ANTHROPIC_API_KEY；.
 
 ## 隐私：两个模式和一个本地模型
 
-每封邮件先过一个**本地分类模型**（fastText，量化后 363 KB，每封 0.016 ms），在设备上判断它是什么。私人邮件和无关邮件在这一步就停下，两个模式都不会把它们发出去。
+每封邮件先过一个**本地分类模型**（fastText，量化后 363 KB，每封 0.016 ms），在设备上判断它是什么。私人邮件和无关邮件在这一步就停下，两个模式都不会把它们发出去。另外有一道保险：只要模型认为一封邮件有 10% 以上的可能是私人邮件，它就不离开设备（`PERSONAL_GUARD`）。
 
 | 模式 | 什么会离开设备 | 谁做抽取 | 适合谁 |
 | --- | --- | --- | --- |
-| **Auto** | 本地模型判为有用的邮件全文（Lisa 的 134 封里有 79 封）发给 Claude | Claude | 想要省心的人 |
+| **Auto** | 本地模型判为有用的邮件全文（Lisa 的 134 封里有 75 封）发给 Claude | Claude | 想要省心的人 |
 | **Private** | 没有任何邮件，只有抽出来的结构化事件 | 设备上的规则 | 很在意隐私的人：一次性勾选分享哪几类，之后照样零输入 |
 
 在 Lisa 的数据上，Private 模式在 4 个日期上的发现和 Auto 完全一样。代价是：规则只认识见过的邮件格式；而且关掉某一类，就会少一类发现。比如关掉药房，agent 不知道哪天开始了治疗，就不会有“改变有没有用”这张卡。
@@ -45,7 +45,9 @@ cp .env.example .env                              # 填上 ANTHROPIC_API_KEY；.
 
 - 私人邮件被误判成“有用”、会离开设备的：0 封
 - 有用邮件被漏掉的：0 / 76
+- 无关邮件会被发给 Claude 的：4 封（网球俱乐部的简报），加上 10% 那道保险后是 0 封，有用邮件仍然一封不漏
 - 总体准确率 86%；错误主要是把 14 封新闻简报或学校通知当成私人邮件，偏保守，不会泄露
+- 去掉发件人姓名和地址后再测，准确率不变，泄露和漏掉仍然是 0，说明模型靠的是内容，不是记住发件人
 
 这些数字来自合成数据，只能说明流程是通的，不代表真实邮箱上的效果。正式版的 Private 模式可以用手机上的端侧大模型来做抽取，替代现在的规则。
 
@@ -60,7 +62,7 @@ cp .env.example .env                              # 填上 ANTHROPIC_API_KEY；.
 ```bash
 .venv/bin/python scripts/extract_all.py --limit 10                              # 先试 10 封
 .venv/bin/python scripts/eval_extraction.py cache/extracted_events_first10.json # 对答案
-.venv/bin/python scripts/extract_all.py                                         # 本地模型判为有用的 79 封 → cache/extracted_events.json
+.venv/bin/python scripts/extract_all.py                                         # 本地模型放行的 75 封 → cache/extracted_events.json
 .venv/bin/python scripts/eval_extraction.py
 .venv/bin/python scripts/precompute.py                                          # Claude 写卡片 + 备用就诊摘要
 ```
