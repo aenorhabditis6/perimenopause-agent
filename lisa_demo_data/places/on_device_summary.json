@@ -1,0 +1,16 @@
+{
+ "note": "Visits the location app saw but never uploaded (counts only; illustrative)",
+ "kept_on_phone": {
+  "home": 121,
+  "work": 63,
+  "kids' schools": 48,
+  "tennis club": 19,
+  "friends' homes": 7,
+  "pharmacy": 4,
+  "medical office": 1,
+  "airport": 2,
+  "hotel": 2,
+  "shops and errands": 38
+ },
+ "total_kept": 305
+}

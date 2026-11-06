@@ -39,7 +39,7 @@ def claude_on() -> bool:
 
 
 def _insights(as_of: str, source: str = "oura") -> dict:
-    return data.insights(as_of, source, str(data.active_events_path()), data.unasked_questions(), data.use_calendar())
+    return data.insights(as_of, source, str(data.active_events_path()), data.unasked_questions(), data.use_calendar(), data.use_places())
 
 
 def _key_event(email_id: str) -> dict:
@@ -59,7 +59,7 @@ def status():
                    "on-device rules" if s["mode"] == "filtered" and s["on_device"] else data.events_source())
     return {"claude": claude_on(), "events_from": events_from, "stops": data.STOPS,
             "mode": s["mode"], "on_device": s["on_device"], "share": s["share"], "shareable": classifier.SHAREABLE,
-            "privacy": data.privacy_summary(), "local_model": data.model_info()}
+            "privacy": data.privacy_summary(), "local_model": data.model_info(), "sources": data.sources()}
 
 
 @app.post("/api/settings")

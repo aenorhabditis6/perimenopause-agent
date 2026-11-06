@@ -55,6 +55,10 @@ section { min-height: 0; overflow-y: auto; }
 .tag.on_device_nothing { background: #f7f7f8; color: var(--faint); }
 .sharebar { display: none; padding: 10px 12px; border-bottom: 1px solid var(--line); background: #f5faf7; font-size: 12.5px; }
 .mode-filtered .sharebar { display: block; }
+.sourcesbar { display: none; padding: 10px 12px; border-bottom: 1px solid var(--line); background: #f7f9fd; font-size: 12.5px; }
+.mode-full .sourcesbar { display: block; }
+.sourcesbar .src { display: grid; grid-template-columns: 16px 1fr; gap: 4px 6px; margin: 3px 0; }
+.sourcesbar .src.off { color: var(--faint); }
 .receipts { display: none; padding: 14px 14px 20px; }
 .mode-manual .receipts { display: block; }
 .mode-manual .item, .mode-manual .filters { display: none !important; }
@@ -150,7 +154,7 @@ header { gap: 10px; }
   <span class="pill" id="statusPill">…</span>
 </header>
 <main>
-  <section class="list" id="list"><div class="receipts" id="receipts"></div><div class="sharebar" id="sharebar"></div><div class="filters" id="filters"></div></section>
+  <section class="list" id="list"><div class="receipts" id="receipts"></div><div class="sharebar" id="sharebar"></div><div class="sourcesbar" id="sourcesbar"></div><div class="filters" id="filters"></div></section>
   <section class="mid" id="mid"></section>
   <section class="reader" id="reader"><div class="empty">Select an email</div></section>
 </main>
@@ -295,7 +299,7 @@ function renderTimeline(host) {
     s += `<path d="M${x(i)} 12l6 6l-6 6l-6 -6z" fill="${on ? "var(--accent)" : "#b9bec7"}"/><text x="${x(i) + (kind === "brief" ? -9 : 9)}" y="22" font-size="11" text-anchor="${kind === "brief" ? "end" : "start"}" fill="${on ? "#1f2430" : "#9aa1ad"}">${KIND[kind]}</text>`;
   }
   s += `</svg>`;
-  host.innerHTML = `<div class="timeline">${s}<div class="legend"><span><b style="color:var(--accent)">●</b> hot wake-up (warm night + awake ≥15 min, 1:30–5 AM)</span><span>■ alcohol (receipt or her answer)</span><span>□ maybe (reservation or party)</span><span>○ tennis</span></div></div>`;
+  host.innerHTML = `<div class="timeline">${s}<div class="legend"><span><b style="color:var(--accent)">●</b> hot wake-up (warm night + awake ≥15 min, 1:30–5 AM)</span><span>■ alcohol (receipt or her answer)</span><span>□ maybe (reservation, party, or a restaurant/bar visit)</span><span>○ tennis</span></div></div>`;
 }
 
 // ------------------------------------------------------------- cards
@@ -444,8 +448,10 @@ function applyStatus(st) {
   $("statusPill").textContent = {
     manual: `Manual · inbox not connected · ${p.receipts} receipt${p.receipts === 1 ? "" : "s"} you shared`,
     filtered: st.on_device ? `Filtered, on device · 0 emails sent · ${p.events_shared} events shared` : `Filtered · ${p.sent_to_claude} emails readable by Claude · ${p.stayed_on_device} stayed on device`,
-    full: `Full · ${p.sent_to_claude} emails readable by Claude · ${p.stayed_on_device} personal kept back`,
+    full: `Full · ${p.sent_to_claude} emails + place visits readable by Claude · ${p.stayed_on_device} personal kept back`,
   }[st.mode];
+  $("sourcesbar").innerHTML = `<div class="sbh" style="color:#1f4f9e">Every source is on · personal data still stays on the phone</div>` +
+    st.sources.map(s => `<div class="src ${s.on ? "" : "off"}"><span>${s.on ? "✓" : "–"}</span><span><b>${esc(s.name)}</b> · ${esc(s.detail)}</span></div>`).join("");
   $("statusPill").title = `On-device model: ${lm.kind}, ${lm.size_kb} KB, ${lm.ms_per_email} ms per email · ${st.claude ? "Claude on" : "offline mode"}`;
   $("liveBtn").disabled = st.mode === "manual" || S.briefing;
   $("liveBtn").title = st.mode === "manual" ? "Inbox not connected in Manual mode" : "";

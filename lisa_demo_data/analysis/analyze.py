@@ -131,8 +131,11 @@ def period_starts_from_apple(xml_path: Path) -> list[date]:
 
 # ---------------------------------------------------------------- context
 
-def evening_context(events: list[dict], calendar: dict, confirmations: list[dict], workouts: list[dict]):
-    """Per evening: alcohol evidence, tennis, travel. Evidence order: one-tap answer > receipt > possible > none."""
+def evening_context(events: list[dict], calendar: dict, confirmations: list[dict], workouts: list[dict], visits: list[dict] = ()):
+    """Per evening: alcohol evidence, tennis, travel. Evidence order: one-tap answer > receipt > possible > none.
+
+    visits: restaurant and bar visits from the on-device location app (only evening visits count).
+    """
     ctx: dict[date, dict] = {}
 
     def c(d):
@@ -172,6 +175,11 @@ def evening_context(events: list[dict], calendar: dict, confirmations: list[dict
         title = item.get("summary", "")
         if t.hour >= 17 and not any(w in title.lower() for w in NOT_SOCIAL):
             set_ev(t.date(), "possible", f"calendar: {title}")
+    for v in visits:
+        t, left = datetime.fromisoformat(v["arrived_at"]), datetime.fromisoformat(v["left_at"])
+        if t.hour >= 17:
+            c(t.date())["restaurant"] = True
+            set_ev(t.date(), "possible", f"location: {v['place']} ({v['place_type']}), {t:%H:%M}–{left:%H:%M}")
     for w in workouts:
         t = datetime.fromisoformat(w["start_datetime"])
         if w["activity"] == "tennis" and t.hour >= 17:
@@ -319,7 +327,7 @@ def night_row(n: dict) -> dict:
 
 
 def run_analysis(as_of: date, source: str = "oura", events_path: Path | str | None = None,
-                 unasked: tuple[str, ...] = (), use_calendar: bool = True) -> dict:
+                 unasked: tuple[str, ...] = (), use_calendar: bool = True, use_places: bool = False) -> dict:
     """Everything the app needs for one morning. events_path = Claude's extraction, or the answer key.
 
     unasked: one-tap questions that could not have been asked because what prompted them was not
@@ -337,7 +345,9 @@ def run_analysis(as_of: date, source: str = "oura", events_path: Path | str | No
     workouts = json.loads((ROOT / "wearables" / "oura" / "workout.json").read_text())["data"]
     apple = ROOT / "wearables" / "apple_health" / "export.xml"
     nights = nights_from_oura(ROOT / "wearables" / "oura") if source == "oura" else nights_from_apple(apple)
-    ctx, treatment = evening_context(events, calendar, confirmations, workouts)
+    visits = json.loads((ROOT / "places" / "visits.json").read_text())["visits"] if use_places else []
+    visits = [v for v in visits if D(v["arrived_at"]) < as_of]
+    ctx, treatment = evening_context(events, calendar, confirmations, workouts, visits)
     res = analyze(nights, ctx, treatment, period_starts_from_apple(apple), events, as_of)
     res["source"] = source
     res["confirmations"] = confirmations

@@ -212,8 +212,37 @@ def model_info() -> dict:
 
 @lru_cache(maxsize=64)
 def insights(as_of: str, source: str = "oura", events_file: str | None = None, unasked: tuple[str, ...] = (),
-             use_calendar: bool = True) -> dict:
-    return analyze.run_analysis(date.fromisoformat(as_of), source, events_file or events_path(), unasked, use_calendar)
+             use_calendar: bool = True, use_places: bool = False) -> dict:
+    return analyze.run_analysis(date.fromisoformat(as_of), source, events_file or events_path(), unasked, use_calendar, use_places)
+
+
+def use_places() -> bool:
+    """Restaurant and bar visits from the on-device location app: a Full-mode source."""
+    return SETTINGS["mode"] == "full"
+
+
+def places_summary() -> dict:
+    up = load_json(DATA / "places" / "visits.json")["visits"]
+    kept = load_json(DATA / "places" / "on_device_summary.json")
+    return {"uploaded_visits": len(up), "evening_visits": sum(int(v["arrived_at"][11:13]) >= 17 for v in up),
+            "kept_on_phone": kept["total_kept"], "kept_by_kind": kept["kept_on_phone"]}
+
+
+def sources() -> list[dict]:
+    """What each data source contributes in the current mode, for the page's sources panel."""
+    mode, p = SETTINGS["mode"], privacy_summary()
+    pl = places_summary()
+    return [
+        {"name": "Ring (Oura)", "on": True, "detail": "nightly temperature, sleep and heart rate"},
+        {"name": "Inbox", "on": mode != "manual",
+         "detail": f"{p.get('sent_to_claude', 0)} emails readable by Claude; personal mail stays on the phone" if mode != "manual" else "not connected"},
+        {"name": "Calendar", "on": use_calendar(), "detail": "event titles and times" if use_calendar() else "not connected"},
+        {"name": "Places", "on": use_places(),
+         "detail": (f"only restaurant and bar visits leave the phone: {pl['uploaded_visits']} uploaded, "
+                    f"{pl['kept_on_phone']} other visits kept on the phone") if use_places() else "Full mode only"},
+        {"name": "Receipt photos", "on": mode == "manual", "detail": f"{len(receipts())} you uploaded" if mode == "manual" else "Manual mode"},
+        {"name": "Card transactions", "on": False, "detail": "idea: merchant + amount via a bank-data API, restaurant/bar/pharmacy only"},
+    ]
 
 
 def unasked_questions() -> tuple[str, ...]:
