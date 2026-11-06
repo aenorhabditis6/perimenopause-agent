@@ -11,8 +11,9 @@ ROOT = Path(__file__).resolve().parent.parent
 DATA = ROOT / "lisa_demo_data"
 CACHE = ROOT / "cache"
 
-# The demo's date stops and the card each one shows
-STOPS = {"2026-08-13": "awareness", "2026-08-23": "trigger", "2026-10-08": "change", "2026-11-05": "brief"}
+# The demo's date stops and what each one shows ("question": a one-tap question, no card)
+STOPS = {"2026-08-13": "awareness", "2026-08-23": "trigger", "2026-09-04": "question", "2026-10-08": "change", "2026-11-05": "brief"}
+CARD_KINDS = ("awareness", "trigger", "change")
 # Person-to-person mail is never sent to Claude (friends and family, and colleagues)
 PERSONAL_DOMAINS = ("mail.example", "fernwoodlabs.example")
 

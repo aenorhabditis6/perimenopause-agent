@@ -87,6 +87,28 @@ pre.plain { white-space: pre-wrap; font: inherit; background: var(--bg); border-
 .brief ul { margin: 0; padding-left: 18px; }
 .brief p { margin: 0 0 8px; color: var(--muted); }
 .empty { color: var(--faint); margin-top: 30vh; text-align: center; }
+button.ghost { border: 1px solid var(--line); background: var(--panel); border-radius: 8px; padding: 7px 10px; cursor: pointer; font: inherit; }
+.phone { position: fixed; right: 18px; bottom: 18px; width: 290px; height: 560px; border-radius: 42px; background: #0b0d12; padding: 11px; box-shadow: 0 24px 60px rgba(15, 20, 30, .35); z-index: 20; }
+.nophone .phone { display: none; }
+.screen { position: relative; height: 100%; border-radius: 32px; overflow: hidden; padding: 44px 11px 12px; color: #fff;
+  background: radial-gradient(120% 80% at 20% 0%, #5d6f96 0%, #2a3550 55%, #161b29 100%); }
+.island { position: absolute; top: 11px; left: 50%; transform: translateX(-50%); width: 92px; height: 26px; border-radius: 14px; background: #000; }
+.lock-date { text-align: center; font-size: 14px; opacity: .85; }
+.lock-time { text-align: center; font-size: 58px; font-weight: 250; line-height: 1.05; margin-bottom: 14px; letter-spacing: -1px; }
+#notifs { display: flex; flex-direction: column; gap: 8px; }
+.notif { background: rgba(245, 246, 250, .86); color: #14171f; border-radius: 18px; padding: 10px 12px; cursor: pointer; animation: slidein .35s ease-out both; }
+.notif:nth-child(2) { animation-delay: .25s; } .notif:nth-child(3) { animation-delay: .5s; }
+@keyframes slidein { from { transform: translateY(-14px); opacity: 0; } to { transform: none; opacity: 1; } }
+.notif .app { display: flex; justify-content: space-between; font-size: 11px; color: #5b6170; margin-bottom: 2px; }
+.notif .t { font-weight: 650; font-size: 13.5px; line-height: 1.3; }
+.notif .b { font-size: 12.5px; line-height: 1.35; color: #2b303b; }
+.notif .actions { display: flex; gap: 6px; margin-top: 8px; }
+.notif .actions button { flex: 1; border: 0; border-radius: 10px; padding: 6px 0; background: rgba(0, 0, 0, .07); font: inherit; font-weight: 650; font-size: 13px; color: #14171f; cursor: pointer; }
+.notif .actions button.chosen { background: var(--accent); color: #fff; }
+.notif .answered { font-size: 11px; color: #5b6170; margin-top: 5px; }
+.quiet { text-align: center; font-size: 12.5px; opacity: .75; margin-top: 20px; }
+.flash { animation: flash 1.2s ease-out; }
+@keyframes flash { 0% { box-shadow: 0 0 0 4px rgba(47, 111, 214, .45); } 100% { box-shadow: 0 0 0 0 rgba(47, 111, 214, 0); } }
 </style>
 </head>
 <body>
@@ -97,6 +119,7 @@ pre.plain { white-space: pre-wrap; font: inherit; background: var(--bg); border-
   <div class="stops" id="stops"></div>
   <label class="switch"><input type="checkbox" id="agentToggle"><span class="track"></span><span>Agent view</span></label>
   <button class="primary" id="liveBtn">▶ New email</button>
+  <button class="ghost" id="phoneBtn" title="Show or hide the phone">Phone</button>
   <span class="pill" id="statusPill">…</span>
 </header>
 <main>
@@ -104,10 +127,13 @@ pre.plain { white-space: pre-wrap; font: inherit; background: var(--bg); border-
   <section class="mid" id="mid"></section>
   <section class="reader" id="reader"><div class="empty">Select an email</div></section>
 </main>
+<div class="phone" aria-label="Lisa's phone"><div class="screen"><div class="island"></div>
+  <div class="lock-date" id="lockDate"></div><div class="lock-time" id="lockTime"></div><div id="notifs"></div></div></div>
 <script>
 const S = { emails: [], nights: [], stops: {}, asOf: "2026-08-13", filter: "all", selected: null, ins: null, briefing: false };
 const COLORS = ["#5b4b8a", "#0f766e", "#b45309", "#1d4ed8", "#9d174d", "#15803d", "#7f1d1d", "#334155", "#a16207", "#0369a1"];
-const KIND = { awareness: "Noticed a change", trigger: "Possible trigger", change: "Did it help?", brief: "Visit summary" };
+const KIND = { awareness: "Noticed a change", trigger: "Possible trigger", question: "One question", change: "Did it help?", brief: "Visit summary" };
+const WAKE_TIME = "07:35";   // cards go out after she is up, not overnight
 const LABELS = {
   restaurant_reservation: "Restaurant reservation", restaurant_receipt: "Restaurant receipt", alcohol_purchase: "Alcohol purchase",
   grocery_order: "Grocery order", symptom_relief_purchase: "Bought for nights", other_purchase: "Other purchase",
@@ -255,6 +281,7 @@ function renderMid() {
   const today = S.ins.cards.find(c => c.as_of === S.asOf);
   if (today) $("today").appendChild(cardEl(today, true));
   else if (S.ins.today === "brief") $("today").innerHTML = `<div class="waiting">${S.briefing ? "Visit summary ready → right panel." : "Waiting for something worth a summary… press <b>▶ New email</b>."}</div>`;
+  else if (S.ins.today === "question") $("today").innerHTML = `<div class="waiting">One question today (see the phone), no card. Before comparing nights it waits until 28 nights have passed since the start.</div>`;
   else $("today").innerHTML = `<div class="waiting">Nothing new today. The agent stays quiet.</div>`;
   const earlier = S.ins.cards.filter(c => c.as_of !== S.asOf);
   $("hist").innerHTML = earlier.length ? "" : "None yet.";
@@ -266,6 +293,48 @@ async function setAsOf(d) {
   S.ins = await api(`/api/insights?as_of=${d}`);
   document.querySelectorAll("#stops button").forEach(b => b.classList.toggle("on", b.dataset.d === d));
   renderMid();
+  renderPhone();
+}
+
+// ------------------------------------------------------------- phone (what Lisa actually sees)
+const clock = hm => { const [h, m] = hm.split(":").map(Number); return `${h % 12 || 12}:${String(m).padStart(2, "0")}`; };
+const plusMin = (hm, k) => { const [h, m] = hm.split(":").map(Number), t = h * 60 + m + k; return `${String(Math.floor(t / 60)).padStart(2, "0")}:${String(t % 60).padStart(2, "0")}`; };
+const firstSentence = s => s.split(/(?<=[.!?])\s/)[0];
+
+function renderPhone() {
+  const d = S.asOf, items = [];
+  const qs = S.ins.confirmations.filter(a => a.asked_at.slice(0, 10) === d);
+  for (const q of qs) items.push({ time: q.asked_at.slice(11, 16), kind: "question", q });
+  const card = S.ins.cards.find(c => c.as_of === d);
+  // The trigger card goes out right after the answer that completed the evidence; other cards once she is up
+  if (card) items.push({ time: card.kind === "trigger" && qs.length ? plusMin(qs.at(-1).answered_at.slice(11, 16), 1) : WAKE_TIME, kind: "card", card });
+  if (d === "2026-11-05" && S.briefing) items.push({ time: "08:13", kind: "summary" });
+  items.sort((a, b) => a.time.localeCompare(b.time));
+  $("lockDate").textContent = new Date(d + "T12:00:00").toLocaleDateString("en-US", { weekday: "long", month: "long", day: "numeric" });
+  $("lockTime").textContent = clock(items.length ? items.at(-1).time : WAKE_TIME);
+  const box = $("notifs");
+  box.innerHTML = items.length ? "" : '<div class="quiet">No notifications today.<br>The agent stays quiet.</div>';
+  for (const it of items.reverse()) box.appendChild(notifEl(it));   // newest on top, like a lock screen
+}
+
+function notifEl(it) {
+  const el = document.createElement("div");
+  el.className = "notif";
+  const head = `<div class="app"><span>◐ Health agent</span><span>${clock(it.time)}</span></div>`;
+  if (it.kind === "card") {
+    el.innerHTML = head + `<div class="t">${esc(it.card.headline)}</div><div class="b">${esc(firstSentence(it.card.body))}</div>`;
+    el.onclick = () => { const c = document.querySelector("#today .card"); if (c) { c.scrollIntoView({ behavior: "smooth", block: "center" }); c.classList.remove("flash"); void c.offsetWidth; c.classList.add("flash"); } };
+  } else if (it.kind === "question") {
+    const yes = it.q.answer.startsWith("yes");
+    el.innerHTML = head + `<div class="t">${esc(it.q.question)}</div><div class="b">${esc(it.q.reason)}.</div>
+      <div class="actions"><button class="${yes ? "chosen" : ""}">Yes</button><button class="${yes ? "" : "chosen"}">No</button></div>
+      <div class="answered">She tapped “${yes ? "Yes" : "No"}” at ${clock(it.q.answered_at.slice(11, 16))}, without opening the app</div>`;
+    el.querySelectorAll(".actions button").forEach(b => b.onclick = e => { e.stopPropagation(); el.querySelectorAll(".actions button").forEach(x => x.classList.toggle("chosen", x === b)); });
+  } else {
+    el.innerHTML = head + `<div class="t">Visit summary ready</div><div class="b">For your follow-up on Tue, Nov 10. Look it over and decide whether to share it.</div>`;
+    el.onclick = () => { document.body.classList.add("nophone"); $("reader").scrollTo({ top: 0, behavior: "smooth" }); };   // opening it puts the phone away
+  }
+  return el;
 }
 
 // ------------------------------------------------------------- live email -> visit summary
@@ -301,7 +370,7 @@ async function liveEmail() {
   const brief = document.createElement("div");
   brief.className = "card brief";
   r.insertBefore(brief, box.nextSibling);
-  S.briefing = true; renderMid();
+  S.briefing = true; renderMid(); renderPhone();
   let text = "";
   const es = new EventSource("/api/brief/stream");
   es.onmessage = e => {
@@ -321,6 +390,7 @@ async function init() {
   document.querySelectorAll("#stops button").forEach(b => b.onclick = () => setAsOf(b.dataset.d));
   $("agentToggle").onchange = e => { document.body.classList.toggle("agent", e.target.checked); renderList(); };
   $("liveBtn").onclick = liveEmail;
+  $("phoneBtn").onclick = () => document.body.classList.toggle("nophone");
   [S.emails, S.nights] = await Promise.all([api("/api/emails"), api("/api/nights")]);
   renderList();
   await setAsOf(S.asOf);

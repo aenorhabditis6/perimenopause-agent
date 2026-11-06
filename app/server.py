@@ -82,7 +82,7 @@ def insights(as_of: str = "2026-11-05", source: str = "oura"):
     res = _insights(as_of, source)
     cards = []
     for stop, kind in data.STOPS.items():
-        if kind != "brief" and stop <= as_of:
+        if kind in data.CARD_KINDS and stop <= as_of:
             r = _insights(stop, source)
             if data.fired(kind, r):
                 cards.append(data.card(kind, stop, r))

@@ -25,7 +25,7 @@ def main():
     print("events from", data.events_source())
     cards = {}
     for stop, kind in data.STOPS.items():
-        if kind == "brief":
+        if kind not in data.CARD_KINDS:
             continue
         res = data.insights(stop, "oura", events)
         if not data.fired(kind, res):
