@@ -16,19 +16,20 @@ import time
 from pathlib import Path
 
 from dotenv import load_dotenv
-from fastapi import FastAPI, HTTPException
+from fastapi import Body, FastAPI, HTTPException
 from fastapi.responses import FileResponse, StreamingResponse
 
 load_dotenv(Path(__file__).resolve().parent.parent / ".env")
 
 from app import claude_calls, data  # noqa: E402  (after .env is loaded)
+from app.local_model import classifier  # noqa: E402
 
 STATIC = Path(__file__).resolve().parent / "static"
 FIRST_TOKEN_TIMEOUT_S = 10
 EXTRACT_TIMEOUT_S = 25
 
 app = FastAPI(title="Perimenopause agent demo")
-_live = {"event": None, "extracted_by": None}
+_live = {"event": None, "extracted_by": None, "state": None}
 
 
 def claude_on() -> bool:
@@ -36,7 +37,7 @@ def claude_on() -> bool:
 
 
 def _insights(as_of: str, source: str = "oura") -> dict:
-    return data.insights(as_of, source, str(data.events_path()))
+    return data.insights(as_of, source, str(data.active_events_path()), data.unasked_questions())
 
 
 def _key_event(email_id: str) -> dict:
@@ -51,7 +52,22 @@ def index():
 
 @app.get("/api/status")
 def status():
-    return {"claude": claude_on(), "events_from": data.events_source(), "stops": data.STOPS}
+    private = data.SETTINGS["mode"] == "private"
+    return {"claude": claude_on(), "events_from": "on-device rules" if private else data.events_source(), "stops": data.STOPS,
+            "mode": data.SETTINGS["mode"], "share": data.SETTINGS["share"], "shareable": classifier.SHAREABLE,
+            "privacy": data.privacy_summary(), "local_model": data.model_info()}
+
+
+@app.post("/api/settings")
+def settings(body: dict = Body(...)):
+    """{"mode": "auto" | "private", "share": [labels]}: what may leave the device, and how."""
+    mode = body.get("mode", data.SETTINGS["mode"])
+    if mode not in ("auto", "private"):
+        raise HTTPException(400, "mode must be auto or private")
+    share = [s for s in body.get("share", data.SETTINGS["share"]) if s in classifier.SHAREABLE]
+    data.SETTINGS.update(mode=mode, share=share)
+    _live.update(event=None, extracted_by=None, state=None)
+    return status()
 
 
 @app.get("/api/emails")
@@ -64,7 +80,8 @@ def emails():
 @app.get("/api/emails/{email_id}")
 def email(email_id: str):
     if email_id == "msg_live":
-        return data.live_email() | {"status": {"state": "read", "event": _live["event"]}, "extracted_by": _live["extracted_by"]}
+        st = {"state": _live["state"] or "sent_to_claude", "local": data.local_labels()["msg_live"], "event": _live["event"]}
+        return data.live_email() | {"status": st, "extracted_by": _live["extracted_by"]}
     for m in data.emails():
         if m["id"] == email_id:
             return m | {"status": data.email_status(m, data.extracted_by_id())}
@@ -93,24 +110,33 @@ def insights(as_of: str = "2026-11-05", source: str = "oura"):
 
 @app.post("/api/live-email")
 def live_email():
-    """The clinic's reminder arrives: sender filter -> Claude extraction -> does it trigger a visit summary?"""
+    """The clinic's reminder arrives: on-device model -> (Auto) Claude extraction, or (Private) on-device rules."""
     m = data.live_email()
-    by = "answer key (offline)"
+    loc = data.local_labels()["msg_live"]
     event = None
-    if claude_on():
-        box: dict = {}
-        t = threading.Thread(target=lambda: box.update(ev=claude_calls.extract_event(m)), daemon=True)
-        t.start()
-        t.join(EXTRACT_TIMEOUT_S)
-        if "ev" in box:
-            event, by = box["ev"], "claude"
+    if loc["label"] not in classifier.RELEVANT:
+        state, by = "on_device_nothing", "on-device model"
+    elif data.SETTINGS["mode"] == "private":
+        if loc["label"] in data.SETTINGS["share"]:
+            event, state, by = data.on_device_events().get("msg_live"), "on_device_event", "on-device rules (nothing sent)"
         else:
-            by = "answer key (Claude did not answer in time)"
-    if event is None:
-        event = _key_event("msg_live")
-    _live.update(event=event, extracted_by=by)
-    return {"email_id": "msg_live", "personal": data.is_personal(m), "event": event, "extracted_by": by,
-            "triggers_brief": event.get("category") in ("appointment_reminder", "medical_appointment")}
+            state, by = "not_shared", "not shared (your setting)"
+    else:
+        state, by = "sent_to_claude", "answer key (offline)"
+        if claude_on():
+            box: dict = {}
+            t = threading.Thread(target=lambda: box.update(ev=claude_calls.extract_event(m)), daemon=True)
+            t.start()
+            t.join(EXTRACT_TIMEOUT_S)
+            if "ev" in box:
+                event, by = box["ev"], "claude"
+            else:
+                by = "answer key (Claude did not answer in time)"
+        if event is None:
+            event = _key_event("msg_live")
+    _live.update(event=event, extracted_by=by, state=state)
+    return {"email_id": "msg_live", "local": loc, "state": state, "event": event, "extracted_by": by, "mode": data.SETTINGS["mode"],
+            "triggers_brief": bool(event) and event.get("category") in ("appointment_reminder", "medical_appointment")}
 
 
 def _sse(obj: dict) -> str:

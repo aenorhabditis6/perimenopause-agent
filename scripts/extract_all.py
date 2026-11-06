@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Run Claude extraction over every automated email (personal mail is skipped) and cache the result.
+"""Auto mode, batch: send the emails the on-device model calls relevant to Claude and cache the events.
 
     .venv/bin/python scripts/extract_all.py --limit 10     # try 10 first -> cache/extracted_events_first10.json
     .venv/bin/python scripts/extract_all.py                # all -> cache/extracted_events.json (the app switches to it)
@@ -18,6 +18,7 @@ sys.path.insert(0, str(ROOT))
 load_dotenv(ROOT / ".env")
 
 from app import claude_calls, data  # noqa: E402
+from app.local_model import classifier  # noqa: E402
 
 
 def main():
@@ -26,7 +27,9 @@ def main():
     ap.add_argument("--workers", type=int, default=8)
     args = ap.parse_args()
 
-    todo = [m for m in data.emails() if not data.is_personal(m)][: args.limit]
+    # Only what the on-device model calls relevant ever reaches Claude
+    labels = data.local_labels()
+    todo = [m for m in data.emails() if labels[m["id"]]["label"] in classifier.RELEVANT][: args.limit]
     results, errors = {}, {}
     t0 = time.time()
     with ThreadPoolExecutor(args.workers) as pool:

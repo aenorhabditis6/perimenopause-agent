@@ -318,13 +318,20 @@ def night_row(n: dict) -> dict:
             "why": n.get("why", ""), "email_id": n.get("email_id"), "tennis": n.get("tennis", False), "travel": n.get("travel", False)}
 
 
-def run_analysis(as_of: date, source: str = "oura", events_path: Path | str | None = None) -> dict:
-    """Everything the app needs for one morning. events_path = Claude's extraction, or the answer key."""
+def run_analysis(as_of: date, source: str = "oura", events_path: Path | str | None = None,
+                 unasked: tuple[str, ...] = ()) -> dict:
+    """Everything the app needs for one morning. events_path = Claude's extraction, or the answer key.
+
+    unasked: one-tap questions that could not have been asked because the email behind them was not
+    shared ("treatment" = the pharmacy question, "reservation" = questions about a restaurant booking).
+    """
     raw = json.loads(Path(events_path or ROOT / "truth" / "email_expected_events.json").read_text())
     events = [e for e in raw.get("expected", raw.get("events", [])) if e.get("relevant")]
     calendar = json.loads((ROOT / "calendar" / "events.json").read_text())
     confirmations = [a for a in json.loads((ROOT / "app_state" / "confirmations.json").read_text())["confirmations"]
-                     if D(a["asked_at"]) <= as_of]
+                     if D(a["asked_at"]) <= as_of
+                     and not ("treatment" in unasked and "new treatment" in a["question"])
+                     and not ("reservation" in unasked and "reservation" in a["reason"])]
     workouts = json.loads((ROOT / "wearables" / "oura" / "workout.json").read_text())["data"]
     apple = ROOT / "wearables" / "apple_health" / "export.xml"
     nights = nights_from_oura(ROOT / "wearables" / "oura") if source == "oura" else nights_from_apple(apple)

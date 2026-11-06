@@ -1,11 +1,14 @@
 """Lisa's demo data, the reference analysis, and the text the app falls back to without Claude."""
 from __future__ import annotations
 
+import hashlib
 import importlib.util
 import json
 from datetime import date
 from functools import lru_cache
 from pathlib import Path
+
+from app.local_model import classifier, extract
 
 ROOT = Path(__file__).resolve().parent.parent
 DATA = ROOT / "lisa_demo_data"
@@ -16,6 +19,9 @@ STOPS = {"2026-08-13": "awareness", "2026-08-23": "trigger", "2026-09-04": "ques
 CARD_KINDS = ("awareness", "trigger", "change")
 # Person-to-person mail is never sent to Claude (friends and family, and colleagues)
 PERSONAL_DOMAINS = ("mail.example", "fernwoodlabs.example")
+# Auto: emails the on-device model calls relevant go to Claude. Private: nothing goes to Claude;
+# events are extracted on the device, and only for the kinds of email she chose to share.
+SETTINGS = {"mode": "auto", "share": list(classifier.SHAREABLE)}
 
 _spec = importlib.util.spec_from_file_location("lisa_analyze", DATA / "analysis" / "analyze.py")
 analyze = importlib.util.module_from_spec(_spec)
@@ -58,18 +64,96 @@ def extracted_by_id() -> dict[str, dict]:
     return {e["email_id"]: e for e in raw.get("events", raw.get("expected", []))}
 
 
+@lru_cache
+def local_labels() -> dict[str, dict]:
+    """The on-device model's label for every email. Falls back to the answer key if fastText is missing."""
+    msgs = emails() + [live_email()]
+    if classifier.available():
+        return {m["id"]: classifier.classify(m) for m in msgs}
+    key = answer_key()
+    out = {}
+    for m in msgs:
+        k = key[m["id"]]
+        label = "personal" if k.get("prefilter") == "skip_personal" else classifier.COARSE.get(k.get("category") or "irrelevant", "noise")
+        out[m["id"]] = {"label": label, "confidence": None, "ms": None, "fallback": True}
+    return out
+
+
+@lru_cache
+def on_device_events() -> dict[str, dict]:
+    """Private mode: events extracted on the device from emails the local model calls relevant."""
+    labels, out = local_labels(), {}
+    for m in emails() + [live_email()]:
+        label = labels[m["id"]]["label"]
+        if label in classifier.RELEVANT and (ev := extract.extract(m, label)):
+            out[m["id"]] = ev
+    return out
+
+
 def email_status(msg: dict, extracted: dict[str, dict]) -> dict:
-    if is_personal(msg):
-        return {"state": "skipped", "event": None}
+    loc = local_labels()[msg["id"]]
+    label = loc["label"]
+    if label == "personal":
+        return {"state": "on_device_personal", "local": loc, "event": None}
+    if label not in classifier.RELEVANT:
+        return {"state": "on_device_nothing", "local": loc, "event": None}
+    if SETTINGS["mode"] == "private":
+        if label not in SETTINGS["share"]:
+            return {"state": "not_shared", "local": loc, "event": None}
+        return {"state": "on_device_event", "local": loc, "event": on_device_events().get(msg["id"])}
     e = extracted.get(msg["id"])
-    if not e or not e.get("relevant") or e.get("category") in (None, "irrelevant"):
-        return {"state": "nothing_kept", "event": None}
-    return {"state": "read", "event": {k: v for k, v in e.items() if k not in ("from", "subject", "date", "expected")}}
+    keep = e and e.get("relevant") and e.get("category") not in (None, "irrelevant")
+    return {"state": "sent_to_claude", "local": loc,
+            "event": {k: v for k, v in e.items() if k not in ("from", "subject", "date", "expected")} if keep else None}
 
 
-@lru_cache(maxsize=16)
-def insights(as_of: str, source: str = "oura", events_file: str | None = None) -> dict:
-    return analyze.run_analysis(date.fromisoformat(as_of), source, events_file or events_path())
+def active_events_path() -> Path:
+    """The events the statistics may use in the current mode, written to cache/ for the analysis to read."""
+    labels = local_labels()
+    if SETTINGS["mode"] == "private":
+        evs = [ev for eid, ev in on_device_events().items() if labels[eid]["label"] in SETTINGS["share"]]
+        tag = "private_" + hashlib.md5(",".join(sorted(SETTINGS["share"])).encode()).hexdigest()[:8]
+    else:
+        evs = [e for eid, e in extracted_by_id().items() if labels.get(eid, {}).get("label") in classifier.RELEVANT]
+        tag = f"auto_{events_source().replace(' ', '_')}_{int(events_path().stat().st_mtime)}"
+    CACHE.mkdir(exist_ok=True)
+    p = CACHE / f"events_{tag}.json"
+    if not p.exists():
+        p.write_text(json.dumps({"events": evs}, ensure_ascii=False) + "\n")
+    return p
+
+
+def privacy_summary() -> dict:
+    labels = local_labels()
+    ids = [m["id"] for m in emails()]
+    relevant = [i for i in ids if labels[i]["label"] in classifier.RELEVANT]
+    personal = sum(labels[i]["label"] == "personal" for i in ids)
+    if SETTINGS["mode"] == "auto":
+        return {"mode": "auto", "emails": len(ids), "sent_to_claude": len(relevant), "stayed_on_device": len(ids) - len(relevant),
+                "personal_on_device": personal}
+    shared = [i for i in relevant if labels[i]["label"] in SETTINGS["share"] and i in on_device_events()]
+    return {"mode": "private", "emails": len(ids), "sent_to_claude": 0, "stayed_on_device": len(ids), "events_shared": len(shared),
+            "personal_on_device": personal}
+
+
+def model_info() -> dict:
+    p = classifier.HERE / "metrics.json"
+    m = load_json(p) if p.exists() else {}
+    return {"available": classifier.available(), "kind": "fastText (quantized)", "size_kb": m.get("model_size_kb"),
+            "accuracy": m.get("accuracy"), "personal_leaks": m.get("personal_emails_that_would_leave_device"),
+            "relevant_missed": m.get("relevant_emails_missed"), "ms_per_email": m.get("median_ms_per_email")}
+
+
+@lru_cache(maxsize=32)
+def insights(as_of: str, source: str = "oura", events_file: str | None = None, unasked: tuple[str, ...] = ()) -> dict:
+    return analyze.run_analysis(date.fromisoformat(as_of), source, events_file or events_path(), unasked)
+
+
+def unasked_questions() -> tuple[str, ...]:
+    """In Private mode, questions prompted by an email she did not share were never asked."""
+    if SETTINGS["mode"] != "private":
+        return ()
+    return tuple(q for q, label in (("treatment", "pharmacy"), ("reservation", "restaurant")) if label not in SETTINGS["share"])
 
 
 def fired(kind: str, res: dict) -> bool:
@@ -163,30 +247,31 @@ def fallback_brief(inp: dict) -> str:
         return f"{x:%b} {x.day}"
 
     rx = med["prescription"]
-    lines = [
-        f"## Visit summary for {ap['provider']}: {ap['visit_type']}, {d(ap['event_date'])} at {ap['event_time']}",
-        "",
-        "Prepared from Lisa's ring, calendar and inbox. Not a diagnosis.",
-        "",
-        f"### Since the new prescription ({d(ch['start'])})",
-        f"- Hot wake-ups at night: {ch['before']['heat_per_week']} a week ({d(ch['before']['from'])}–{d(ch['before']['to'])}) → "
-        f"{ch['after']['heat_per_week']} a week ({d(ch['after']['from'])}–{d(ch['after']['to'])}).",
-        f"- Time awake at night: {ch['before']['avg_awake_min']} → {ch['after']['avg_awake_min']} minutes on average.",
-        f"- Evenings with alcohol: {ch['before']['alcohol_likely_per_week']} → {ch['after']['alcohol_likely_per_week']} a week"
-        + (", so drinking less doesn't explain the change." if not ch["confounded"] else "."),
-        "",
-        "### Pattern found before the prescription",
-        f"- Evenings with alcohol: {pat['alcohol']['heat_nights']} of {pat['alcohol']['nights']} nights had a hot wake-up, "
-        f"vs {pat['other']['heat_nights']} of {pat['other']['nights']} other nights.",
-        f"- Tennis evenings made no difference ({pat['tennis_control']['exposed']['heat_nights']} of {pat['tennis_control']['exposed']['nights']}).",
-        "",
+    title = f"## Visit summary for {ap['provider']}: {ap['visit_type']}, {d(ap['event_date'])} at {ap['event_time']}" if ap else "## Visit summary"
+    lines = [title, "", "Prepared from Lisa's ring, calendar and inbox. Not a diagnosis.", ""]
+    if ch:
+        lines += [
+            f"### Since the new prescription ({d(ch['start'])})",
+            f"- Hot wake-ups at night: {ch['before']['heat_per_week']} a week ({d(ch['before']['from'])}–{d(ch['before']['to'])}) → "
+            f"{ch['after']['heat_per_week']} a week ({d(ch['after']['from'])}–{d(ch['after']['to'])}).",
+            f"- Time awake at night: {ch['before']['avg_awake_min']} → {ch['after']['avg_awake_min']} minutes on average.",
+            f"- Evenings with alcohol: {ch['before']['alcohol_likely_per_week']} → {ch['after']['alcohol_likely_per_week']} a week"
+            + (", so drinking less doesn't explain the change." if not ch["confounded"] else "."), ""]
+    if pat["alcohol"]["nights"]:
+        lines += [
+            "### Pattern found before the prescription" if ch else "### Pattern found",
+            f"- Evenings with alcohol: {pat['alcohol']['heat_nights']} of {pat['alcohol']['nights']} nights had a hot wake-up, "
+            f"vs {pat['other']['heat_nights']} of {pat['other']['nights']} other nights.",
+            f"- Tennis evenings made no difference ({pat['tennis_control']['exposed']['heat_nights']} of {pat['tennis_control']['exposed']['nights']}).", ""]
+    lines += [
         "### Cycle",
         f"- Recent cycle lengths: {', '.join(map(str, inp['cycle_lengths_days']))} days.",
         "",
         f"### Recent habits and medications ({d(rh['from'])}–{d(rh['to'])})",
         f"- Evenings with alcohol: {rh['alcohol_evenings']} ({rh['alcohol_per_week']} a week); dinners out: {rh['dinners_out']}; tennis: {rh['tennis_evenings']} evenings; travel: {rh['travel_nights']} nights.",
-        f"- Prescription: first fill {d(rx['first_fill'])}, refills {', '.join(d(x) for x in rx['refills'])} (name not in the pharmacy emails).",
     ]
+    if rx["first_fill"]:
+        lines.append(f"- Prescription: first fill {d(rx['first_fill'])}, refills {', '.join(d(x) for x in rx['refills']) or 'none yet'} (name not in the pharmacy emails).")
     lines += [f"- Over the counter: {x['item']} ({d(x['date'])})." for x in med["over_the_counter"]]
     lines += ["", "### Already tried"] + [f"- {x['item']} ({d(x['date'])})" for x in inp["already_tried"]]
     lines += ["", "### Questions Lisa may want to ask",

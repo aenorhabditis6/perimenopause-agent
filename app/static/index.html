@@ -49,9 +49,15 @@ section { min-height: 0; overflow-y: auto; }
 .snip { color: var(--muted); font-size: 12.5px; }
 .tag { display: none; margin-top: 5px; font-size: 11.5px; border-radius: 6px; padding: 2px 7px; width: fit-content; }
 .agent .tag { display: block; }
-.tag.read { background: var(--read); color: var(--read-ink); }
-.tag.skipped { background: var(--skip); color: var(--muted); }
-.tag.nothing_kept { background: #f7f7f8; color: var(--faint); }
+.tag.sent_to_claude { background: var(--accent-soft); color: #1f4f9e; }
+.tag.on_device_event { background: var(--read); color: var(--read-ink); }
+.tag.on_device_personal, .tag.not_shared { background: var(--skip); color: var(--muted); }
+.tag.on_device_nothing { background: #f7f7f8; color: var(--faint); }
+.sharebar { display: none; padding: 10px 12px; border-bottom: 1px solid var(--line); background: #f5faf7; font-size: 12.5px; }
+.private .sharebar { display: block; }
+.sharebar .sbh { font-weight: 650; color: var(--read-ink); margin-bottom: 6px; }
+.sharebar label { display: inline-flex; align-items: center; gap: 4px; margin: 2px 10px 2px 0; cursor: pointer; }
+.lm { color: var(--muted); font-size: 12px; margin-bottom: 4px; }
 .mid { padding: 16px 18px 40px; }
 h2.sec { font-size: 12px; text-transform: uppercase; letter-spacing: .6px; color: var(--muted); margin: 4px 0 8px; }
 .timeline { background: var(--panel); border: 1px solid var(--line); border-radius: 12px; padding: 10px 12px 6px; margin-bottom: 16px; }
@@ -117,13 +123,14 @@ button.ghost { border: 1px solid var(--line); background: var(--panel); border-r
   <div class="who">lisa.hartley@mail.example</div>
   <div class="spacer"></div>
   <div class="stops" id="stops"></div>
+  <div class="stops" id="modes" title="Auto: relevant emails go to Claude. Private: nothing leaves the device but structured events."><button data-m="auto">Auto</button><button data-m="private">Private</button></div>
   <label class="switch"><input type="checkbox" id="agentToggle"><span class="track"></span><span>Agent view</span></label>
   <button class="primary" id="liveBtn">▶ New email</button>
   <button class="ghost" id="phoneBtn" title="Show or hide the phone">Phone</button>
   <span class="pill" id="statusPill">…</span>
 </header>
 <main>
-  <section class="list" id="list"><div class="filters" id="filters"></div></section>
+  <section class="list" id="list"><div class="sharebar" id="sharebar"></div><div class="filters" id="filters"></div></section>
   <section class="mid" id="mid"></section>
   <section class="reader" id="reader"><div class="empty">Select an email</div></section>
 </main>
@@ -149,11 +156,18 @@ const api = async (path, opts) => { const r = await fetch(path, opts); if (!r.ok
 const agentOn = () => document.body.classList.contains("agent");
 
 function colorFor(s) { let h = 0; for (const c of s) h = (h * 31 + c.charCodeAt(0)) >>> 0; return COLORS[h % COLORS.length]; }
+const LOCAL_LABEL = { personal: "personal", noise: "newsletter, bill or ad", restaurant: "restaurant", grocery_alcohol: "groceries & wine",
+  sleep_purchase: "bought for sleep", other_purchase: "other shopping", pharmacy: "pharmacy", medical: "doctor's office", travel: "travel", exercise: "exercise booking" };
+const STATES = [["all", "All"], ["sent_to_claude", "Sent to Claude"], ["on_device_event", "Shared as events"], ["not_shared", "Not shared"],
+  ["on_device_personal", "Personal"], ["on_device_nothing", "Nothing kept"]];
+
 function tagText(st) {
-  if (st.state === "skipped") return "🔒 Skipped · personal email, never read";
-  if (st.state === "nothing_kept") return "Checked · nothing kept";
+  const lab = LOCAL_LABEL[st.local?.label] || "";
+  if (st.state === "on_device_personal") return "🔒 On device · personal, never sent";
+  if (st.state === "on_device_nothing") return `On device · ${lab}, nothing kept`;
+  if (st.state === "not_shared") return `Not shared · ${lab} (your setting)`;
   const e = st.event || {};
-  let t = "Read · " + (LABELS[e.category] || e.category || "event");
+  let t = (st.state === "on_device_event" ? "On device → shared event · " : "Sent to Claude · ") + (LABELS[e.category] || e.category || lab);
   if (e.alcohol_signal === "present") t += " · alcohol";
   if (e.alcohol_signal === "absent") t += " · no alcohol";
   return t;
@@ -163,8 +177,9 @@ function tagText(st) {
 function renderList() {
   const f = $("filters");
   f.innerHTML = "";
-  for (const [k, label] of [["all", "All"], ["read", "Read by agent"], ["skipped", "Skipped"], ["nothing_kept", "Nothing kept"]]) {
+  for (const [k, label] of STATES) {
     const n = k === "all" ? S.emails.length : S.emails.filter(m => m.status.state === k).length;
+    if (!n && k !== "all") continue;
     const b = document.createElement("button");
     b.className = "chipbtn" + (S.filter === k ? " on" : "");
     b.textContent = `${label} ${n}`;
@@ -208,14 +223,23 @@ async function openEmail(id) {
 function agentBox(st, by) {
   const box = document.createElement("div");
   box.className = "agentbox";
-  if (st.state === "skipped") { box.innerHTML = `<div class="head">Agent: skipped</div>Person-to-person mail is filtered out by sender before anything reaches Claude. Its content is never read or stored.`; return box; }
-  if (st.state === "nothing_kept") { box.innerHTML = `<div class="head">Agent: nothing kept</div>Automated sender, so Claude checked it, found nothing health-related and stored nothing.`; return box; }
+  const loc = st.local || {};
+  const lm = loc.label ? `<div class="lm">On-device model (fastText): <b>${esc(LOCAL_LABEL[loc.label] || loc.label)}</b>${loc.confidence != null ? ` · ${Math.round(loc.confidence * 100)}% sure` : ""}${loc.ms != null ? ` · ${loc.ms} ms` : ""}</div>` : "";
+  const quiet = {
+    on_device_personal: ["Stayed on the device", "The on-device model reads this as person-to-person mail. It is never sent anywhere, in either mode."],
+    on_device_nothing: ["Stayed on the device", "Nothing health-related here, so nothing was kept and nothing was sent."],
+    not_shared: ["Not shared", "You switched this kind of email off in Private mode, so the agent ignores it."],
+  }[st.state];
+  if (quiet) { box.innerHTML = `<div class="head">${quiet[0]}</div>${lm}<div>${quiet[1]}</div>`; return box; }
   const e = st.event || {};
   const rows = [["Type", LABELS[e.category] || e.category], ["When", [e.event_date, e.event_time].filter(Boolean).join(" ") + (e.end_date ? " → " + e.end_date : "")],
     ["Where", e.merchant], ["Items", (e.items || []).join(", ")], ["Alcohol", { present: "yes, on the receipt", absent: "no", unknown: "unknown (may ask one tap later)" }[e.alcohol_signal]],
     ["With", [e.provider, e.visit_type].filter(Boolean).join(" · ")]].filter(([, v]) => v);
-  box.innerHTML = `<div class="head">Agent: kept one structured event${by ? " · extracted by " + esc(by) : ""}</div><table>${rows.map(([k, v]) => `<tr><td>${k}</td><td>${esc(v)}</td></tr>`).join("")}</table>
-    <div style="color:var(--muted);margin-top:4px">Only this row is stored, not the email text.</div>`;
+  const onDevice = st.state === "on_device_event";
+  const head = onDevice ? "Extracted on this device · only this row was shared" : `Sent to Claude for extraction${by ? " · " + esc(by) : ""}`;
+  const foot = onDevice ? "Claude never saw this email. The row above is all that left the device." : "Claude read this email to pull out the row above; only the row is stored.";
+  box.innerHTML = `<div class="head">${head}</div>${lm}<table>${rows.map(([k, v]) => `<tr><td>${k}</td><td>${esc(v)}</td></tr>`).join("")}</table>
+    <div style="color:var(--muted);margin-top:4px">${foot}</div>`;
   return box;
 }
 
@@ -282,6 +306,7 @@ function renderMid() {
   if (today) $("today").appendChild(cardEl(today, true));
   else if (S.ins.today === "brief") $("today").innerHTML = `<div class="waiting">${S.briefing ? "Visit summary ready → right panel." : "Waiting for something worth a summary… press <b>▶ New email</b>."}</div>`;
   else if (S.ins.today === "question") $("today").innerHTML = `<div class="waiting">One question today (see the phone), no card. Before comparing nights it waits until 28 nights have passed since the start.</div>`;
+  else if (S.status.mode === "private") $("today").innerHTML = `<div class="waiting">No card today. In Private mode the agent only sees what you chose to share, and the emails this card needs are switched off.</div>`;
   else $("today").innerHTML = `<div class="waiting">Nothing new today. The agent stays quiet.</div>`;
   const earlier = S.ins.cards.filter(c => c.as_of !== S.asOf);
   $("hist").innerHTML = earlier.length ? "" : "None yet.";
@@ -357,7 +382,7 @@ async function liveEmail() {
   $("liveBtn").disabled = true;
   const res = await api("/api/live-email", { method: "POST" });
   const m = await api("/api/emails/msg_live");
-  S.emails.unshift({ id: "msg_live", date: m.date, from: m.from, subject: m.subject, snippet: m.snippet, is_read: false, status: { state: "read", event: res.event } });
+  S.emails.unshift({ id: "msg_live", date: m.date, from: m.from, subject: m.subject, snippet: m.snippet, is_read: false, status: { state: res.state, local: res.local, event: res.event } });
   S.filter = "all";
   await setAsOf("2026-11-05");
   await openEmail("msg_live");
@@ -382,10 +407,36 @@ async function liveEmail() {
 }
 
 // ------------------------------------------------------------- start
+function applyStatus(st) {
+  S.status = st;
+  S.stops = st.stops;
+  document.body.classList.toggle("private", st.mode === "private");
+  document.querySelectorAll("#modes button").forEach(b => b.classList.toggle("on", b.dataset.m === st.mode));
+  const p = st.privacy, lm = st.local_model;
+  $("statusPill").textContent = st.mode === "auto"
+    ? `Auto · ${p.sent_to_claude} emails sent to Claude · ${p.stayed_on_device} stayed on device`
+    : `Private · 0 emails sent · ${p.events_shared} events shared`;
+  $("statusPill").title = `On-device model: ${lm.kind}, ${lm.size_kb} KB, ${lm.ms_per_email} ms per email · ${st.claude ? "Claude on" : "offline mode"}`;
+  const sb = $("sharebar");
+  sb.innerHTML = `<div class="sbh">Share with the agent · read on this device, Claude never sees an email</div>` +
+    Object.entries(st.shareable).map(([k, label]) => `<label><input type="checkbox" value="${k}" ${st.share.includes(k) ? "checked" : ""}> ${esc(label)}</label>`).join("");
+  sb.querySelectorAll("input").forEach(i => i.onchange = () => setMode("private", [...sb.querySelectorAll("input:checked")].map(x => x.value)));
+}
+
+async function setMode(mode, share) {
+  applyStatus(await api("/api/settings", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(share ? { mode, share } : { mode }) }));
+  S.emails = await api("/api/emails");
+  S.selected = null; S.briefing = false; S.filter = "all";
+  $("liveBtn").disabled = false;
+  $("reader").innerHTML = '<div class="empty">Select an email</div>';
+  renderList();
+  await setAsOf(S.asOf);
+}
+
 async function init() {
   const st = await api("/api/status");
-  S.stops = st.stops;
-  $("statusPill").textContent = `${st.claude ? "Claude on" : "offline mode"} · events from ${st.events_from}`;
+  applyStatus(st);
+  document.querySelectorAll("#modes button").forEach(b => b.onclick = () => setMode(b.dataset.m));
   $("stops").innerHTML = Object.keys(S.stops).map(d => `<button data-d="${d}">${md(d)}</button>`).join("");
   document.querySelectorAll("#stops button").forEach(b => b.onclick = () => setAsOf(b.dataset.d));
   $("agentToggle").onchange = e => { document.body.classList.toggle("agent", e.target.checked); renderList(); };

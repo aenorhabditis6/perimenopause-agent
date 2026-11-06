@@ -30,12 +30,37 @@ cp .env.example .env                              # 填上 ANTHROPIC_API_KEY；.
 | `cache/` | Claude 的输出；存在时 app 自动改用（演示兜底也靠它） |
 | `lisa_demo_data/` | 合成数据、参考统计 `analysis/analyze.py`、答案 `truth/`。先读里面的 README |
 
+## 隐私：两个模式和一个本地模型
+
+每封邮件先过一个**本地分类模型**（fastText，量化后 363 KB，每封 0.016 ms），在设备上判断它是什么。私人邮件和无关邮件在这一步就停下，两个模式都不会把它们发出去。
+
+| 模式 | 什么会离开设备 | 谁做抽取 | 适合谁 |
+| --- | --- | --- | --- |
+| **Auto** | 本地模型判为有用的邮件全文（Lisa 的 134 封里有 79 封）发给 Claude | Claude | 想要省心的人 |
+| **Private** | 没有任何邮件，只有抽出来的结构化事件 | 设备上的规则 | 很在意隐私的人：一次性勾选分享哪几类，之后照样零输入 |
+
+在 Lisa 的数据上，Private 模式在 4 个日期上的发现和 Auto 完全一样。代价是：规则只认识见过的邮件格式；而且关掉某一类，就会少一类发现。比如关掉药房，agent 不知道哪天开始了治疗，就不会有“改变有没有用”这张卡。
+
+**本地模型的测试结果**（训练集是 2600 封另外合成的邮件，商家、措辞、年份都和 Lisa 的不同；测试集是 Lisa 的 135 封）：
+
+- 私人邮件被误判成“有用”、会离开设备的：0 封
+- 有用邮件被漏掉的：0 / 76
+- 总体准确率 86%；错误主要是把 14 封新闻简报或学校通知当成私人邮件，偏保守，不会泄露
+
+这些数字来自合成数据，只能说明流程是通的，不代表真实邮箱上的效果。正式版的 Private 模式可以用手机上的端侧大模型来做抽取，替代现在的规则。
+
+```bash
+.venv/bin/python app/local_model/make_corpus.py   # 生成训练邮件
+.venv/bin/python app/local_model/train.py         # 训练 + 在 Lisa 的邮件上测 → app/local_model/metrics.json
+.venv/bin/python scripts/eval_private_mode.py     # Private 模式端到端：抽取准确率 + 发现是否和答案一致
+```
+
 ## Claude 这一步（C 负责）
 
 ```bash
 .venv/bin/python scripts/extract_all.py --limit 10                              # 先试 10 封
 .venv/bin/python scripts/eval_extraction.py cache/extracted_events_first10.json # 对答案
-.venv/bin/python scripts/extract_all.py                                         # 全部 115 封自动邮件 → cache/extracted_events.json
+.venv/bin/python scripts/extract_all.py                                         # 本地模型判为有用的 79 封 → cache/extracted_events.json
 .venv/bin/python scripts/eval_extraction.py
 .venv/bin/python scripts/precompute.py                                          # Claude 写卡片 + 备用就诊摘要
 ```

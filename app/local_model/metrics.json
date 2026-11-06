@@ -1,0 +1,29 @@
+{
+ "train_emails": 2600,
+ "test_emails": 135,
+ "test_set": "Lisa's inbox (held out; different senders and phrasing)",
+ "accuracy": 0.859,
+ "per_class_recall": {
+  "personal": "18/19",
+  "noise": "18/36",
+  "restaurant": "32/32",
+  "grocery_alcohol": "20/20",
+  "sleep_purchase": "4/4",
+  "other_purchase": "4/4",
+  "pharmacy": "7/7",
+  "medical": "5/5",
+  "travel": "3/3",
+  "exercise": "5/5"
+ },
+ "personal_emails_that_would_leave_device": 0,
+ "relevant_emails_missed": "0/76",
+ "noise_emails_that_would_be_sent": 4,
+ "model_size_kb": 362.7,
+ "median_ms_per_email": 0.016,
+ "train_seconds": 1.6,
+ "errors": [
+  "personal \u2192 noise (1)",
+  "noise \u2192 personal (14)",
+  "noise \u2192 exercise (4)"
+ ]
+}
