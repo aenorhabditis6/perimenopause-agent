@@ -1,0 +1,331 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lisa · Agent Demo</title>
+<style>
+:root {
+  --bg: #f6f7f9; --panel: #ffffff; --line: #e6e8ec; --ink: #1f2430; --muted: #6b7280; --faint: #9aa1ad;
+  --accent: #2f6fd6; --accent-soft: #eaf1fc; --grey: #b9bec7; --grey-dark: #6b7280;
+  --read: #e7f5ee; --read-ink: #0f6b45; --skip: #f1f2f4; --live: #fff6db; --card: #fbfcff;
+}
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--bg); color: var(--ink); font: 14px/1.45 -apple-system, "Segoe UI", Helvetica, Arial, sans-serif; height: 100vh; display: flex; flex-direction: column; }
+header { height: 56px; flex: none; display: flex; align-items: center; gap: 14px; padding: 0 16px; background: var(--panel); border-bottom: 1px solid var(--line); }
+.brand { font-weight: 650; }
+.who { color: var(--muted); }
+.spacer { flex: 1; }
+.stops { display: flex; border: 1px solid var(--line); border-radius: 8px; overflow: hidden; }
+.stops button { border: 0; background: var(--panel); padding: 7px 12px; cursor: pointer; color: var(--muted); font: inherit; border-right: 1px solid var(--line); }
+.stops button:last-child { border-right: 0; }
+.stops button.on { background: var(--accent); color: #fff; font-weight: 600; }
+.switch { display: flex; align-items: center; gap: 8px; cursor: pointer; user-select: none; }
+.switch input { display: none; }
+.switch .track { width: 36px; height: 20px; border-radius: 10px; background: #cfd3da; position: relative; transition: background .15s; }
+.switch .track::after { content: ""; position: absolute; top: 2px; left: 2px; width: 16px; height: 16px; border-radius: 50%; background: #fff; transition: left .15s; }
+.switch input:checked + .track { background: var(--accent); }
+.switch input:checked + .track::after { left: 18px; }
+button.primary { border: 0; border-radius: 8px; padding: 8px 12px; background: var(--accent); color: #fff; font-weight: 600; cursor: pointer; font: inherit; }
+button.primary:disabled { opacity: .45; cursor: default; }
+.pill { font-size: 12px; color: var(--muted); border: 1px solid var(--line); border-radius: 999px; padding: 3px 9px; white-space: nowrap; }
+main { flex: 1; display: grid; grid-template-columns: 330px minmax(420px, 1fr) 460px; min-height: 0; }
+section { min-height: 0; overflow-y: auto; }
+.list { background: var(--panel); border-right: 1px solid var(--line); }
+.filters { position: sticky; top: 0; background: var(--panel); border-bottom: 1px solid var(--line); padding: 8px 12px; display: none; gap: 6px; flex-wrap: wrap; z-index: 1; }
+.agent .filters { display: flex; }
+.chipbtn { border: 1px solid var(--line); background: var(--panel); border-radius: 999px; padding: 3px 10px; font-size: 12px; cursor: pointer; color: var(--muted); }
+.chipbtn.on { background: var(--accent-soft); border-color: transparent; color: var(--accent); font-weight: 600; }
+.item { display: grid; grid-template-columns: 32px 1fr; gap: 10px; padding: 10px 12px; border-bottom: 1px solid var(--line); cursor: pointer; }
+.item:hover { background: #fafbfc; }
+.item.sel { background: var(--accent-soft); }
+.item.new { background: var(--live); }
+.avatar { width: 32px; height: 32px; border-radius: 50%; display: grid; place-items: center; color: #fff; font-weight: 650; font-size: 13px; }
+.row1 { display: flex; gap: 8px; align-items: baseline; }
+.from, .subj, .snip { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.from { flex: 1; }
+.unread .from, .unread .subj { font-weight: 650; }
+.when { color: var(--faint); font-size: 12px; }
+.snip { color: var(--muted); font-size: 12.5px; }
+.tag { display: none; margin-top: 5px; font-size: 11.5px; border-radius: 6px; padding: 2px 7px; width: fit-content; }
+.agent .tag { display: block; }
+.tag.read { background: var(--read); color: var(--read-ink); }
+.tag.skipped { background: var(--skip); color: var(--muted); }
+.tag.nothing_kept { background: #f7f7f8; color: var(--faint); }
+.mid { padding: 16px 18px 40px; }
+h2.sec { font-size: 12px; text-transform: uppercase; letter-spacing: .6px; color: var(--muted); margin: 4px 0 8px; }
+.timeline { background: var(--panel); border: 1px solid var(--line); border-radius: 12px; padding: 10px 12px 6px; margin-bottom: 16px; }
+.timeline svg { width: 100%; height: auto; display: block; }
+.legend { display: flex; gap: 14px; flex-wrap: wrap; color: var(--muted); font-size: 12px; padding: 2px 2px 4px; }
+.card { background: var(--card); border: 1px solid #d9e3f5; border-radius: 12px; padding: 14px 16px; margin-bottom: 12px; }
+.card .kind { font-size: 12px; color: var(--accent); font-weight: 650; text-transform: uppercase; letter-spacing: .5px; }
+.card h3 { margin: 4px 0 6px; font-size: 17px; }
+.card .body { margin: 0 0 10px; }
+.card .meta { color: var(--faint); font-size: 12px; }
+.why-btn { border: 1px solid var(--line); background: var(--panel); border-radius: 8px; padding: 5px 10px; cursor: pointer; font: inherit; font-size: 12.5px; }
+table.why { width: 100%; border-collapse: collapse; margin-top: 10px; font-size: 12.5px; }
+table.why th { text-align: left; color: var(--muted); font-weight: 600; border-bottom: 1px solid var(--line); padding: 5px 6px; }
+table.why td { border-bottom: 1px solid #f0f1f4; padding: 5px 6px; vertical-align: top; }
+table.why tr.link { cursor: pointer; }
+table.why tr.link:hover td { background: var(--accent-soft); }
+.yes { color: var(--accent); font-weight: 650; }
+.history { color: var(--muted); font-size: 13px; }
+.history div { padding: 6px 0; border-bottom: 1px solid var(--line); cursor: pointer; }
+.waiting { color: var(--muted); border: 1px dashed var(--grey); border-radius: 12px; padding: 14px 16px; margin-bottom: 12px; }
+.reader { background: var(--panel); border-left: 1px solid var(--line); padding: 16px 18px 40px; }
+.reader h1 { font-size: 18px; margin: 0 0 4px; }
+.reader .meta { color: var(--muted); font-size: 13px; margin-bottom: 12px; }
+.agentbox { display: none; border: 1px solid #d9e3f5; background: var(--card); border-radius: 10px; padding: 10px 12px; margin-bottom: 12px; font-size: 13px; }
+.agent .agentbox, .agentbox.always { display: block; }
+.agentbox .head { font-weight: 650; color: var(--accent); margin-bottom: 4px; }
+.agentbox td { padding: 1px 12px 1px 0; vertical-align: top; }
+.agentbox td:first-child { color: var(--muted); }
+iframe { width: 100%; border: 0; min-height: 520px; background: #f4f4f5; border-radius: 8px; }
+pre.plain { white-space: pre-wrap; font: inherit; background: var(--bg); border-radius: 8px; padding: 14px; }
+.brief h2 { font-size: 17px; margin: 0 0 6px; }
+.brief h3 { font-size: 12.5px; text-transform: uppercase; letter-spacing: .6px; color: var(--accent); margin: 14px 0 4px; }
+.brief ul { margin: 0; padding-left: 18px; }
+.brief p { margin: 0 0 8px; color: var(--muted); }
+.empty { color: var(--faint); margin-top: 30vh; text-align: center; }
+</style>
+</head>
+<body>
+<header>
+  <div class="brand">Mail</div>
+  <div class="who">lisa.hartley@mail.example</div>
+  <div class="spacer"></div>
+  <div class="stops" id="stops"></div>
+  <label class="switch"><input type="checkbox" id="agentToggle"><span class="track"></span><span>Agent view</span></label>
+  <button class="primary" id="liveBtn">▶ New email</button>
+  <span class="pill" id="statusPill">…</span>
+</header>
+<main>
+  <section class="list" id="list"><div class="filters" id="filters"></div></section>
+  <section class="mid" id="mid"></section>
+  <section class="reader" id="reader"><div class="empty">Select an email</div></section>
+</main>
+<script>
+const S = { emails: [], nights: [], stops: {}, asOf: "2026-08-13", filter: "all", selected: null, ins: null, briefing: false };
+const COLORS = ["#5b4b8a", "#0f766e", "#b45309", "#1d4ed8", "#9d174d", "#15803d", "#7f1d1d", "#334155", "#a16207", "#0369a1"];
+const KIND = { awareness: "Noticed a change", trigger: "Possible trigger", change: "Did it help?", brief: "Visit summary" };
+const LABELS = {
+  restaurant_reservation: "Restaurant reservation", restaurant_receipt: "Restaurant receipt", alcohol_purchase: "Alcohol purchase",
+  grocery_order: "Grocery order", symptom_relief_purchase: "Bought for nights", other_purchase: "Other purchase",
+  pharmacy_rx_ready: "Prescription ready", pharmacy_rx_pickup: "Prescription picked up", pharmacy_refill_reminder: "Refill reminder",
+  medical_appointment: "Medical appointment", appointment_reminder: "Appointment reminder", medical_portal_notice: "Portal notice",
+  exercise_booking: "Exercise booking", travel_booking: "Flight booking", hotel_booking: "Hotel booking", travel_checkin: "Flight check-in",
+};
+const EVIDENCE = { confirmed_yes: "yes (her answer)", receipt_alcohol: "yes (receipt)", possible: "maybe", receipt_no_alcohol: "no (receipt)", confirmed_no: "no (her answer)", none: "" };
+const $ = id => document.getElementById(id);
+const esc = s => String(s ?? "").replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+const md = d => new Date(d + "T12:00:00").toLocaleDateString("en-US", { month: "short", day: "numeric" });
+const api = async (path, opts) => { const r = await fetch(path, opts); if (!r.ok) throw new Error(path + " " + r.status); return r.json(); };
+const agentOn = () => document.body.classList.contains("agent");
+
+function colorFor(s) { let h = 0; for (const c of s) h = (h * 31 + c.charCodeAt(0)) >>> 0; return COLORS[h % COLORS.length]; }
+function tagText(st) {
+  if (st.state === "skipped") return "🔒 Skipped · personal email, never read";
+  if (st.state === "nothing_kept") return "Checked · nothing kept";
+  const e = st.event || {};
+  let t = "Read · " + (LABELS[e.category] || e.category || "event");
+  if (e.alcohol_signal === "present") t += " · alcohol";
+  if (e.alcohol_signal === "absent") t += " · no alcohol";
+  return t;
+}
+
+// ------------------------------------------------------------- inbox
+function renderList() {
+  const f = $("filters");
+  f.innerHTML = "";
+  for (const [k, label] of [["all", "All"], ["read", "Read by agent"], ["skipped", "Skipped"], ["nothing_kept", "Nothing kept"]]) {
+    const n = k === "all" ? S.emails.length : S.emails.filter(m => m.status.state === k).length;
+    const b = document.createElement("button");
+    b.className = "chipbtn" + (S.filter === k ? " on" : "");
+    b.textContent = `${label} ${n}`;
+    b.onclick = () => { S.filter = k; renderList(); };
+    f.appendChild(b);
+  }
+  $("list").querySelectorAll(".item").forEach(n => n.remove());
+  for (const m of S.emails) {
+    if (S.filter !== "all" && m.status.state !== S.filter) continue;
+    const el = document.createElement("div");
+    el.className = "item" + (m.is_read ? "" : " unread") + (S.selected === m.id ? " sel" : "") + (m.id === "msg_live" ? " new" : "");
+    el.innerHTML = `<div class="avatar" style="background:${colorFor(m.from.name)}">${esc(m.from.name[0])}</div>
+      <div style="min-width:0"><div class="row1"><div class="from">${esc(m.from.name)}</div><div class="when">${md(m.date.slice(0, 10))}</div></div>
+      <div class="subj">${esc(m.subject)}</div><div class="snip">${esc(m.snippet)}</div><div class="tag ${m.status.state}">${esc(tagText(m.status))}</div></div>`;
+    el.onclick = () => openEmail(m.id);
+    $("list").appendChild(el);
+  }
+}
+
+async function openEmail(id) {
+  S.selected = id;
+  S.briefing = false;
+  const m = await api(`/api/emails/${id}`);
+  const row = S.emails.find(x => x.id === id);
+  if (row) row.is_read = true;
+  renderList();
+  const r = $("reader");
+  r.innerHTML = `<h1>${esc(m.subject)}</h1><div class="meta">${esc(m.from.name)} &lt;${esc(m.from.email)}&gt; · ${esc(new Date(m.date).toLocaleString("en-US", { dateStyle: "medium", timeStyle: "short", timeZone: "America/Los_Angeles" }))}</div>`;
+  r.appendChild(agentBox(m.status, m.extracted_by));
+  if (m.body_html) {
+    const f = document.createElement("iframe");
+    f.setAttribute("sandbox", "allow-same-origin");
+    f.srcdoc = m.body_html;
+    f.onload = () => { try { f.style.height = f.contentDocument.body.scrollHeight + 30 + "px"; } catch (e) {} };
+    r.appendChild(f);
+  } else {
+    const pre = document.createElement("pre"); pre.className = "plain"; pre.textContent = m.body_text; r.appendChild(pre);
+  }
+}
+
+function agentBox(st, by) {
+  const box = document.createElement("div");
+  box.className = "agentbox";
+  if (st.state === "skipped") { box.innerHTML = `<div class="head">Agent: skipped</div>Person-to-person mail is filtered out by sender before anything reaches Claude. Its content is never read or stored.`; return box; }
+  if (st.state === "nothing_kept") { box.innerHTML = `<div class="head">Agent: nothing kept</div>Automated sender, so Claude checked it, found nothing health-related and stored nothing.`; return box; }
+  const e = st.event || {};
+  const rows = [["Type", LABELS[e.category] || e.category], ["When", [e.event_date, e.event_time].filter(Boolean).join(" ") + (e.end_date ? " → " + e.end_date : "")],
+    ["Where", e.merchant], ["Items", (e.items || []).join(", ")], ["Alcohol", { present: "yes, on the receipt", absent: "no", unknown: "unknown (may ask one tap later)" }[e.alcohol_signal]],
+    ["With", [e.provider, e.visit_type].filter(Boolean).join(" · ")]].filter(([, v]) => v);
+  box.innerHTML = `<div class="head">Agent: kept one structured event${by ? " · extracted by " + esc(by) : ""}</div><table>${rows.map(([k, v]) => `<tr><td>${k}</td><td>${esc(v)}</td></tr>`).join("")}</table>
+    <div style="color:var(--muted);margin-top:4px">Only this row is stored, not the email text.</div>`;
+  return box;
+}
+
+// ------------------------------------------------------------- timeline
+function renderTimeline(host) {
+  const N = S.nights, W = 900, H = 236, L = 44, R = 16, n = N.length;
+  const x = i => L + i * (W - L - R) / (n - 1), idx = d => N.findIndex(r => r.evening === d);
+  const vmin = -0.3, vmax = 1.0, y = v => 168 - (Math.max(vmin, Math.min(vmax, v)) - vmin) / (vmax - vmin) * 122;
+  const asOfIdx = N.findIndex(r => r.evening >= S.asOf), cut = asOfIdx < 0 ? n : asOfIdx;
+  const rx = S.ins.treatment_start;
+  let s = `<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="Nightly temperature and hot wake-ups">`;
+  for (const v of [0, 0.5, 1.0]) s += `<line x1="${L}" x2="${W - R}" y1="${y(v)}" y2="${y(v)}" stroke="#eef0f3"/><text x="${L - 6}" y="${y(v) + 4}" text-anchor="end" font-size="11" fill="#9aa1ad">${v > 0 ? "+" : ""}${v.toFixed(1)}</text>`;
+  s += `<line x1="${L}" x2="${W - R}" y1="${y(0.3)}" y2="${y(0.3)}" stroke="#c9ced6" stroke-dasharray="3 4"/><text x="${W - R}" y="${y(0.3) - 4}" text-anchor="end" font-size="10.5" fill="#9aa1ad">+0.30 °C</text>`;
+  N.forEach((r, i) => { if (r.evening.endsWith("-01")) s += `<text x="${x(i)}" y="${H - 8}" font-size="11" fill="#9aa1ad">${md(r.evening).split(" ")[0]}</text><line x1="${x(i)}" x2="${x(i)}" y1="${H - 22}" y2="${H - 18}" stroke="#c9ced6"/>`; });
+  if (rx && idx(rx) >= 0) s += `<line x1="${x(idx(rx))}" x2="${x(idx(rx))}" y1="40" y2="200" stroke="#8b919c" stroke-dasharray="4 4"/><text x="${x(idx(rx)) + 5}" y="52" font-size="11" fill="#6b7280">New prescription ${md(rx)}</text>`;
+  N.forEach((r, i) => {
+    const tip = `${md(r.evening)}: ${r.temp_dev > 0 ? "+" : ""}${r.temp_dev} °C, longest wake ${r.longest_wake_min} min${r.why ? " · " + r.why : ""}`;
+    s += r.night_heat ? `<circle cx="${x(i)}" cy="${y(r.temp_dev)}" r="4.5" fill="var(--accent)"><title>${esc(tip)}</title></circle>`
+                      : `<circle cx="${x(i)}" cy="${y(r.temp_dev)}" r="2.6" fill="#b9bec7"><title>${esc(tip)}</title></circle>`;
+    if (r.evidence === "receipt_alcohol" || r.evidence === "confirmed_yes") s += `<rect x="${x(i) - 3}" y="180" width="6" height="6" fill="#6b7280"><title>${esc(md(r.evening) + ": " + r.why)}</title></rect>`;
+    else if (r.evidence === "possible") s += `<rect x="${x(i) - 2.5}" y="180.5" width="5" height="5" fill="none" stroke="#6b7280"><title>${esc(md(r.evening) + ": " + r.why)}</title></rect>`;
+    if (r.tennis) s += `<circle cx="${x(i)}" cy="196" r="2.6" fill="none" stroke="#6b7280"><title>${md(r.evening)}: tennis</title></circle>`;
+  });
+  if (cut < n) s += `<rect x="${x(cut) - 3}" y="30" width="${W - R - x(cut) + 6}" height="${H - 40}" fill="#ffffff" opacity="0.78"/><line x1="${x(cut) - 3}" x2="${x(cut) - 3}" y1="30" y2="200" stroke="var(--accent)"/>`;
+  for (const [d, kind] of Object.entries(S.stops)) {
+    const i = Math.min(idx(d) < 0 ? n - 1 : idx(d), n - 1), on = d === S.asOf;
+    s += `<path d="M${x(i)} 12l6 6l-6 6l-6 -6z" fill="${on ? "var(--accent)" : "#b9bec7"}"/><text x="${x(i) + (kind === "brief" ? -9 : 9)}" y="22" font-size="11" text-anchor="${kind === "brief" ? "end" : "start"}" fill="${on ? "#1f2430" : "#9aa1ad"}">${KIND[kind]}</text>`;
+  }
+  s += `</svg>`;
+  host.innerHTML = `<div class="timeline">${s}<div class="legend"><span><b style="color:var(--accent)">●</b> hot wake-up (warm night + awake ≥15 min, 1:30–5 AM)</span><span>■ alcohol (receipt or her answer)</span><span>□ maybe (reservation or party)</span><span>○ tennis</span></div></div>`;
+}
+
+// ------------------------------------------------------------- cards
+function whyTable(c) {
+  if (c.kind === "awareness") return `<table class="why"><tr><th>Night</th><th>Temp</th><th>Longest wake</th></tr>${c.why.map(r => `<tr><td>${md(r.evening)}</td><td>+${r.temp_dev} °C</td><td>${r.longest_wake_min} min</td></tr>`).join("")}</table>`;
+  if (c.kind === "trigger") {
+    const n = c.numbers;
+    return `<table class="why"><tr><th>Night</th><th>What the agent saw</th><th>Alcohol</th><th>Hot wake-up</th></tr>${c.why.map(r =>
+      `<tr class="${r.email_id ? "link" : ""}" data-email="${r.email_id || ""}"><td>${md(r.evening)}</td><td>${esc(r.why || "no clue")}</td><td>${EVIDENCE[r.evidence] || ""}</td><td>${r.night_heat ? '<span class="yes">yes</span>' : "–"}</td></tr>`).join("")}</table>
+      <div class="meta" style="margin-top:6px">Alcohol nights ${n.alcohol_nights_with_heat}/${n.alcohol_nights} vs other ${n.other_nights_with_heat}/${n.other_nights} (Fisher p = ${n.p_value}). Tennis ${n.tennis_nights_with_heat}/${n.tennis_nights}: no difference. “Maybe” nights are left out of both groups.</div>`;
+  }
+  const [b, a] = c.why;
+  const row = (k, f) => `<tr><td>${k}</td><td>${f(b)}</td><td>${f(a)}</td></tr>`;
+  return `<table class="why"><tr><th></th><th>Before (${md(b.from)}–${md(b.to)})</th><th>Latest 28 nights (${md(a.from)}–${md(a.to)})</th></tr>
+    ${row("Hot wake-ups / week", r => r.heat_per_week)}${row("Evenings with alcohol / week", r => r.alcohol_likely_per_week)}${row("Avg time awake", r => r.avg_awake_min + " min")}${row("Travel nights", r => r.travel_nights)}</table>`;
+}
+
+function cardEl(c, open) {
+  const el = document.createElement("div");
+  el.className = "card";
+  el.innerHTML = `<div class="kind">${KIND[c.kind]} · ${md(c.as_of)}</div><h3>${esc(c.headline)}</h3><p class="body">${esc(c.body)}</p>
+    <button class="why-btn">${open ? "Hide" : "Why I said this"}</button><div class="whywrap" style="display:${open ? "block" : "none"}">${whyTable(c)}</div>
+    <div class="meta" style="margin-top:8px">Numbers from the statistics code · words by ${c.written_by === "claude" ? "Claude" : "a template"}</div>`;
+  el.querySelector(".why-btn").onclick = e => { const w = el.querySelector(".whywrap"); const show = w.style.display === "none"; w.style.display = show ? "block" : "none"; e.target.textContent = show ? "Hide" : "Why I said this"; };
+  el.querySelectorAll("tr.link").forEach(tr => tr.onclick = () => openEmail(tr.dataset.email));
+  return el;
+}
+
+function renderMid() {
+  const mid = $("mid");
+  mid.innerHTML = `<h2 class="sec">What the agent sees · as of ${md(S.asOf)}</h2><div id="tl"></div><h2 class="sec">Today</h2><div id="today"></div><h2 class="sec">Earlier cards</h2><div class="history" id="hist"></div>`;
+  renderTimeline($("tl"));
+  const today = S.ins.cards.find(c => c.as_of === S.asOf);
+  if (today) $("today").appendChild(cardEl(today, true));
+  else if (S.ins.today === "brief") $("today").innerHTML = `<div class="waiting">${S.briefing ? "Visit summary ready → right panel." : "Waiting for something worth a summary… press <b>▶ New email</b>."}</div>`;
+  else $("today").innerHTML = `<div class="waiting">Nothing new today. The agent stays quiet.</div>`;
+  const earlier = S.ins.cards.filter(c => c.as_of !== S.asOf);
+  $("hist").innerHTML = earlier.length ? "" : "None yet.";
+  for (const c of earlier) { const d = document.createElement("div"); d.textContent = `${md(c.as_of)} · ${KIND[c.kind]}: ${c.headline}`; d.onclick = () => setAsOf(c.as_of); $("hist").appendChild(d); }
+}
+
+async function setAsOf(d) {
+  S.asOf = d;
+  S.ins = await api(`/api/insights?as_of=${d}`);
+  document.querySelectorAll("#stops button").forEach(b => b.classList.toggle("on", b.dataset.d === d));
+  renderMid();
+}
+
+// ------------------------------------------------------------- live email -> visit summary
+function mdToHtml(src) {
+  const out = []; let inList = false;
+  const inline = t => esc(t).replace(/\*\*(.+?)\*\*/g, "<b>$1</b>");
+  for (const line of src.split("\n")) {
+    if (/^\s*[-*] /.test(line)) { if (!inList) { out.push("<ul>"); inList = true; } out.push(`<li>${inline(line.replace(/^\s*[-*] /, ""))}</li>`); continue; }
+    if (inList) { out.push("</ul>"); inList = false; }
+    if (line.startsWith("### ")) out.push(`<h3>${inline(line.slice(4))}</h3>`);
+    else if (line.startsWith("## ")) out.push(`<h2>${inline(line.slice(3))}</h2>`);
+    else if (line.startsWith("# ")) out.push(`<h2>${inline(line.slice(2))}</h2>`);
+    else if (line.trim()) out.push(`<p>${inline(line)}</p>`);
+  }
+  if (inList) out.push("</ul>");
+  return out.join("");
+}
+
+async function liveEmail() {
+  $("liveBtn").disabled = true;
+  const res = await api("/api/live-email", { method: "POST" });
+  const m = await api("/api/emails/msg_live");
+  S.emails.unshift({ id: "msg_live", date: m.date, from: m.from, subject: m.subject, snippet: m.snippet, is_read: false, status: { state: "read", event: res.event } });
+  S.filter = "all";
+  await setAsOf("2026-11-05");
+  await openEmail("msg_live");
+  if (!res.triggers_brief) return;
+  const r = $("reader");
+  const box = document.createElement("div");
+  box.className = "agentbox always";
+  box.innerHTML = `<div class="head">Agent: appointment reminder → visit summary</div>Follow-up on ${md(res.event.event_date)}. Writing a summary for Lisa to review before her visit…`;
+  r.prepend(box);
+  const brief = document.createElement("div");
+  brief.className = "card brief";
+  r.insertBefore(brief, box.nextSibling);
+  S.briefing = true; renderMid();
+  let text = "";
+  const es = new EventSource("/api/brief/stream");
+  es.onmessage = e => {
+    const msg = JSON.parse(e.data);
+    if (msg.text) { text += msg.text; brief.innerHTML = mdToHtml(text); }
+    if (msg.done) { es.close(); brief.insertAdjacentHTML("beforeend", `<div class="meta" style="margin-top:10px">Written by ${esc(msg.by)} · Lisa reviews it and decides whether to share it.</div>`); }
+  };
+  es.onerror = () => es.close();
+}
+
+// ------------------------------------------------------------- start
+async function init() {
+  const st = await api("/api/status");
+  S.stops = st.stops;
+  $("statusPill").textContent = `${st.claude ? "Claude on" : "offline mode"} · events from ${st.events_from}`;
+  $("stops").innerHTML = Object.keys(S.stops).map(d => `<button data-d="${d}">${md(d)}</button>`).join("");
+  document.querySelectorAll("#stops button").forEach(b => b.onclick = () => setAsOf(b.dataset.d));
+  $("agentToggle").onchange = e => { document.body.classList.toggle("agent", e.target.checked); renderList(); };
+  $("liveBtn").onclick = liveEmail;
+  [S.emails, S.nights] = await Promise.all([api("/api/emails"), api("/api/nights")]);
+  renderList();
+  await setAsOf(S.asOf);
+}
+init();
+</script>
+</body>
+</html>

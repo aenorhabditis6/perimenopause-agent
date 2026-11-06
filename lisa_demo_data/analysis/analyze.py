@@ -29,6 +29,11 @@ BASELINE_NIGHTS = 28
 AWARE_WINDOW, AWARE_MIN_NIGHTS = 14, 5
 TRIGGER_WINDOW = 42
 CHANGE_WINDOW = 28
+# When a card goes out
+TRIGGER_MIN_NIGHTS, TRIGGER_MIN_RATIO = 6, 2.0
+CHANGE_MIN_DROP = 0.5                 # heat nights per week fell by at least half
+CONFOUND_ALCOHOL_PER_WEEK = 0.3       # drinking changed this much -> say "can't tell yet"
+MAX_P = 0.05
 NOT_SOCIAL = ("tennis", "flight", "soccer", "back-to-school", "trick-or-treat", "dinner —", "qbr", "follow-up", "annual exam", "1:1", "project sync")
 
 
@@ -131,14 +136,17 @@ def evening_context(events: list[dict], calendar: dict, confirmations: list[dict
     ctx: dict[date, dict] = {}
 
     def c(d):
-        return ctx.setdefault(d, {"evidence": "none", "why": "", "tennis": False, "travel": False, "restaurant": False})
+        return ctx.setdefault(d, {"evidence": "none", "why": "", "email_id": None, "tennis": False, "travel": False, "restaurant": False})
 
     rank = {"none": 0, "possible": 1, "receipt_no_alcohol": 2, "receipt_alcohol": 2, "confirmed_no": 3, "confirmed_yes": 3}
 
-    def set_ev(d, level, why):
+    def set_ev(d, level, why, email_id=None):
         x = c(d)
         if rank[level] >= rank[x["evidence"]]:
+            if level.startswith("confirmed") and x["why"]:
+                why = f"{x['why']}; {why}"          # keep what made the agent ask
             x["evidence"], x["why"] = level, why
+            x["email_id"] = email_id or x["email_id"]
 
     for e in events:
         cat, ed = e.get("category"), e.get("event_date")
@@ -147,10 +155,10 @@ def evening_context(events: list[dict], calendar: dict, confirmations: list[dict
         d = D(ed)
         if cat == "restaurant_receipt":
             c(d)["restaurant"] = True
-            set_ev(d, "receipt_alcohol" if e.get("alcohol_signal") == "present" else "receipt_no_alcohol", f"receipt: {e.get('merchant')}")
+            set_ev(d, "receipt_alcohol" if e.get("alcohol_signal") == "present" else "receipt_no_alcohol", f"receipt: {e.get('merchant')}", e.get("email_id"))
         elif cat == "restaurant_reservation":
             c(d)["restaurant"] = True
-            set_ev(d, "possible", f"reservation: {e.get('merchant')}")
+            set_ev(d, "possible", f"reservation: {e.get('merchant')}", e.get("email_id"))
         elif cat in ("hotel_booking",):
             x = D(ed)
             while x < D(e.get("end_date") or ed):
@@ -171,7 +179,7 @@ def evening_context(events: list[dict], calendar: dict, confirmations: list[dict
     treatment = None
     for a in confirmations:
         if a["question"].startswith("Did you have a drink"):
-            set_ev(D(a["about_evening"]), "confirmed_yes" if a["answer"].startswith("yes") else "confirmed_no", "one-tap answer")
+            set_ev(D(a["about_evening"]), "confirmed_yes" if a["answer"].startswith("yes") else "confirmed_no", f"she answered \"{a['answer']}\"")
         elif "new treatment" in a["question"] and a["answer"].startswith("yes"):
             treatment = D(a["about_evening"])
     return ctx, treatment
@@ -209,8 +217,8 @@ def compare(rows, exposed, label):
 def analyze(nights, ctx, treatment, period_starts, events, as_of: date):
     for n in nights:
         x = ctx.get(n["evening"], {})
-        n.update(evidence=x.get("evidence", "none"), why=x.get("why", ""), tennis=x.get("tennis", False), travel=x.get("travel", False),
-                 restaurant=x.get("restaurant", False))
+        n.update(evidence=x.get("evidence", "none"), why=x.get("why", ""), email_id=x.get("email_id"), tennis=x.get("tennis", False),
+                 travel=x.get("travel", False), restaurant=x.get("restaurant", False))
     seen = [n for n in nights if n["evening"] < as_of]
     base = seen[:BASELINE_NIGHTS]
     out = {"as_of": as_of.isoformat(), "nights_seen": len(seen),
@@ -223,9 +231,11 @@ def analyze(nights, ctx, treatment, period_starts, events, as_of: date):
     for k in range(BASELINE_NIGHTS, len(seen)):
         win = seen[k - AWARE_WINDOW + 1: k + 1]
         if base_rate < 0.15 and sum(n["night_heat"] for n in win) >= AWARE_MIN_NIGHTS:
-            aware = {"morning": (seen[k]["evening"] + timedelta(days=1)).isoformat(),
+            morning = seen[k]["evening"] + timedelta(days=1)
+            aware = {"morning": morning.isoformat(), "fires_today": morning == as_of,
                      "heat_nights_last_14": sum(n["night_heat"] for n in win),
-                     "baseline_rate_per_week": round(base_rate * 7, 1)}
+                     "baseline_rate_per_week": round(base_rate * 7, 1),
+                     "evidence": [night_row(n) for n in reversed(win) if n["night_heat"]]}
             break
     out["awareness"] = aware
 
@@ -242,8 +252,9 @@ def analyze(nights, ctx, treatment, period_starts, events, as_of: date):
         {"label": "dinner out without alcohol", "nights": sum(n["restaurant"] and n["evidence"] in ("receipt_no_alcohol", "confirmed_no") for n in win),
          "heat_nights": sum(n["night_heat"] for n in win if n["restaurant"] and n["evidence"] in ("receipt_no_alcohol", "confirmed_no"))},
     ]
-    trig["examples"] = [{"evening": n["evening"].isoformat(), "evidence": n["why"], "night_heat": n["night_heat"]}
-                        for n in win if n["evidence"] in likely][:12]
+    trig["fires"] = (trig["exposed"]["nights"] >= TRIGGER_MIN_NIGHTS and (trig["rate_ratio"] or 0) >= TRIGGER_MIN_RATIO
+                     and trig["fisher_p"] < MAX_P)
+    trig["evidence"] = [night_row(n) for n in reversed(win) if n["evidence"] != "none" or n["night_heat"]]
     out["trigger"] = trig
 
     # 3. change: 28 nights before the treatment vs the last 28 nights
@@ -260,10 +271,12 @@ def analyze(nights, ctx, treatment, period_starts, events, as_of: date):
                     "travel_nights": sum(n["travel"] for n in rows),
                     "avg_awake_min": round(sum(n["awake_min"] for n in rows) / len(rows)),
                     "avg_temp_dev_c": round(sum(n["temp_dev"] for n in rows if n["temp_dev"] is not None) / len(rows), 2)}
+        b, a = summ(pre), summ(post)
+        p = round(fisher_two_sided(b["heat_nights"], len(pre) - b["heat_nights"], a["heat_nights"], len(post) - a["heat_nights"]), 4)
         out["change"] = {"change": "new treatment (pharmacy first fill, confirmed in one tap)", "start": treatment.isoformat(),
-                         "before": summ(pre), "after": summ(post),
-                         "fisher_p": round(fisher_two_sided(sum(n["night_heat"] for n in pre), len(pre) - sum(n["night_heat"] for n in pre),
-                                                            sum(n["night_heat"] for n in post), len(post) - sum(n["night_heat"] for n in post)), 4)}
+                         "before": b, "after": a, "fisher_p": p,
+                         "fires": a["heat_per_week"] <= b["heat_per_week"] * (1 - CHANGE_MIN_DROP) and p < MAX_P,
+                         "confounded": abs(a["alcohol_likely_per_week"] - b["alcohol_likely_per_week"]) > CONFOUND_ALCOHOL_PER_WEEK}
     else:
         out["change"] = None
 
@@ -283,7 +296,43 @@ def analyze(nights, ctx, treatment, period_starts, events, as_of: date):
     out["next_appointment"] = min(upcoming, key=lambda e: e["event_date"]) if upcoming else None
     if out["next_appointment"]:
         out["next_appointment"] = {k: out["next_appointment"].get(k) for k in ("event_date", "event_time", "provider", "specialty", "visit_type")}
+
+    # 6. recent habits and medications (last 28 nights), for the visit summary
+    recent = seen[-CHANGE_WINDOW:]
+    out["recent_habits"] = {"from": recent[0]["evening"].isoformat(), "to": recent[-1]["evening"].isoformat(),
+                            "alcohol_evenings": sum(n["evidence"] in likely for n in recent),
+                            "alcohol_per_week": round(sum(n["evidence"] in likely for n in recent) / (len(recent) / 7), 1),
+                            "dinners_out": sum(n["restaurant"] for n in recent), "tennis_evenings": sum(n["tennis"] for n in recent),
+                            "travel_nights": sum(n["travel"] for n in recent)}
+    out["medications"] = {"prescription": {"first_fill": out["prescription_pickups"][0] if out["prescription_pickups"] else None,
+                                           "refills": out["prescription_pickups"][1:], "name": None,
+                                           "note": "pharmacy emails carry no drug name; never guess it"},
+                          "over_the_counter": [x for x in out["already_tried"] if x["merchant"] == "Harbor Pharmacy"]}
+    out["nights"] = [night_row(n) for n in seen]
     return out
+
+
+def night_row(n: dict) -> dict:
+    return {"evening": n["evening"].isoformat(), "night_heat": n["night_heat"], "temp_dev": n["temp_dev"],
+            "longest_wake_min": n["longest_wake_min"], "awake_min": n["awake_min"], "evidence": n.get("evidence", "none"),
+            "why": n.get("why", ""), "email_id": n.get("email_id"), "tennis": n.get("tennis", False), "travel": n.get("travel", False)}
+
+
+def run_analysis(as_of: date, source: str = "oura", events_path: Path | str | None = None) -> dict:
+    """Everything the app needs for one morning. events_path = Claude's extraction, or the answer key."""
+    raw = json.loads(Path(events_path or ROOT / "truth" / "email_expected_events.json").read_text())
+    events = [e for e in raw.get("expected", raw.get("events", [])) if e.get("relevant")]
+    calendar = json.loads((ROOT / "calendar" / "events.json").read_text())
+    confirmations = [a for a in json.loads((ROOT / "app_state" / "confirmations.json").read_text())["confirmations"]
+                     if D(a["asked_at"]) <= as_of]
+    workouts = json.loads((ROOT / "wearables" / "oura" / "workout.json").read_text())["data"]
+    apple = ROOT / "wearables" / "apple_health" / "export.xml"
+    nights = nights_from_oura(ROOT / "wearables" / "oura") if source == "oura" else nights_from_apple(apple)
+    ctx, treatment = evening_context(events, calendar, confirmations, workouts)
+    res = analyze(nights, ctx, treatment, period_starts_from_apple(apple), events, as_of)
+    res["source"] = source
+    res["confirmations"] = confirmations
+    return res
 
 
 def main():
@@ -293,24 +342,13 @@ def main():
     ap.add_argument("--as-of", default="2026-11-05")
     ap.add_argument("--out", default=str(ROOT / "analysis" / "expected_insights.json"))
     args = ap.parse_args()
-    as_of = D(args.as_of)
-
-    raw = json.loads(Path(args.events).read_text())
-    events = [e for e in raw.get("expected", raw.get("events", [])) if e.get("relevant")]
-    calendar = json.loads((ROOT / "calendar" / "events.json").read_text())
-    confirmations = [a for a in json.loads((ROOT / "app_state" / "confirmations.json").read_text())["confirmations"]
-                     if D(a["asked_at"]) <= as_of]
-    workouts = json.loads((ROOT / "wearables" / "oura" / "workout.json").read_text())["data"]
-    apple = ROOT / "wearables" / "apple_health" / "export.xml"
-    nights = nights_from_oura(ROOT / "wearables" / "oura") if args.source == "oura" else nights_from_apple(apple)
-    ctx, treatment = evening_context(events, calendar, confirmations, workouts)
-    res = analyze(nights, ctx, treatment, period_starts_from_apple(apple), events, as_of)
-    res["source"] = args.source
+    res = run_analysis(D(args.as_of), args.source, args.events)
     Path(args.out).write_text(json.dumps(res, indent=1, ensure_ascii=False) + "\n")
 
     t, ch = res["trigger"], res["change"]
     print(f"[{args.source}] as of {res['as_of']}: {res['nights_seen']} nights; baseline {res['baseline']['heat_nights']}/{res['baseline']['nights']} heat nights")
-    print("awareness:", res["awareness"])
+    aw = res["awareness"]
+    print("awareness:", aw and {k: aw[k] for k in ("morning", "heat_nights_last_14", "baseline_rate_per_week")})
     print(f"trigger {t['window']}: alcohol {t['exposed']['heat_nights']}/{t['exposed']['nights']} vs other {t['unexposed']['heat_nights']}/{t['unexposed']['nights']}"
           f"  RR={t['rate_ratio']} p={t['fisher_p']}  unclear={t['unclear_nights']}")
     for c in t["controls"]:
