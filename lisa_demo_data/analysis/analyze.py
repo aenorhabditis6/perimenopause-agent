@@ -319,19 +319,21 @@ def night_row(n: dict) -> dict:
 
 
 def run_analysis(as_of: date, source: str = "oura", events_path: Path | str | None = None,
-                 unasked: tuple[str, ...] = ()) -> dict:
+                 unasked: tuple[str, ...] = (), use_calendar: bool = True) -> dict:
     """Everything the app needs for one morning. events_path = Claude's extraction, or the answer key.
 
-    unasked: one-tap questions that could not have been asked because the email behind them was not
-    shared ("treatment" = the pharmacy question, "reservation" = questions about a restaurant booking).
+    unasked: one-tap questions that could not have been asked because what prompted them was not
+    shared ("treatment" = the pharmacy question, "reservation" = a restaurant booking, "calendar" = a
+    calendar event). use_calendar=False: the calendar is not connected.
     """
     raw = json.loads(Path(events_path or ROOT / "truth" / "email_expected_events.json").read_text())
     events = [e for e in raw.get("expected", raw.get("events", [])) if e.get("relevant")]
-    calendar = json.loads((ROOT / "calendar" / "events.json").read_text())
+    calendar = json.loads((ROOT / "calendar" / "events.json").read_text()) if use_calendar else {"items": []}
     confirmations = [a for a in json.loads((ROOT / "app_state" / "confirmations.json").read_text())["confirmations"]
                      if D(a["asked_at"]) <= as_of
                      and not ("treatment" in unasked and "new treatment" in a["question"])
-                     and not ("reservation" in unasked and "reservation" in a["reason"])]
+                     and not ("reservation" in unasked and "reservation" in a["reason"])
+                     and not ("calendar" in unasked and "on the calendar" in a["reason"])]
     workouts = json.loads((ROOT / "wearables" / "oura" / "workout.json").read_text())["data"]
     apple = ROOT / "wearables" / "apple_health" / "export.xml"
     nights = nights_from_oura(ROOT / "wearables" / "oura") if source == "oura" else nights_from_apple(apple)

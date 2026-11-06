@@ -19,9 +19,15 @@ STOPS = {"2026-08-13": "awareness", "2026-08-23": "trigger", "2026-09-04": "ques
 CARD_KINDS = ("awareness", "trigger", "change")
 # Person-to-person mail is never sent to Claude (friends and family, and colleagues)
 PERSONAL_DOMAINS = ("mail.example", "fernwoodlabs.example")
-# Auto: emails the on-device model calls relevant go to Claude. Private: nothing goes to Claude;
-# events are extracted on the device, and only for the kinds of email she chose to share.
-SETTINGS = {"mode": "auto", "share": list(classifier.SHAREABLE)}
+# How data reaches the agent, from most private to most convenient:
+#   manual   - no inbox access: only receipt photos she uploads, read by Claude after metadata is stripped
+#   filtered - inbox connected; the on-device model decides what may leave. Claude reads only relevant,
+#              non-personal emails in the categories she shares (on_device: Claude reads none of them;
+#              events are extracted on the device and only those rows leave)
+#   full     - every source on; Claude may read any email except those the model thinks may be personal
+MODES = ("manual", "filtered", "full")
+SETTINGS = {"mode": "filtered", "on_device": False, "share": list(classifier.SHAREABLE)}
+RECEIPTS_FILE = CACHE / "manual_receipts.json"   # extracted rows only; photos are never kept
 
 _spec = importlib.util.spec_from_file_location("lisa_analyze", DATA / "analysis" / "analyze.py")
 analyze = importlib.util.module_from_spec(_spec)
@@ -90,34 +96,53 @@ def on_device_events() -> dict[str, dict]:
     return out
 
 
+def _readable_by_claude(loc: dict) -> bool:
+    """Full mode: anything except what the model thinks is, or may be, personal."""
+    return loc["label"] != "personal" and not loc.get("guarded")
+
+
 def email_status(msg: dict, extracted: dict[str, dict]) -> dict:
+    mode = SETTINGS["mode"]
+    if mode == "manual":
+        return {"state": "not_connected", "local": None, "event": None}
     loc = local_labels()[msg["id"]]
     label = loc["label"]
     if label == "personal":
         return {"state": "on_device_personal", "local": loc, "event": None}
     if loc.get("guarded"):
         return {"state": "on_device_guard", "local": loc, "event": None}
-    if label not in classifier.RELEVANT:
-        return {"state": "on_device_nothing", "local": loc, "event": None}
-    if SETTINGS["mode"] == "private":
-        if label not in SETTINGS["share"]:
-            return {"state": "not_shared", "local": loc, "event": None}
-        return {"state": "on_device_event", "local": loc, "event": on_device_events().get(msg["id"])}
     e = extracted.get(msg["id"])
     keep = e and e.get("relevant") and e.get("category") not in (None, "irrelevant")
-    return {"state": "sent_to_claude", "local": loc,
-            "event": {k: v for k, v in e.items() if k not in ("from", "subject", "date", "expected")} if keep else None}
+    claude_event = {k: v for k, v in e.items() if k not in ("from", "subject", "date", "expected")} if keep else None
+    if mode == "full":
+        return {"state": "sent_to_claude", "local": loc, "event": claude_event}
+    if label not in classifier.RELEVANT:
+        return {"state": "on_device_nothing", "local": loc, "event": None}
+    if label not in SETTINGS["share"]:
+        return {"state": "not_shared", "local": loc, "event": None}
+    if SETTINGS["on_device"]:
+        return {"state": "on_device_event", "local": loc, "event": on_device_events().get(msg["id"])}
+    return {"state": "sent_to_claude", "local": loc, "event": claude_event}
 
 
 def active_events_path() -> Path:
     """The events the statistics may use in the current mode, written to cache/ for the analysis to read."""
-    labels = local_labels()
-    if SETTINGS["mode"] == "private":
+    labels, mode = local_labels(), SETTINGS["mode"]
+    share_tag = hashlib.md5(",".join(sorted(SETTINGS["share"])).encode()).hexdigest()[:8]
+    source_tag = f"{events_source().replace(' ', '_')}_{int(events_path().stat().st_mtime)}"
+    if mode == "manual":
+        evs = [r["event"] for r in receipts() if r["event"].get("relevant")]
+        tag = "manual_" + hashlib.md5(json.dumps(evs, sort_keys=True).encode()).hexdigest()[:8]
+    elif mode == "full":
+        evs = [e for eid, e in extracted_by_id().items() if eid in labels and _readable_by_claude(labels[eid])]
+        tag = f"full_{source_tag}"
+    elif SETTINGS["on_device"]:
         evs = [ev for eid, ev in on_device_events().items() if labels[eid]["label"] in SETTINGS["share"]]
-        tag = "private_" + hashlib.md5(",".join(sorted(SETTINGS["share"])).encode()).hexdigest()[:8]
+        tag = f"ondevice_{share_tag}"
     else:
-        evs = [e for eid, e in extracted_by_id().items() if eid in labels and classifier.may_leave(labels[eid])]
-        tag = f"auto_{events_source().replace(' ', '_')}_{int(events_path().stat().st_mtime)}"
+        evs = [e for eid, e in extracted_by_id().items()
+               if eid in labels and classifier.may_leave(labels[eid]) and labels[eid]["label"] in SETTINGS["share"]]
+        tag = f"filtered_{source_tag}_{share_tag}"
     CACHE.mkdir(exist_ok=True)
     p = CACHE / f"events_{tag}.json"
     if not p.exists():
@@ -126,17 +151,55 @@ def active_events_path() -> Path:
 
 
 def privacy_summary() -> dict:
-    labels = local_labels()
+    labels, mode = local_labels(), SETTINGS["mode"]
     ids = [m["id"] for m in emails()]
-    relevant = [i for i in ids if classifier.may_leave(labels[i])]
     personal = sum(labels[i]["label"] == "personal" for i in ids)
     guarded = sum(bool(labels[i].get("guarded")) for i in ids)
-    if SETTINGS["mode"] == "auto":
-        return {"mode": "auto", "emails": len(ids), "sent_to_claude": len(relevant), "stayed_on_device": len(ids) - len(relevant),
-                "personal_on_device": personal, "held_might_be_personal": guarded}
-    shared = [i for i in relevant if labels[i]["label"] in SETTINGS["share"] and i in on_device_events()]
-    return {"mode": "private", "emails": len(ids), "sent_to_claude": 0, "stayed_on_device": len(ids), "events_shared": len(shared),
-            "personal_on_device": personal, "held_might_be_personal": guarded}
+    base = {"mode": mode, "on_device": SETTINGS["on_device"], "emails": len(ids), "personal_on_device": personal, "held_might_be_personal": guarded}
+    if mode == "manual":
+        return base | {"inbox_connected": False, "sent_to_claude": 0, "receipts": len(receipts())}
+    if mode == "full":
+        sent = sum(_readable_by_claude(labels[i]) for i in ids)
+        return base | {"inbox_connected": True, "sent_to_claude": sent, "stayed_on_device": len(ids) - sent}
+    allowed = [i for i in ids if classifier.may_leave(labels[i]) and labels[i]["label"] in SETTINGS["share"]]
+    if SETTINGS["on_device"]:
+        return base | {"inbox_connected": True, "sent_to_claude": 0, "stayed_on_device": len(ids),
+                       "events_shared": sum(i in on_device_events() for i in allowed)}
+    return base | {"inbox_connected": True, "sent_to_claude": len(allowed), "stayed_on_device": len(ids) - len(allowed)}
+
+
+# ---------------------------------------------------------------- manual mode: receipt photos
+
+def receipts() -> list[dict]:
+    return load_json(RECEIPTS_FILE)["receipts"] if RECEIPTS_FILE.exists() else []
+
+
+def save_receipts(rows: list[dict]):
+    CACHE.mkdir(exist_ok=True)
+    RECEIPTS_FILE.write_text(json.dumps({"receipts": rows}, indent=1, ensure_ascii=False) + "\n")
+
+
+def clean_photo(raw: bytes) -> tuple[bytes, dict]:
+    """Drop every metadata tag (GPS position, camera, time) and re-encode, before anything leaves the device."""
+    import io
+
+    from PIL import Image, ImageOps
+
+    im = Image.open(io.BytesIO(raw))
+    exif = im.getexif()
+    had_location = bool(exif.get_ifd(0x8825))
+    im = ImageOps.exif_transpose(im).convert("RGB")
+    im.thumbnail((1600, 1600))
+    buf = io.BytesIO()
+    im.save(buf, "JPEG", quality=88)          # saved without exif: nothing but pixels
+    return buf.getvalue(), {"had_location": had_location, "metadata_tags_removed": len(exif), "pixels": list(im.size)}
+
+
+@lru_cache
+def sample_receipts() -> dict[str, dict]:
+    """sha256 of each sample photo -> its sample record (used to read samples when Claude is offline)."""
+    p = DATA / "receipt_photos" / "samples.json"
+    return {s["sha256"]: s for s in load_json(p)["samples"]} if p.exists() else {}
 
 
 def model_info() -> dict:
@@ -147,16 +210,23 @@ def model_info() -> dict:
             "relevant_missed": m.get("relevant_emails_missed"), "ms_per_email": m.get("median_ms_per_email")}
 
 
-@lru_cache(maxsize=32)
-def insights(as_of: str, source: str = "oura", events_file: str | None = None, unasked: tuple[str, ...] = ()) -> dict:
-    return analyze.run_analysis(date.fromisoformat(as_of), source, events_file or events_path(), unasked)
+@lru_cache(maxsize=64)
+def insights(as_of: str, source: str = "oura", events_file: str | None = None, unasked: tuple[str, ...] = (),
+             use_calendar: bool = True) -> dict:
+    return analyze.run_analysis(date.fromisoformat(as_of), source, events_file or events_path(), unasked, use_calendar)
 
 
 def unasked_questions() -> tuple[str, ...]:
-    """In Private mode, questions prompted by an email she did not share were never asked."""
-    if SETTINGS["mode"] != "private":
+    """One-tap questions that could not have been asked, because what prompted them was not shared."""
+    if SETTINGS["mode"] == "manual":
+        return ("treatment", "reservation", "calendar")
+    if SETTINGS["mode"] == "full":
         return ()
     return tuple(q for q, label in (("treatment", "pharmacy"), ("reservation", "restaurant")) if label not in SETTINGS["share"])
+
+
+def use_calendar() -> bool:
+    return SETTINGS["mode"] != "manual"
 
 
 def fired(kind: str, res: dict) -> bool:

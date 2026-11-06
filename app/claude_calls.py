@@ -1,6 +1,7 @@
 """The three places the agent uses Claude. All numbers come from app.data; Claude only reads email and writes words."""
 from __future__ import annotations
 
+import base64
 import json
 from pathlib import Path
 from typing import Iterator
@@ -72,6 +73,22 @@ def extract_event(email: dict) -> dict:
     )
     event = _json_reply(resp)
     return {"email_id": email["id"], "relevant": event["category"] not in ("irrelevant", "other_purchase"), **event}
+
+
+def read_receipt(jpeg: bytes) -> dict:
+    """Manual mode: one photo she chose to upload (already stripped of metadata) -> one structured event."""
+    resp = client().beta.messages.create(
+        model=MODEL,
+        max_tokens=4000,
+        **FALLBACK,
+        output_config={"effort": "low", "format": {"type": "json_schema", "schema": EVENT_SCHEMA}},
+        system=prompt("receipt"),
+        messages=[{"role": "user", "content": [
+            {"type": "image", "source": {"type": "base64", "media_type": "image/jpeg", "data": base64.standard_b64encode(jpeg).decode()}},
+            {"type": "text", "text": "Read this receipt."}]}],
+    )
+    event = _json_reply(resp)
+    return {"relevant": event["category"] not in ("irrelevant", "other_purchase"), **event}
 
 
 def write_card(kind: str, numbers: dict) -> dict:

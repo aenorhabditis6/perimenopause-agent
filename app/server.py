@@ -7,6 +7,8 @@ the cached outputs in cache/, or a template, so the demo always runs.
 """
 from __future__ import annotations
 
+import base64
+import hashlib
 import json
 import os
 import queue
@@ -37,7 +39,7 @@ def claude_on() -> bool:
 
 
 def _insights(as_of: str, source: str = "oura") -> dict:
-    return data.insights(as_of, source, str(data.active_events_path()), data.unasked_questions())
+    return data.insights(as_of, source, str(data.active_events_path()), data.unasked_questions(), data.use_calendar())
 
 
 def _key_event(email_id: str) -> dict:
@@ -52,22 +54,83 @@ def index():
 
 @app.get("/api/status")
 def status():
-    private = data.SETTINGS["mode"] == "private"
-    return {"claude": claude_on(), "events_from": "on-device rules" if private else data.events_source(), "stops": data.STOPS,
-            "mode": data.SETTINGS["mode"], "share": data.SETTINGS["share"], "shareable": classifier.SHAREABLE,
+    s = data.SETTINGS
+    events_from = ("your receipt photos" if s["mode"] == "manual" else
+                   "on-device rules" if s["mode"] == "filtered" and s["on_device"] else data.events_source())
+    return {"claude": claude_on(), "events_from": events_from, "stops": data.STOPS,
+            "mode": s["mode"], "on_device": s["on_device"], "share": s["share"], "shareable": classifier.SHAREABLE,
             "privacy": data.privacy_summary(), "local_model": data.model_info()}
 
 
 @app.post("/api/settings")
 def settings(body: dict = Body(...)):
-    """{"mode": "auto" | "private", "share": [labels]}: what may leave the device, and how."""
-    mode = body.get("mode", data.SETTINGS["mode"])
-    if mode not in ("auto", "private"):
-        raise HTTPException(400, "mode must be auto or private")
+    """{"mode": "manual" | "filtered" | "full", "on_device": bool, "share": [labels]}: what may leave the device, and how."""
+    mode = {"auto": "filtered", "private": "filtered"}.get(body.get("mode"), body.get("mode", data.SETTINGS["mode"]))
+    if mode not in data.MODES:
+        raise HTTPException(400, f"mode must be one of {data.MODES}")
+    on_device = bool(body.get("on_device", body.get("mode") == "private" or data.SETTINGS["on_device"]))
     share = [s for s in body.get("share", data.SETTINGS["share"]) if s in classifier.SHAREABLE]
-    data.SETTINGS.update(mode=mode, share=share)
+    data.SETTINGS.update(mode=mode, on_device=on_device, share=share)
     _live.update(event=None, extracted_by=None, state=None)
     return status()
+
+
+# ---------------------------------------------------------------- manual mode: receipt photos
+
+@app.get("/api/receipts")
+def list_receipts():
+    samples = [{"file": s["file"], "url": f"/samples/{s['file']}"} for s in data.sample_receipts().values()]
+    return {"receipts": data.receipts(), "samples": samples}
+
+
+@app.post("/api/receipts")
+def upload_receipt(body: dict = Body(...)):
+    """{"filename", "data_url"}: strip metadata, read the photo, keep only the structured row."""
+    try:
+        raw = base64.b64decode(body["data_url"].split(",", 1)[-1])
+        jpeg, privacy = data.clean_photo(raw)
+    except Exception as e:  # noqa: BLE001 - anything that is not a readable image
+        raise HTTPException(400, f"not a readable image: {type(e).__name__}")
+    sample = data.sample_receipts().get(hashlib.sha256(raw).hexdigest())
+    event, by = None, None
+    if claude_on():
+        box: dict = {}
+        t = threading.Thread(target=lambda: box.update(ev=claude_calls.read_receipt(jpeg)), daemon=True)
+        t.start()
+        t.join(EXTRACT_TIMEOUT_S)
+        if "ev" in box:
+            event, by = box["ev"], "claude (photo)"
+    if event is None and sample:
+        event, by = dict(sample["expected"]), "sample answer key (Claude offline)" if not claude_on() else "sample answer key (Claude timed out)"
+    if event is None:
+        raise HTTPException(503, "Reading a new photo needs Claude; set ANTHROPIC_API_KEY (offline mode only knows the sample photos).")
+    rows = data.receipts()
+    rid = f"rcpt_{len(rows) + 1:03d}_{hashlib.sha256(raw).hexdigest()[:6]}"
+    event.update(email_id=None, receipt_id=rid)
+    row = {"id": rid, "filename": body.get("filename", "photo.jpg"), "uploaded_at": time.strftime("%Y-%m-%dT%H:%M:%S"),
+           "extracted_by": by, "privacy": privacy | {"photo_kept": False}, "event": event}
+    data.save_receipts(rows + [row])
+    return row
+
+
+@app.delete("/api/receipts/{rid}")
+def delete_receipt(rid: str):
+    data.save_receipts([r for r in data.receipts() if r["id"] != rid])
+    return {"receipts": data.receipts()}
+
+
+@app.delete("/api/receipts")
+def clear_receipts():
+    data.save_receipts([])
+    return {"receipts": []}
+
+
+@app.get("/samples/{name}")
+def sample_photo(name: str):
+    known = {s["file"] for s in data.sample_receipts().values()}
+    if name not in known:
+        raise HTTPException(404)
+    return FileResponse(data.DATA / "receipt_photos" / name, media_type="image/jpeg")
 
 
 @app.get("/api/emails")
@@ -110,17 +173,20 @@ def insights(as_of: str = "2026-11-05", source: str = "oura"):
 
 @app.post("/api/live-email")
 def live_email():
-    """The clinic's reminder arrives: on-device model -> (Auto) Claude extraction, or (Private) on-device rules."""
+    """The clinic's reminder arrives: on-device model first, then Claude or the on-device rules, by mode."""
     m = data.live_email()
     loc = data.local_labels()["msg_live"]
-    event = None
-    if not classifier.may_leave(loc):
-        state, by = ("on_device_guard" if loc.get("guarded") else "on_device_nothing"), "on-device model"
-    elif data.SETTINGS["mode"] == "private":
-        if loc["label"] in data.SETTINGS["share"]:
-            event, state, by = data.on_device_events().get("msg_live"), "on_device_event", "on-device rules (nothing sent)"
-        else:
-            state, by = "not_shared", "not shared (your setting)"
+    mode, event = data.SETTINGS["mode"], None
+    if mode == "manual":
+        state, by = "not_connected", "inbox not connected"
+    elif loc["label"] == "personal" or loc.get("guarded"):
+        state, by = ("on_device_guard" if loc.get("guarded") else "on_device_personal"), "on-device model"
+    elif mode == "filtered" and loc["label"] not in classifier.RELEVANT:
+        state, by = "on_device_nothing", "on-device model"
+    elif mode == "filtered" and loc["label"] not in data.SETTINGS["share"]:
+        state, by = "not_shared", "not shared (your setting)"
+    elif mode == "filtered" and data.SETTINGS["on_device"]:
+        event, state, by = data.on_device_events().get("msg_live"), "on_device_event", "on-device rules (nothing sent)"
     else:
         state, by = "sent_to_claude", "answer key (offline)"
         if claude_on():

@@ -54,7 +54,20 @@ section { min-height: 0; overflow-y: auto; }
 .tag.on_device_personal, .tag.on_device_guard, .tag.not_shared { background: var(--skip); color: var(--muted); }
 .tag.on_device_nothing { background: #f7f7f8; color: var(--faint); }
 .sharebar { display: none; padding: 10px 12px; border-bottom: 1px solid var(--line); background: #f5faf7; font-size: 12.5px; }
-.private .sharebar { display: block; }
+.mode-filtered .sharebar { display: block; }
+.receipts { display: none; padding: 14px 14px 20px; }
+.mode-manual .receipts { display: block; }
+.mode-manual .item, .mode-manual .filters { display: none !important; }
+.receipts .rh { font-weight: 650; font-size: 15px; }
+.receipts .rsub { color: var(--muted); font-size: 12.5px; margin: 4px 0 10px; }
+.receipts .upl { display: inline-block; cursor: pointer; background: var(--accent); color: #fff; border-radius: 8px; padding: 8px 12px; font-weight: 600; }
+.samples { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; }
+.samples img { width: 100%; aspect-ratio: 1; object-fit: cover; border-radius: 6px; cursor: pointer; border: 1px solid var(--line); }
+.samples img:hover { outline: 2px solid var(--accent); }
+.rlist { margin: 14px 0 10px; }
+.ritem { position: relative; border: 1px solid var(--line); border-radius: 8px; padding: 8px 30px 8px 10px; margin-bottom: 6px; font-size: 13px; }
+.ritem span { color: var(--muted); font-size: 12px; }
+.rdel { position: absolute; right: 6px; top: 6px; border: 0; background: none; color: var(--faint); font-size: 16px; cursor: pointer; }
 .sharebar .sbh { font-weight: 650; color: var(--read-ink); margin-bottom: 6px; }
 .sharebar label { display: inline-flex; align-items: center; gap: 4px; margin: 2px 10px 2px 0; cursor: pointer; }
 .lm { color: var(--muted); font-size: 12px; margin-bottom: 4px; }
@@ -94,6 +107,13 @@ pre.plain { white-space: pre-wrap; font: inherit; background: var(--bg); border-
 .brief p { margin: 0 0 8px; color: var(--muted); }
 .empty { color: var(--faint); margin-top: 30vh; text-align: center; }
 button.ghost { border: 1px solid var(--line); background: var(--panel); border-radius: 8px; padding: 7px 10px; cursor: pointer; font: inherit; }
+header { gap: 10px; }
+.stops button, button.primary, button.ghost, .switch span { white-space: nowrap; }
+@media (max-width: 1500px) {
+  .who { display: none; }
+  .stops button { padding: 7px 9px; }
+  .pill { max-width: 270px; overflow: hidden; text-overflow: ellipsis; }
+}
 .phone { position: fixed; right: 18px; bottom: 18px; width: 290px; height: 560px; border-radius: 42px; background: #0b0d12; padding: 11px; box-shadow: 0 24px 60px rgba(15, 20, 30, .35); z-index: 20; }
 .nophone .phone { display: none; }
 .screen { position: relative; height: 100%; border-radius: 32px; overflow: hidden; padding: 44px 11px 12px; color: #fff;
@@ -123,14 +143,14 @@ button.ghost { border: 1px solid var(--line); background: var(--panel); border-r
   <div class="who">lisa.hartley@mail.example</div>
   <div class="spacer"></div>
   <div class="stops" id="stops"></div>
-  <div class="stops" id="modes" title="Auto: relevant emails go to Claude. Private: nothing leaves the device but structured events."><button data-m="auto">Auto</button><button data-m="private">Private</button></div>
+  <div class="stops" id="modes" title="Manual: only receipt photos you upload. Filtered: an on-device model decides what Claude may read. Full: every source, personal mail still skipped."><button data-m="manual">Manual</button><button data-m="filtered">Filtered</button><button data-m="full">Full</button></div>
   <label class="switch"><input type="checkbox" id="agentToggle"><span class="track"></span><span>Agent view</span></label>
   <button class="primary" id="liveBtn">▶ New email</button>
   <button class="ghost" id="phoneBtn" title="Show or hide the phone">Phone</button>
   <span class="pill" id="statusPill">…</span>
 </header>
 <main>
-  <section class="list" id="list"><div class="sharebar" id="sharebar"></div><div class="filters" id="filters"></div></section>
+  <section class="list" id="list"><div class="receipts" id="receipts"></div><div class="sharebar" id="sharebar"></div><div class="filters" id="filters"></div></section>
   <section class="mid" id="mid"></section>
   <section class="reader" id="reader"><div class="empty">Select an email</div></section>
 </main>
@@ -222,6 +242,12 @@ async function openEmail(id) {
   }
 }
 
+function eventRows(e) {
+  return [["Type", LABELS[e.category] || e.category], ["When", [e.event_date, e.event_time].filter(Boolean).join(" ") + (e.end_date ? " → " + e.end_date : "")],
+    ["Where", e.merchant], ["Items", (e.items || []).join(", ")], ["Alcohol", { present: "yes, on the receipt", absent: "no", unknown: "unknown (may ask one tap later)" }[e.alcohol_signal]],
+    ["With", [e.provider, e.visit_type].filter(Boolean).join(" · ")]].filter(([, v]) => v);
+}
+
 function agentBox(st, by) {
   const box = document.createElement("div");
   box.className = "agentbox";
@@ -234,10 +260,7 @@ function agentBox(st, by) {
     not_shared: ["Not shared", "You switched this kind of email off in Private mode, so the agent ignores it."],
   }[st.state];
   if (quiet) { box.innerHTML = `<div class="head">${quiet[0]}</div>${lm}<div>${quiet[1]}</div>`; return box; }
-  const e = st.event || {};
-  const rows = [["Type", LABELS[e.category] || e.category], ["When", [e.event_date, e.event_time].filter(Boolean).join(" ") + (e.end_date ? " → " + e.end_date : "")],
-    ["Where", e.merchant], ["Items", (e.items || []).join(", ")], ["Alcohol", { present: "yes, on the receipt", absent: "no", unknown: "unknown (may ask one tap later)" }[e.alcohol_signal]],
-    ["With", [e.provider, e.visit_type].filter(Boolean).join(" · ")]].filter(([, v]) => v);
+  const rows = eventRows(st.event || {});
   const onDevice = st.state === "on_device_event";
   const head = onDevice ? "Extracted on this device · only this row was shared" : `Sent to Claude for extraction${by ? " · " + esc(by) : ""}`;
   const foot = onDevice ? "Claude never saw this email. The row above is all that left the device." : "Claude read this email to pull out the row above; only the row is stored.";
@@ -309,7 +332,8 @@ function renderMid() {
   if (today) $("today").appendChild(cardEl(today, true));
   else if (S.ins.today === "brief") $("today").innerHTML = `<div class="waiting">${S.briefing ? "Visit summary ready → right panel." : "Waiting for something worth a summary… press <b>▶ New email</b>."}</div>`;
   else if (S.ins.today === "question") $("today").innerHTML = `<div class="waiting">One question today (see the phone), no card. Before comparing nights it waits until 28 nights have passed since the start.</div>`;
-  else if (S.status.mode === "private") $("today").innerHTML = `<div class="waiting">No card today. In Private mode the agent only sees what you chose to share, and the emails this card needs are switched off.</div>`;
+  else if (S.status.mode === "manual") $("today").innerHTML = `<div class="waiting">No card today. In Manual mode the agent only knows the ${S.status.privacy.receipts} receipt${S.status.privacy.receipts === 1 ? "" : "s"} you uploaded, which isn't enough evidence yet.</div>`;
+  else if (S.status.mode === "filtered") $("today").innerHTML = `<div class="waiting">No card today. The agent only sees what you chose to share, and the emails this card needs are switched off.</div>`;
   else $("today").innerHTML = `<div class="waiting">Nothing new today. The agent stays quiet.</div>`;
   const earlier = S.ins.cards.filter(c => c.as_of !== S.asOf);
   $("hist").innerHTML = earlier.length ? "" : "None yet.";
@@ -413,27 +437,86 @@ async function liveEmail() {
 function applyStatus(st) {
   S.status = st;
   S.stops = st.stops;
-  document.body.classList.toggle("private", st.mode === "private");
+  document.body.classList.remove("mode-manual", "mode-filtered", "mode-full");
+  document.body.classList.add("mode-" + st.mode);
   document.querySelectorAll("#modes button").forEach(b => b.classList.toggle("on", b.dataset.m === st.mode));
   const p = st.privacy, lm = st.local_model;
-  $("statusPill").textContent = st.mode === "auto"
-    ? `Auto · ${p.sent_to_claude} emails sent to Claude · ${p.stayed_on_device} stayed on device`
-    : `Private · 0 emails sent · ${p.events_shared} events shared`;
+  $("statusPill").textContent = {
+    manual: `Manual · inbox not connected · ${p.receipts} receipt${p.receipts === 1 ? "" : "s"} you shared`,
+    filtered: st.on_device ? `Filtered, on device · 0 emails sent · ${p.events_shared} events shared` : `Filtered · ${p.sent_to_claude} emails readable by Claude · ${p.stayed_on_device} stayed on device`,
+    full: `Full · ${p.sent_to_claude} emails readable by Claude · ${p.stayed_on_device} personal kept back`,
+  }[st.mode];
   $("statusPill").title = `On-device model: ${lm.kind}, ${lm.size_kb} KB, ${lm.ms_per_email} ms per email · ${st.claude ? "Claude on" : "offline mode"}`;
+  $("liveBtn").disabled = st.mode === "manual" || S.briefing;
+  $("liveBtn").title = st.mode === "manual" ? "Inbox not connected in Manual mode" : "";
   const sb = $("sharebar");
-  sb.innerHTML = `<div class="sbh">Share with the agent · read on this device, Claude never sees an email</div>` +
-    Object.entries(st.shareable).map(([k, label]) => `<label><input type="checkbox" value="${k}" ${st.share.includes(k) ? "checked" : ""}> ${esc(label)}</label>`).join("");
-  sb.querySelectorAll("input").forEach(i => i.onchange = () => setMode("private", [...sb.querySelectorAll("input:checked")].map(x => x.value)));
+  sb.innerHTML = `<div class="sbh">Which emails the agent may use</div>` +
+    Object.entries(st.shareable).map(([k, label]) => `<label><input type="checkbox" value="${k}" ${st.share.includes(k) ? "checked" : ""}> ${esc(label)}</label>`).join("") +
+    `<div style="margin-top:6px"><label><input type="checkbox" id="onDevice" ${st.on_device ? "checked" : ""}> <b>Extract on this device</b> · Claude reads no email, only the rows</label></div>`;
+  const share = () => [...sb.querySelectorAll("input[value]:checked")].map(x => x.value);
+  sb.querySelectorAll("input[value]").forEach(i => i.onchange = () => setMode("filtered", { share: share() }));
+  $("onDevice").onchange = e => setMode("filtered", { on_device: e.target.checked });
 }
 
-async function setMode(mode, share) {
-  applyStatus(await api("/api/settings", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(share ? { mode, share } : { mode }) }));
+async function setMode(mode, opts = {}) {
+  applyStatus(await api("/api/settings", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ mode, ...opts }) }));
   S.emails = await api("/api/emails");
   S.selected = null; S.briefing = false; S.filter = "all";
-  $("liveBtn").disabled = false;
-  $("reader").innerHTML = '<div class="empty">Select an email</div>';
+  $("liveBtn").disabled = mode === "manual";
+  $("reader").innerHTML = `<div class="empty">${mode === "manual" ? "Upload a receipt photo, or try a sample" : "Select an email"}</div>`;
   renderList();
+  if (mode === "manual") await renderReceipts();
   await setAsOf(S.asOf);
+}
+
+// ------------------------------------------------------------- manual mode: receipt photos
+async function renderReceipts() {
+  const r = await api("/api/receipts"), box = $("receipts");
+  box.innerHTML = `<div class="rh">Your receipts</div>
+    <div class="rsub">Only the photos you choose. Location and camera data are removed before Claude reads one, and the photo itself isn't kept.</div>
+    <label class="primary upl">＋ Upload a receipt photo<input type="file" id="rfile" accept="image/*" capture="environment" hidden></label>
+    <div class="rsub" style="margin-top:12px">Or try a sample:</div>
+    <div class="samples">${r.samples.map(s => `<img src="${s.url}" data-url="${s.url}" data-name="${s.file}" alt="${esc(s.file)}">`).join("")}</div>
+    <div class="rlist">${r.receipts.length ? "" : '<div class="rsub">Nothing shared yet.</div>'}${r.receipts.map(row => {
+      const e = row.event;
+      return `<div class="ritem" data-id="${row.id}"><b>${esc(e.merchant || LABELS[e.category] || "Receipt")}</b> · ${e.event_date ? md(e.event_date) : ""}<br>
+        <span>${esc(LABELS[e.category] || e.category)}${e.alcohol_signal === "present" ? " · alcohol" : e.alcohol_signal === "absent" ? " · no alcohol" : ""}</span><button class="rdel" title="Delete">×</button></div>`;
+    }).join("")}</div>${r.receipts.length ? '<button class="ghost" id="rclear">Clear all</button>' : ""}`;
+  $("rfile").onchange = e => { const f = e.target.files[0]; if (f) uploadReceipt(f, f.name); };
+  box.querySelectorAll(".samples img").forEach(img => img.onclick = async () => uploadReceipt(await (await fetch(img.dataset.url)).blob(), img.dataset.name));
+  box.querySelectorAll(".rdel").forEach(b => b.onclick = async () => { await fetch(`/api/receipts/${b.parentElement.dataset.id}`, { method: "DELETE" }); await afterReceipts(); });
+  if ($("rclear")) $("rclear").onclick = async () => { await fetch("/api/receipts", { method: "DELETE" }); await afterReceipts(); };
+}
+
+async function afterReceipts() { applyStatus(await api("/api/status")); await renderReceipts(); await setAsOf(S.asOf); }
+
+async function uploadReceipt(blob, name) {
+  const src = URL.createObjectURL(blob);
+  showPhoto(src, name, null);
+  const dataUrl = await new Promise(res => { const fr = new FileReader(); fr.onload = () => res(fr.result); fr.readAsDataURL(blob); });
+  const resp = await fetch("/api/receipts", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ filename: name, data_url: dataUrl }) });
+  const row = await resp.json();
+  showPhoto(src, name, resp.ok ? row : { error: row.detail || "Upload failed" });
+  if (resp.ok) await afterReceipts();
+}
+
+function showPhoto(src, name, row) {
+  const r = $("reader");
+  r.innerHTML = `<h1>${esc(name)}</h1><div class="meta">A receipt photo you chose to share</div>`;
+  const box = document.createElement("div");
+  box.className = "agentbox always";
+  if (!row) box.innerHTML = `<div class="head">Reading…</div>Removing location and camera data, then sending only the pixels to Claude.`;
+  else if (row.error) box.innerHTML = `<div class="head">Couldn't read this photo</div>${esc(row.error)}`;
+  else {
+    const p = row.privacy;
+    box.innerHTML = `<div class="head">Read by ${esc(row.extracted_by)} · only this row is kept</div>
+      <table>${eventRows(row.event).map(([k, v]) => `<tr><td>${k}</td><td>${esc(v)}</td></tr>`).join("")}</table>
+      <div class="lm" style="margin-top:6px">Removed before sending: ${p.metadata_tags_removed} metadata tags${p.had_location ? ", including the GPS location" : ""}. The photo is not stored.</div>`;
+  }
+  r.appendChild(box);
+  const img = document.createElement("img");
+  img.src = src; img.alt = name; img.style.cssText = "width:100%;border-radius:8px;margin-top:4px";
+  r.appendChild(img);
 }
 
 async function init() {
@@ -447,6 +530,7 @@ async function init() {
   $("phoneBtn").onclick = () => document.body.classList.toggle("nophone");
   [S.emails, S.nights] = await Promise.all([api("/api/emails"), api("/api/nights")]);
   renderList();
+  if (st.mode === "manual") await renderReceipts();
   await setAsOf(S.asOf);
 }
 init();

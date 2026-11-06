@@ -1,0 +1,107 @@
+{
+ "note": "Sample receipt photos; expected = what reading the photo should yield.",
+ "samples": [
+  {
+   "file": "osteria_lucca_aug14.jpg",
+   "sha256": "5d75d759e03ff91e2f1640c84662452e08dd5319e33313de293a690451690e9f",
+   "from_email": "msg_0041",
+   "expected": {
+    "relevant": true,
+    "category": "restaurant_receipt",
+    "event_date": "2026-08-14",
+    "event_time": "21:36",
+    "merchant": "Osteria Lucca",
+    "items": [
+     "Bottle — Chianti Classico",
+     "Cacio e pepe",
+     "Grilled octopus"
+    ],
+    "alcohol_signal": "present"
+   }
+  },
+  {
+   "file": "mesa_verde_aug07.jpg",
+   "sha256": "32fbeb3744ee1d42104680ed38507f618b2474445e91b4c9a55a706d5f55b1a3",
+   "from_email": "msg_0032",
+   "expected": {
+    "relevant": true,
+    "category": "restaurant_receipt",
+    "event_date": "2026-08-07",
+    "event_time": "21:23",
+    "merchant": "Mesa Verde Cantina",
+    "items": [
+     "Margarita (classic)",
+     "Tacos al pastor",
+     "Enchiladas verdes",
+     "Guacamole & chips"
+    ],
+    "alcohol_signal": "present"
+   }
+  },
+  {
+   "file": "gilded_tap_jul24.jpg",
+   "sha256": "ba750d359c793dc4fb9fcc84f9f5ae5803eb95fd42b3a1e5d2b37fac4cbf8fc7",
+   "from_email": "msg_0019",
+   "expected": {
+    "relevant": true,
+    "category": "restaurant_receipt",
+    "event_date": "2026-07-24",
+    "event_time": "21:52",
+    "merchant": "The Gilded Tap",
+    "items": [
+     "Glass — Sauvignon Blanc",
+     "Little gem salad",
+     "Truffle fries",
+     "Fish & chips"
+    ],
+    "alcohol_signal": "present"
+   }
+  },
+  {
+   "file": "spice_route_aug28.jpg",
+   "sha256": "9dd3210a66e8136fefee0ff83e5e9848909ff0bd0ec81fd2d926ca0095f21055",
+   "from_email": "msg_0056",
+   "expected": {
+    "relevant": true,
+    "category": "restaurant_receipt",
+    "event_date": "2026-08-28",
+    "event_time": "21:31",
+    "merchant": "Spice Route Thai",
+    "items": [
+     "Thai iced tea",
+     "Mango sticky rice",
+     "Green curry",
+     "Pad see ew"
+    ],
+    "alcohol_signal": "absent"
+   }
+  },
+  {
+   "file": "harbor_pharmacy_aug22.jpg",
+   "sha256": "c4617ef0ceb7c75a0c7f23e82105d188962b686f65908d7baee0b84c27428d1c",
+   "from_email": "msg_0052",
+   "expected": {
+    "relevant": true,
+    "category": "symptom_relief_purchase",
+    "event_date": "2026-08-22",
+    "merchant": "Harbor Pharmacy",
+    "items": [
+     "Melatonin 3 mg gummies, 60 ct"
+    ],
+    "related_to": "sleep"
+   }
+  },
+  {
+   "file": "freshcart_aug09.jpg",
+   "sha256": "1f99dfb260889b97c47e09e32db1db371d878336c8d330e6d0086bedf12c4222",
+   "from_email": "msg_0035",
+   "expected": {
+    "relevant": true,
+    "category": "alcohol_purchase",
+    "event_date": "2026-08-09",
+    "merchant": "FreshCart",
+    "alcohol_signal": "present"
+   }
+  }
+ ]
+}
