@@ -1,0 +1,143 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1920" height="1080" viewBox="0 0 1920 1080"
+     font-family="-apple-system, 'SF Pro Text', 'Helvetica Neue', Arial, sans-serif">
+  <title>How the agent works</title>
+  <defs>
+    <marker id="aG" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="4.5" markerHeight="4.5" orient="auto"><path d="M0 0 L10 5 L0 10 z" fill="#3C8C64"/></marker>
+    <marker id="aC" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="4.5" markerHeight="4.5" orient="auto"><path d="M0 0 L10 5 L0 10 z" fill="#C8643B"/></marker>
+    <marker id="aN" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="4.5" markerHeight="4.5" orient="auto"><path d="M0 0 L10 5 L0 10 z" fill="#6B7280"/></marker>
+  </defs>
+
+  <rect width="1920" height="1080" fill="#FBFAF7"/>
+
+  <!-- title -->
+  <text x="90" y="104" font-size="48" font-weight="700" fill="#1F2328">How it works</text>
+  <text x="90" y="150" font-size="25" fill="#5B6270">Claude reads the mess and writes the words. Simple math makes the call.</text>
+
+  <!-- legend -->
+  <rect x="1330" y="101" width="20" height="20" rx="5" fill="#EAF4EE" stroke="#3C8C64" stroke-width="2"/>
+  <text x="1360" y="118" font-size="19" fill="#1F2328">On her phone</text>
+  <rect x="1502" y="101" width="20" height="20" rx="5" fill="#F8EDE7" stroke="#C8643B" stroke-width="2"/>
+  <text x="1532" y="118" font-size="19" fill="#1F2328">Claude</text>
+  <rect x="1620" y="101" width="20" height="20" rx="5" fill="#EAF0F8" stroke="#3D6FB0" stroke-width="2"/>
+  <text x="1650" y="118" font-size="19" fill="#1F2328">Our code</text>
+
+  <!-- ON HER PHONE -->
+  <rect x="50" y="200" width="710" height="516" rx="26" fill="#EAF4EE" stroke="#3C8C64" stroke-width="2"/>
+  <text x="78" y="238" font-size="17" font-weight="700" letter-spacing="1.6" fill="#2E6E4F">ON HER PHONE · DECIDES WHAT MAY LEAVE</text>
+
+  <!-- inbox -> local classifier -->
+  <rect x="76" y="344" width="220" height="86" rx="14" fill="#FFFFFF" stroke="#B7D3C3" stroke-width="1.5"/>
+  <text x="98" y="380" font-size="24" font-weight="600" fill="#1F2328">Inbox</text>
+  <text x="98" y="410" font-size="18" fill="#5B6270">every email</text>
+  <line x1="296" y1="387" x2="344" y2="387" stroke="#3C8C64" stroke-width="3" marker-end="url(#aG)"/>
+
+  <rect x="350" y="256" width="386" height="262" rx="16" fill="#FFFFFF" stroke="#3C8C64" stroke-width="2.5"/>
+  <text x="374" y="298" font-size="27" font-weight="700" fill="#1F2328">Local classifier</text>
+  <text x="374" y="326" font-size="18" fill="#5B6270">fastText · 363 KB · runs on the phone</text>
+  <line x1="374" y1="346" x2="712" y2="346" stroke="#DDE6E0" stroke-width="1.5"/>
+  <circle cx="380" cy="375" r="6" fill="#3C8C64"/>
+  <text x="394" y="382" font-size="20" fill="#1F2328">Personal → stays on the phone</text>
+  <circle cx="380" cy="411" r="6" fill="#3C8C64"/>
+  <text x="394" y="418" font-size="20" fill="#1F2328">Maybe personal (10%+) → stays</text>
+  <circle cx="380" cy="447" r="6" fill="#9AA1AC"/>
+  <text x="394" y="454" font-size="20" fill="#1F2328">Not useful → dropped</text>
+  <circle cx="380" cy="483" r="6" fill="#C8643B"/>
+  <text x="394" y="490" font-size="20" font-weight="600" fill="#1F2328">Useful → goes to Claude</text>
+  <line x1="736" y1="484" x2="824" y2="484" stroke="#C8643B" stroke-width="3" marker-end="url(#aC)"/>
+
+  <!-- receipt photos -> metadata stripped -->
+  <rect x="76" y="540" width="220" height="74" rx="14" fill="#FFFFFF" stroke="#B7D3C3" stroke-width="1.5"/>
+  <text x="98" y="572" font-size="22" font-weight="600" fill="#1F2328">Receipt photos</text>
+  <text x="98" y="598" font-size="17" fill="#5B6270">Manual mode</text>
+  <line x1="296" y1="577" x2="344" y2="577" stroke="#3C8C64" stroke-width="3" marker-end="url(#aG)"/>
+  <rect x="350" y="546" width="386" height="62" rx="12" fill="#FFFFFF" stroke="#B7D3C3" stroke-width="1.5"/>
+  <text x="374" y="584" font-size="20" fill="#1F2328">GPS and metadata removed</text>
+  <line x1="736" y1="577" x2="824" y2="577" stroke="#C8643B" stroke-width="3" marker-end="url(#aC)"/>
+
+  <!-- places and card -> on-device filter -->
+  <rect x="76" y="630" width="220" height="74" rx="14" fill="#FFFFFF" stroke="#B7D3C3" stroke-width="1.5"/>
+  <text x="98" y="662" font-size="22" font-weight="600" fill="#1F2328">Places · Card</text>
+  <text x="98" y="688" font-size="17" fill="#5B6270">Full mode</text>
+  <line x1="296" y1="667" x2="344" y2="667" stroke="#3C8C64" stroke-width="3" marker-end="url(#aG)"/>
+  <rect x="350" y="626" width="386" height="82" rx="12" fill="#FFFFFF" stroke="#B7D3C3" stroke-width="1.5"/>
+  <text x="374" y="660" font-size="20" fill="#1F2328">Only restaurants, bars,</text>
+  <text x="374" y="688" font-size="20" fill="#1F2328">liquor stores, pharmacy</text>
+  <line x1="736" y1="667" x2="1159" y2="667" stroke="#6B7280" stroke-width="3" marker-end="url(#aN)"/>
+
+  <!-- READ-ONLY CONNECTIONS -->
+  <rect x="50" y="740" width="710" height="220" rx="26" fill="#F1F2F4" stroke="#C9CDD3" stroke-width="2"/>
+  <text x="78" y="776" font-size="17" font-weight="700" letter-spacing="1.6" fill="#5B6270">READ-ONLY CONNECTIONS</text>
+  <rect x="76" y="794" width="360" height="68" rx="14" fill="#FFFFFF" stroke="#D5D8DD" stroke-width="1.5"/>
+  <text x="98" y="822" font-size="22" font-weight="600" fill="#1F2328">Oura or Apple Watch</text>
+  <text x="98" y="849" font-size="17" fill="#5B6270">nightly temperature, wake-ups</text>
+  <line x1="436" y1="828" x2="1159" y2="828" stroke="#6B7280" stroke-width="3" marker-end="url(#aN)"/>
+  <rect x="76" y="876" width="360" height="68" rx="14" fill="#FFFFFF" stroke="#D5D8DD" stroke-width="1.5"/>
+  <text x="98" y="904" font-size="22" font-weight="600" fill="#1F2328">Calendar</text>
+  <text x="98" y="931" font-size="17" fill="#5B6270">event titles and times</text>
+  <line x1="436" y1="910" x2="1159" y2="910" stroke="#6B7280" stroke-width="3" marker-end="url(#aN)"/>
+
+  <!-- CLAUDE: reads the mess -->
+  <rect x="830" y="256" width="270" height="350" rx="18" fill="#F8EDE7" stroke="#C8643B" stroke-width="2.5"/>
+  <text x="852" y="294" font-size="17" font-weight="700" letter-spacing="1.6" fill="#A34E2B">CLAUDE</text>
+  <text x="852" y="330" font-size="26" font-weight="700" fill="#1F2328">Reads the mess</text>
+  <text x="852" y="374" font-size="20" fill="#1F2328">Email → event</text>
+  <text x="852" y="406" font-size="20" fill="#1F2328">Receipt photo → event</text>
+  <rect x="850" y="428" width="230" height="86" rx="12" fill="#FFFFFF" stroke="#E5C3B3" stroke-width="1.5"/>
+  <text x="868" y="460" font-size="17" font-weight="600" fill="#1F2328">Aug 14 · Osteria Lucca</text>
+  <text x="868" y="490" font-size="17" fill="#5B6270">receipt → alcohol: yes</text>
+  <text x="852" y="560" font-size="16" fill="#7A5A4C">claude-opus-5-5 · vision</text>
+  <text x="852" y="584" font-size="16" fill="#7A5A4C">structured JSON output</text>
+  <text x="1107" y="388" font-size="15" fill="#5B6270">events</text>
+  <line x1="1100" y1="400" x2="1159" y2="400" stroke="#6B7280" stroke-width="3" marker-end="url(#aN)"/>
+
+  <!-- OUR CODE: simple math -->
+  <rect x="1165" y="256" width="380" height="704" rx="18" fill="#EAF0F8" stroke="#3D6FB0" stroke-width="2.5"/>
+  <text x="1189" y="294" font-size="17" font-weight="700" letter-spacing="1.6" fill="#2C5590">OUR CODE · SIMPLE MATH</text>
+  <text x="1189" y="330" font-size="26" font-weight="700" fill="#1F2328">Finds the pattern</text>
+  <text x="1189" y="374" font-size="19" font-weight="600" fill="#1F2328">Hot night:</text>
+  <text x="1189" y="400" font-size="19" fill="#1F2328">+0.3 °C and 15+ min awake,</text>
+  <text x="1189" y="426" font-size="19" fill="#1F2328">between 1:30 and 5 AM</text>
+  <text x="1189" y="468" font-size="19" font-weight="600" fill="#1F2328">Best clue for each evening:</text>
+  <text x="1189" y="494" font-size="19" fill="#1F2328">her answer › receipt › hints</text>
+
+  <rect x="1185" y="522" width="340" height="272" rx="14" fill="#FFFFFF" stroke="#3D6FB0" stroke-width="2"/>
+  <text x="1205" y="558" font-size="21" font-weight="700" fill="#1F2328">Speaks up only if</text>
+  <text x="1205" y="596" font-size="19" fill="#1F2328">Notice: 5+ hot nights in 14</text>
+  <text x="1205" y="632" font-size="19" fill="#1F2328">Trigger: 2× as often, p &lt; 0.05</text>
+  <text x="1205" y="668" font-size="19" fill="#1F2328">Change: half as many, p &lt; 0.05</text>
+  <text x="1205" y="704" font-size="19" fill="#1F2328">Something else changed? Says so</text>
+  <line x1="1205" y1="726" x2="1505" y2="726" stroke="#DCE3EE" stroke-width="1.5"/>
+  <text x="1205" y="762" font-size="19" fill="#1F2328">Asks at most 2 questions a week</text>
+
+  <text x="1189" y="842" font-size="18" fill="#2C5590">Compares her only with herself</text>
+  <text x="1189" y="868" font-size="16" fill="#5B6270">p-values: Fisher's exact test</text>
+  <text x="1189" y="910" font-size="18" fill="#2C5590">Every card shows its evidence:</text>
+  <text x="1189" y="936" font-size="18" fill="#2C5590">“Why I said this”</text>
+
+  <!-- CLAUDE: writes it up -->
+  <line x1="1545" y1="340" x2="1599" y2="340" stroke="#C8643B" stroke-width="3" marker-end="url(#aC)"/>
+  <rect x="1605" y="256" width="265" height="236" rx="18" fill="#F8EDE7" stroke="#C8643B" stroke-width="2.5"/>
+  <text x="1627" y="294" font-size="17" font-weight="700" letter-spacing="1.6" fill="#A34E2B">CLAUDE</text>
+  <text x="1627" y="330" font-size="26" font-weight="700" fill="#1F2328">Writes it up</text>
+  <text x="1627" y="372" font-size="19" fill="#1F2328">Numbers → plain words</text>
+  <text x="1627" y="406" font-size="17" fill="#7A5A4C">Uses only our numbers</text>
+  <text x="1627" y="432" font-size="17" fill="#7A5A4C">Never diagnoses,</text>
+  <text x="1627" y="456" font-size="17" fill="#7A5A4C">never names a drug</text>
+  <line x1="1737" y1="492" x2="1737" y2="530" stroke="#6B7280" stroke-width="3" marker-end="url(#aN)"/>
+
+  <!-- LISA'S PHONE -->
+  <rect x="1605" y="536" width="265" height="424" rx="18" fill="#FFFFFF" stroke="#9AA1AC" stroke-width="2"/>
+  <text x="1627" y="574" font-size="17" font-weight="700" letter-spacing="1.6" fill="#5B6270">LISA'S PHONE</text>
+  <rect x="1625" y="594" width="225" height="66" rx="12" fill="#F4F5F7"/>
+  <text x="1645" y="634" font-size="20" font-weight="600" fill="#1F2328">Lock-screen card</text>
+  <rect x="1625" y="676" width="225" height="66" rx="12" fill="#F4F5F7"/>
+  <text x="1645" y="716" font-size="20" font-weight="600" fill="#1F2328">One-tap question</text>
+  <rect x="1625" y="758" width="225" height="92" rx="12" fill="#F4F5F7"/>
+  <text x="1645" y="796" font-size="20" font-weight="600" fill="#1F2328">Visit summary</text>
+  <text x="1645" y="826" font-size="17" fill="#5B6270">one page, for her doctor</text>
+  <text x="1627" y="906" font-size="19" font-weight="700" fill="#2E6E4F">Things she logs: 0</text>
+
+  <!-- her one-tap answer feeds back in -->
+  <path d="M1737 962 V996 H1355 V965" fill="none" stroke="#6B7280" stroke-width="3" stroke-dasharray="9 7" marker-end="url(#aN)"/>
+  <text x="1546" y="1030" font-size="17" text-anchor="middle" fill="#5B6270">her one-tap answer becomes the strongest clue</text>
+</svg>

@@ -1,0 +1,173 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="1920" height="1080" viewBox="0 0 1920 1080"
+     font-family="-apple-system, 'SF Pro Text', 'Helvetica Neue', Arial, sans-serif">
+  <title>How it works</title>
+  <defs>
+    <marker id="aG" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="4.5" markerHeight="4.5" orient="auto"><path d="M0 0 L10 5 L0 10 z" fill="#3C8C64"/></marker>
+    <marker id="aC" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="4.5" markerHeight="4.5" orient="auto"><path d="M0 0 L10 5 L0 10 z" fill="#C8643B"/></marker>
+    <marker id="aN" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="4.5" markerHeight="4.5" orient="auto"><path d="M0 0 L10 5 L0 10 z" fill="#6B7280"/></marker>
+    <marker id="aS" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="4" markerHeight="4" orient="auto"><path d="M0 0 L10 5 L0 10 z" fill="#9AA1AC"/></marker>
+    <linearGradient id="ringG" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#8A8D94"/><stop offset=".45" stop-color="#2E3036"/><stop offset="1" stop-color="#121317"/>
+    </linearGradient>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="10" stdDeviation="14" flood-color="#1F2328" flood-opacity=".22"/>
+    </filter>
+    <!-- Claude Code's pixel mascot, 160 x 100 -->
+    <g id="clawd" shape-rendering="crispEdges">
+      <g fill="#D77757">
+        <rect x="30" y="0" width="120" height="20"/>
+        <rect x="30" y="20" width="20" height="20"/><rect x="60" y="20" width="60" height="20"/><rect x="130" y="20" width="20" height="20"/>
+        <rect x="10" y="40" width="160" height="20"/>
+        <rect x="30" y="60" width="120" height="20"/>
+        <rect x="40" y="80" width="10" height="20"/><rect x="60" y="80" width="10" height="20"/>
+        <rect x="110" y="80" width="10" height="20"/><rect x="130" y="80" width="10" height="20"/>
+      </g>
+      <rect x="50" y="20" width="10" height="20" fill="#1F2328"/><rect x="120" y="20" width="10" height="20" fill="#1F2328"/>
+    </g>
+  </defs>
+
+  <rect width="1920" height="1080" fill="#FBFAF7"/>
+
+  <text x="80" y="92" font-size="46" font-weight="700" fill="#1F2328">How it works</text>
+  <text x="80" y="136" font-size="25" fill="#5B6270">She logs nothing. Claude reads what her day already leaves behind.</text>
+
+  <!-- ON HER PHONE -->
+  <rect x="50" y="170" width="740" height="546" rx="36" fill="#EAF4EE" stroke="#3C8C64" stroke-width="2.5"/>
+  <text x="84" y="212" font-size="22" font-weight="700" fill="#2E6E4F">On her phone</text>
+  <g font-size="18" fill="#3A3F47" text-anchor="middle">
+    <text x="144" y="372">Mail</text>
+    <text x="144" y="548">Photos</text>
+    <text x="140" y="690">Maps</text>
+    <text x="240" y="690">Card</text>
+  </g>
+
+  <!-- mail -> fastText -> personal stays / noise dropped / useful to Claude -->
+  <image href="icons/mail.png" x="89" y="241" width="110" height="110"/>
+  <line x1="206" y1="296" x2="322" y2="296" stroke="#3C8C64" stroke-width="3" marker-end="url(#aG)"/>
+  <rect x="330" y="238" width="230" height="116" rx="20" fill="#FFFFFF" stroke="#3C8C64" stroke-width="2.5"/>
+  <image href="icons/fasttext.png" x="341" y="243" width="208" height="106"/>
+  <text x="445" y="380" font-size="17" text-anchor="middle" fill="#5B6270">on-device model</text>
+  <path d="M560 276 C 588 276, 590 232, 604 232" fill="none" stroke="#3C8C64" stroke-width="3" marker-end="url(#aG)"/>
+  <text x="612" y="246" font-size="38">🔒</text>
+  <text x="662" y="240" font-size="20" fill="#2E6E4F">personal</text>
+  <path d="M560 318 C 588 318, 590 360, 604 360" fill="none" stroke="#9AA1AC" stroke-width="3" marker-end="url(#aS)"/>
+  <text x="612" y="374" font-size="38">🗑️</text>
+  <text x="662" y="368" font-size="20" fill="#5B6270">noise</text>
+  <path d="M560 296 C 700 296, 760 352, 862 352" fill="none" stroke="#C8643B" stroke-width="3.5" marker-end="url(#aC)"/>
+
+  <!-- photos -> GPS removed -> Claude -->
+  <image href="icons/photos.png" x="92" y="422" width="104" height="104"/>
+  <line x1="204" y1="474" x2="322" y2="474" stroke="#3C8C64" stroke-width="3" marker-end="url(#aG)"/>
+  <rect x="330" y="434" width="230" height="80" rx="20" fill="#FFFFFF" stroke="#B7D3C3" stroke-width="2"/>
+  <g transform="translate(372 476)">
+    <path d="M0 22 C -10 8, -17 0, -17 -9 A17 17 0 1 1 17 -9 C 17 0, 10 8, 0 22 Z" fill="#E5484D"/>
+    <circle cx="0" cy="-9" r="6.5" fill="#FFFFFF"/>
+    <line x1="-21" y1="17" x2="21" y2="-27" stroke="#1F2328" stroke-width="4" stroke-linecap="round"/>
+  </g>
+  <text x="404" y="484" font-size="24" font-weight="600" fill="#1F2328">no GPS</text>
+  <path d="M560 474 C 700 474, 760 402, 862 402" fill="none" stroke="#C8643B" stroke-width="3.5" marker-end="url(#aC)"/>
+
+  <!-- maps + card -> only food, drink, pharmacy -> our code -->
+  <image href="icons/maps.png" x="94" y="572" width="92" height="92"/>
+  <g transform="translate(240 618)">
+    <rect x="-42" y="-28" width="84" height="56" rx="9" fill="#2B3A5C"/>
+    <rect x="-31" y="-14" width="17" height="13" rx="3" fill="#E9C46A"/>
+    <rect x="-31" y="9" width="36" height="5" rx="2.5" fill="#AEB8CC"/>
+    <rect x="11" y="9" width="18" height="5" rx="2.5" fill="#AEB8CC"/>
+  </g>
+  <line x1="288" y1="618" x2="322" y2="618" stroke="#3C8C64" stroke-width="3" marker-end="url(#aG)"/>
+  <rect x="330" y="582" width="230" height="72" rx="20" fill="#FFFFFF" stroke="#B7D3C3" stroke-width="2"/>
+  <text x="352" y="632" font-size="38">🍽️</text>
+  <text x="420" y="632" font-size="38">🍷</text>
+  <text x="488" y="632" font-size="38">💊</text>
+  <line x1="560" y1="618" x2="1174" y2="618" stroke="#6B7280" stroke-width="3" marker-end="url(#aN)"/>
+
+  <!-- READ-ONLY: ring, watches, calendar -->
+  <rect x="50" y="740" width="740" height="256" rx="36" fill="#F1F2F4" stroke="#C9CDD3" stroke-width="2"/>
+  <text x="84" y="780" font-size="20" font-weight="700" fill="#5B6270">Read-only</text>
+  <g transform="translate(122 872)">
+    <ellipse rx="46" ry="27" fill="none" stroke="url(#ringG)" stroke-width="15"/>
+    <path d="M-46 -4 A46 27 0 0 1 35 -19" fill="none" stroke="#C9CCD2" stroke-width="2.5" opacity=".7"/>
+  </g>
+  <g transform="translate(246 872) scale(.88)">
+    <rect x="-26" y="-68" width="52" height="34" rx="8" fill="#3A3A3C"/>
+    <rect x="-26" y="34" width="52" height="34" rx="8" fill="#3A3A3C"/>
+    <rect x="-37" y="-46" width="74" height="92" rx="22" fill="#1C1C1E"/>
+    <rect x="-30" y="-39" width="60" height="78" rx="16" fill="#000000"/>
+    <rect x="37" y="-16" width="6" height="18" rx="3" fill="#48484A"/>
+    <g fill="none" stroke-width="5" stroke-linecap="round" transform="rotate(-90)">
+      <circle r="21" stroke="#FA114F" stroke-dasharray="105 200"/>
+      <circle r="14" stroke="#A6FF00" stroke-dasharray="62 200"/>
+      <circle r="7" stroke="#00F0E0" stroke-dasharray="36 200"/>
+    </g>
+  </g>
+  <image href="icons/whoop.png" x="318" y="820" width="92" height="104"/>
+  <image href="icons/fitbit.png" x="440" y="818" width="89" height="108"/>
+  <g transform="translate(612 872) scale(.92)">
+    <rect x="-48" y="-48" width="96" height="96" rx="22" fill="#FFFFFF" stroke="#E2E4E8" stroke-width="1.5"/>
+    <text y="-15" text-anchor="middle" font-size="18" font-weight="700" fill="#F23B30">TUE</text>
+    <text y="35" text-anchor="middle" font-size="54" font-weight="300" fill="#1F2328">10</text>
+  </g>
+  <g font-size="18" fill="#3A3F47" text-anchor="middle">
+    <text x="122" y="964">Oura</text>
+    <text x="246" y="964">Apple Watch</text>
+    <text x="364" y="964">WHOOP</text>
+    <text x="484" y="964">Fitbit</text>
+    <text x="612" y="964">Calendar</text>
+  </g>
+  <line x1="672" y1="872" x2="1174" y2="872" stroke="#6B7280" stroke-width="3" marker-end="url(#aN)"/>
+
+  <!-- CLAUDE reads -->
+  <use href="#clawd" x="870" y="330"/>
+  <text x="960" y="470" text-anchor="middle" font-size="24" font-weight="700" fill="#A34E2B">Claude reads</text>
+  <line x1="1050" y1="380" x2="1174" y2="380" stroke="#6B7280" stroke-width="3" marker-end="url(#aN)"/>
+  <rect x="1088" y="361" width="46" height="38" rx="7" fill="#FFFFFF" stroke="#C8643B" stroke-width="2"/>
+  <line x1="1097" y1="374" x2="1125" y2="374" stroke="#C8643B" stroke-width="3" stroke-linecap="round"/>
+  <line x1="1097" y1="386" x2="1116" y2="386" stroke="#D9B3A3" stroke-width="3" stroke-linecap="round"/>
+
+  <!-- OUR CODE: lines up her evenings and nights, speaks only when it's real -->
+  <rect x="1180" y="236" width="320" height="694" rx="30" fill="#EAF0F8" stroke="#3D6FB0" stroke-width="2.5"/>
+  <g transform="translate(0 50)">
+    <text x="1340" y="292" text-anchor="middle" font-size="16" font-weight="700" letter-spacing="1.6" fill="#2C5590">OUR CODE</text>
+    <text x="1340" y="326" text-anchor="middle" font-size="25" font-weight="700" fill="#1F2328">Spots her pattern</text>
+
+    <g fill="#D6E2F5">
+      <rect x="1242" y="372" width="28" height="92" rx="14"/><rect x="1332" y="372" width="28" height="92" rx="14"/><rect x="1392" y="372" width="28" height="92" rx="14"/>
+    </g>
+    <text x="1196" y="407" font-size="24">🍷</text>
+    <g fill="#CBD2DC">
+      <circle cx="1286" cy="398" r="4"/><circle cx="1316" cy="398" r="4"/><circle cx="1376" cy="398" r="4"/><circle cx="1436" cy="398" r="4"/><circle cx="1466" cy="398" r="4"/>
+    </g>
+    <g fill="#C8643B"><circle cx="1256" cy="398" r="9"/><circle cx="1346" cy="398" r="9"/><circle cx="1406" cy="398" r="9"/></g>
+    <text x="1196" y="449" font-size="24">🥵</text>
+    <g fill="#CBD2DC">
+      <circle cx="1286" cy="440" r="4"/><circle cx="1316" cy="440" r="4"/><circle cx="1376" cy="440" r="4"/><circle cx="1436" cy="440" r="4"/>
+    </g>
+    <g fill="#E5484D"><circle cx="1256" cy="440" r="9"/><circle cx="1346" cy="440" r="9"/><circle cx="1406" cy="440" r="9"/><circle cx="1466" cy="440" r="9"/></g>
+
+    <text x="1236" y="500" font-size="16" fill="#5B6270">🥵 hot nights</text>
+    <text x="1196" y="528" font-size="22">🍷</text>
+    <rect x="1236" y="512" width="150" height="18" rx="9" fill="#E5484D"/>
+    <text x="1396" y="528" font-size="19" font-weight="700" fill="#1F2328">5/6</text>
+    <text x="1194" y="562" font-size="16" fill="#5B6270">other</text>
+    <rect x="1236" y="548" width="27" height="18" rx="9" fill="#9AA1AC"/>
+    <text x="1273" y="564" font-size="19" font-weight="700" fill="#1F2328">5/33</text>
+
+    <text x="1340" y="642" text-anchor="middle" font-size="32">🔔</text>
+    <rect x="1230" y="656" width="220" height="44" rx="22" fill="#FFFFFF" stroke="#3D6FB0" stroke-width="1.5"/>
+    <text x="1340" y="685" text-anchor="middle" font-size="19" font-weight="600" fill="#1F2328">only if p &lt; 0.05</text>
+    <rect x="1230" y="712" width="220" height="44" rx="22" fill="#FFFFFF" stroke="#3D6FB0" stroke-width="1.5"/>
+    <text x="1340" y="741" text-anchor="middle" font-size="19" font-weight="600" fill="#1F2328">❓ ≤ 2 a week</text>
+  </g>
+
+  <!-- CLAUDE writes -> her phone -->
+  <line x1="1500" y1="300" x2="1628" y2="300" stroke="#C8643B" stroke-width="3.5" marker-end="url(#aC)"/>
+  <use href="#clawd" x="1630" y="250"/>
+  <text x="1720" y="390" text-anchor="middle" font-size="24" font-weight="700" fill="#A34E2B">Claude writes</text>
+  <line x1="1720" y1="402" x2="1720" y2="428" stroke="#6B7280" stroke-width="3" marker-end="url(#aN)"/>
+  <image href="icons/phone.png" x="1563" y="434" width="314" height="604" filter="url(#shadow)"/>
+
+  <!-- her one tap goes back in -->
+  <path d="M1556 760 H1508" fill="none" stroke="#6B7280" stroke-width="3" stroke-dasharray="7 6" marker-end="url(#aN)"/>
+  <text x="1531" y="744" text-anchor="middle" font-size="28">👆</text>
+</svg>

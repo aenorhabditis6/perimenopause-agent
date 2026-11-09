@@ -1,0 +1,52 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1920" height="1080" viewBox="0 0 1920 1080"
+     font-family="-apple-system, 'SF Pro Text', 'Helvetica Neue', Arial, sans-serif">
+  <title>What a ring can't see</title>
+  <rect width="1920" height="1080" fill="#FBFAF7"/>
+
+  <text x="90" y="104" font-size="48" font-weight="700" fill="#1F2328">What a ring can't see</text>
+  <text x="90" y="150" font-size="25" fill="#5B6270">Oura sees her body. Our agent also sees her life.</text>
+
+  <!-- our column -->
+  <rect x="1130" y="196" width="700" height="720" rx="22" fill="#F8EDE7" stroke="#C8643B" stroke-width="2"/>
+
+  <!-- header -->
+  <text x="548" y="250" font-size="28" font-weight="700" fill="#5B6270">Oura</text>
+  <text x="1162" y="250" font-size="28" font-weight="700" fill="#A34E2B">Our agent</text>
+
+  <!-- row lines -->
+  <g stroke-width="1.5">
+    <line x1="90" y1="276" x2="1130" y2="276" stroke="#E2E4E8"/><line x1="1150" y1="276" x2="1810" y2="276" stroke="#EBCFC1"/>
+    <line x1="90" y1="436" x2="1130" y2="436" stroke="#E2E4E8"/><line x1="1150" y1="436" x2="1810" y2="436" stroke="#EBCFC1"/>
+    <line x1="90" y1="596" x2="1130" y2="596" stroke="#E2E4E8"/><line x1="1150" y1="596" x2="1810" y2="596" stroke="#EBCFC1"/>
+    <line x1="90" y1="756" x2="1130" y2="756" stroke="#E2E4E8"/><line x1="1150" y1="756" x2="1810" y2="756" stroke="#EBCFC1"/>
+  </g>
+
+  <!-- symptoms -->
+  <text x="110" y="365" font-size="26" font-weight="600" fill="#1F2328">Symptoms</text>
+  <text x="548" y="365" font-size="25" fill="#3A3F47">A questionnaire every 30 days</text>
+  <text x="1162" y="347" font-size="25" font-weight="600" fill="#1F2328">No questionnaire. One tap on her</text>
+  <text x="1162" y="383" font-size="25" font-weight="600" fill="#1F2328">lock screen, only when needed</text>
+
+  <!-- evenings -->
+  <text x="110" y="507" font-size="26" font-weight="600" fill="#1F2328">Her evenings</text>
+  <text x="110" y="539" font-size="20" fill="#5B6270">drinks, dinners, travel</text>
+  <text x="548" y="489" font-size="25" fill="#3A3F47">She tags them herself. After an unusual</text>
+  <text x="548" y="525" font-size="25" fill="#3A3F47">night it suggests tags to confirm.</text>
+  <text x="548" y="561" font-size="25" fill="#3A3F47">Only workouts are tagged automatically.</text>
+  <text x="1162" y="507" font-size="25" font-weight="600" fill="#1F2328">Read from her receipts, bookings</text>
+  <text x="1162" y="543" font-size="25" font-weight="600" fill="#1F2328">and calendar. Nothing to tag.</text>
+
+  <!-- coming up -->
+  <text x="110" y="685" font-size="26" font-weight="600" fill="#1F2328">What's coming up</text>
+  <text x="548" y="685" font-size="25" fill="#3A3F47">Doesn't know</text>
+  <text x="1162" y="667" font-size="25" font-weight="600" fill="#1F2328">Appointments, flights, plans. The</text>
+  <text x="1162" y="703" font-size="25" font-weight="600" fill="#1F2328">summary arrives before her visit.</text>
+
+  <!-- devices -->
+  <text x="110" y="845" font-size="26" font-weight="600" fill="#1F2328">Devices</text>
+  <text x="548" y="845" font-size="25" fill="#3A3F47">Oura ring only</text>
+  <text x="1162" y="827" font-size="25" font-weight="600" fill="#1F2328">Oura or Apple Watch, same analysis.</text>
+  <text x="1162" y="863" font-size="25" fill="#7A5A4C">WHOOP and others next.</text>
+
+  <text x="90" y="1010" font-size="16" fill="#8A909A">Oura features as described in Oura's help center and blog, 2026.</text>
+</svg>
