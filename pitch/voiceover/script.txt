@@ -1,0 +1,25 @@
+Voice: Samantha (macOS), rate 168, played at 1.25x. Total 1:24.5
+
+[0:00.0] Slide 1 · Why it matters (12.0s)
+Up to 80 percent of women in perimenopause get hot flashes or night sweats, often for years, and most never see a doctor about it. Lisa, 46, wakes up hot at 3 AM. At the doctor, all she can say is: I just feel off.
+
+[0:12.8] Slide 2 · Why Claude (11.4s)
+Why Claude? The hard part is messy input: emails in every format, and photos of receipts. Claude turns them into clean events. Our code does the statistics and decides when to speak. Claude explains the result, using only our numbers.
+
+[0:25.1] Slide 3 · Privacy (12.0s)
+Would you let an agent read your inbox? Only if personal mail never leaves the phone. A tiny on-device model screens every email first, Lisa picks how much it reads, and in our synthetic tests no personal email left the phone, and every useful one got through.
+
+[0:37.9] Slide 4 · How it works (6.2s)
+Her phone decides what may leave. Claude reads it, our code finds the pattern, and Claude writes it up. Her one-tap answers feed back in.
+
+[0:46.5] Slide 5 · August 13 (7.0s)
+August: five hot nights in two weeks, against one the month before. One card, one question: a drink last night? She taps yes.
+
+[0:54.3] Slide 6 · November 5 (10.9s)
+November: her clinic's reminder arrives, and the agent writes a one-page summary. Since her new prescription, hot wake-ups fell from 3.2 to 0.5 a week, and her drinking didn't change. It's not a diagnosis.
+
+[1:07.0] Slide 7 · What's next (10.1s)
+Next: real inboxes, more devices, and a clinic pilot. Apple Watch only started reading temperature in 2022. Every new sensor adds a clue, and clues that agree make patterns more reliable.
+
+[1:18.0] Slide 8 · Closing (5.6s)
+Lisa logged nothing. The agent spoke up 13 times in 17 weeks, and she walked in with three months on one page.
